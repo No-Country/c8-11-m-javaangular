@@ -17,3 +17,6 @@ spring:
     console:
       enabled: 'true'
       path: /h2-console
+
+# Api-Fixer KEY:
+api.key.fixer: YKmXNMGPDAXkVsqS8MUN51USNjqhDAPS

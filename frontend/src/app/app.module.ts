@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GastosComponent } from './components/gastos/gastos.component';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,12 @@ import { GastosComponent } from './components/gastos/gastos.component';
     LandingComponent,
     LoginComponent,
     RegistroComponent,
-    DashboardComponent,
     GastosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    DashboardModule,
     NgbModule
   ],
   providers: [],

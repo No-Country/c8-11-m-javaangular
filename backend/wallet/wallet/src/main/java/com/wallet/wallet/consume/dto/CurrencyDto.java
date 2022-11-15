@@ -1,26 +1,11 @@
 package com.wallet.wallet.consume.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import lombok.Builder;
+import lombok.Data;
+@Data
+@Builder
 public class CurrencyDto {
     
-    private Double ARS;
-    private Double MXN;
-    private Double COP;
-    private Double BOB;
-    private Double CLP;
-    private Double PEN;
-    private Double BRL;
-    private Double PYG;
-    private Double EUR;   
-    private Double VEF; 
+    private String codeCurrency;
+    private Double valueDollar; 
 }
-
-//"ars", "mxn", "cop", "bob", "clp", "pen", "brl", "pyg", "eur", "vef"

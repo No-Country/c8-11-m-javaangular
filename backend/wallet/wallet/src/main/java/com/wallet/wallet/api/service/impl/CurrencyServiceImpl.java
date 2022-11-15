@@ -1,24 +1,38 @@
 package com.wallet.wallet.api.service.impl;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.wallet.wallet.domain.mapper.IMapper;
+import com.wallet.wallet.domain.model.Currency;
+import com.wallet.wallet.domain.repository.ICurrencyRepository;
+
+import lombok.RequiredArgsConstructor;
 
 import com.wallet.wallet.api.service.ICurrencyService;
 import com.wallet.wallet.consume.dto.CurrencyDto;
 
 @Service
+@RequiredArgsConstructor
 public class CurrencyServiceImpl implements ICurrencyService{
+
+    private final ICurrencyRepository repository;
+    private final IMapper mapper;
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
-    public void update(CurrencyDto dto) {
-        
-        //Map<String, Double> map = (k, v) -> {
-
-       
-        
+    public void updateAll(List<CurrencyDto> currencies) {        
+        if(repository.count() == 0){
+            List<Currency> newCurrencies = mapper.toCurrencyList(currencies);
+            repository.saveAll(newCurrencies);
+        }else{
+            List<Currency> updateCurrencies = repository.findAll();
+            for (int i = 0; i < currencies.size(); i++) {
+                updateCurrencies.get(i).setValueDollar(currencies.get(i).getValueDollar());
+            } 
+        }
     }
     
 

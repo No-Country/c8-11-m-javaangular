@@ -1,4 +1,4 @@
-package com.wallet.wallet.consume.fixer;
+package com.wallet.wallet.consume.connection;
 
 import java.net.URI;
 import java.net.http.HttpClient;

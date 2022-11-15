@@ -1,5 +1,6 @@
 package com.wallet.wallet.domain.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -7,15 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "divisas")
+@Table(name = "currencies")
 @Data
-public class Divisa {
+@Builder
+public class Currency {
 
     @Id
     private Long id;
 
     //@Schema (example = "ARS")
-    private String name;
-    private Double valueDollar;
+    private String codeCurrency;
+    private Double value;
 
 }

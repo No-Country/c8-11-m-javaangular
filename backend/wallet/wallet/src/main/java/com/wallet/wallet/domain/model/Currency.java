@@ -15,9 +15,9 @@ public class Currency {
 
     @Id
     private Long id;
-
     //@Schema (example = "ARS")
     private String codeCurrency;
-    private Double value;
+    //@Schema (example = 0.0016)
+    private Double valueDollar;
 
 }

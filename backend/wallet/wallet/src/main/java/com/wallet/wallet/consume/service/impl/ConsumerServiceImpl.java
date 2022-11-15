@@ -34,7 +34,7 @@ public record ConsumerServiceImpl(ApiFixer api) implements IConsumer {
             for (int i = 0; i < keys.size(); i++) {
                 currencies.add(Currency.builder()
                         .codeCurrency(keys.get(i))
-                        .value(values.get(i))
+                        .valueDollar(values.get(i))
                         .build());
             }
         } catch (Exception e) {

@@ -7,15 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "divisas")
+@Table(name = "currencies")
 @Data
-public class Divisa {
+public class Currency {
+
+    //Lucas l.
 
     @Id
     private Long id;
 
     //@Schema (example = "ARS")
-    private String name;
+    private String codeCurrency;
+    //@Schema (example = 0.0016)
     private Double valueDollar;
 
 }

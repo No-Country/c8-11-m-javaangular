@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Data
 public class Income {
 
+    //Lucas g.
+
     @Id
     @SequenceGenerator(name = "incomeSequence",sequenceName = "incomeSequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "incomeSequence")
@@ -20,10 +22,10 @@ public class Income {
     @NotNull()
     private Double amount;
     private String description;
-    //private Category category;
-    //private Divisa divisa;
+    //private Currency currency;
     private LocalDate date;
-    private Boolean isInclud;
+    private Boolean isIncluded;
+    private EIncome type;
 
     private Boolean softDelete;
 }

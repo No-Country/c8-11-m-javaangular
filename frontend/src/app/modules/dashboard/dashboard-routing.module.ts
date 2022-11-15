@@ -18,7 +18,7 @@ const routes: Routes = [
     children: [
       { path: 'general', component: GeneralComponent },
       { path: 'expenses', component: ExpensesComponent },
-      { path: 'recover', component: RevenueComponent },
+      { path: 'revenue', component: RevenueComponent },
       { path: 'stats', component: StatsComponent },
       { path: 'settings', component: SettingsComponent },
       { path: '**', redirectTo: 'general'}

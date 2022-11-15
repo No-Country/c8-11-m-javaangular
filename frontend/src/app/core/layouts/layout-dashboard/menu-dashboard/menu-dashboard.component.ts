@@ -1,4 +1,5 @@
 import {  Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-layout',
@@ -8,7 +9,7 @@ import {  Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation
 export class MenuDashboardComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
   }

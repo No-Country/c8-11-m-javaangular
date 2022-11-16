@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import com.wallet.wallet.domain.enums.ERoleAboutUs;
+
 @Entity
 @Table(name = "aboutUs")
 @Data

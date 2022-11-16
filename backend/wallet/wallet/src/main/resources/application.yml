@@ -17,7 +17,9 @@ spring:
     console:
       enabled: 'true'
       path: /h2-console
-
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher
+
+# Api-Fixer KEY:
+api.key.fixer: YKmXNMGPDAXkVsqS8MUN51USNjqhDAPS

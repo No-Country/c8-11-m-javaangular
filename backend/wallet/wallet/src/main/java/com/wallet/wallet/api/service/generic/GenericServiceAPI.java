@@ -1,14 +1,15 @@
 package com.wallet.wallet.api.service.generic;
 
+import com.wallet.wallet.domain.mapper.IMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.io.Serializable;
+public interface GenericServiceAPI<ENT, RES, REQ, ID> {
 
-public interface GenericServiceAPI<T, ID extends Serializable> {
-
-    T save(T entity);
+    RES save(REQ request);
 
     void delete(ID id);
 
-    JpaRepository<T, ID> getRepository();
+    JpaRepository<ENT, ID> getRepository();
+
+    IMapper<ENT, RES, REQ> getMapper();
 }

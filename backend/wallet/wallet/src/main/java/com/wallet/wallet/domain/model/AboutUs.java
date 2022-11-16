@@ -1,5 +1,6 @@
 package com.wallet.wallet.domain.model;
 
+import com.wallet.wallet.domain.enums.ERoleAboutUs;
 import lombok.Data;
 
 import javax.persistence.*;

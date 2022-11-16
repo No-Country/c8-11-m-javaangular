@@ -1,0 +1,49 @@
+.menu-dashboard {
+  height: 100vh;
+  width: 300px;
+  background: #31184f;
+}
+
+.li-button {
+  cursor: pointer;
+}
+
+.btn-new-entry {
+  height: 48px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #a974ea;
+}
+
+.btn-new-entry:hover {
+  background: #cfb7ec;
+}
+
+.li-icon {
+  border-radius: 50px;
+  height: 32px;
+  width: 32px;
+  background: gray;
+}
+
+.li-button-style {
+  cursor: pointer;
+  height: 48px;
+  width: 48px;
+  background: transparent;
+  padding-left: 24px;
+}
+
+.li-button-style:hover {
+  background: rgba(216, 168, 232, 0.24);
+}
+
+.active-link {
+  background: rgba(208, 104, 243, 0.39);
+  height: 50px;
+  width: 100%;
+}

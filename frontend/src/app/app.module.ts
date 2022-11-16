@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GastosComponent } from './components/gastos/gastos.component';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -18,15 +19,24 @@ import { ReactiveFormsModule } from '@angular/forms';
     LandingComponent,
     LoginComponent,
     RegistroComponent,
+<<<<<<< HEAD
     DashboardComponent,
     GastosComponent,
     
+=======
+    GastosComponent
+>>>>>>> 394139eaada58b8e48a00459db1ebaf733a93311
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+<<<<<<< HEAD
     NgbModule,
     ReactiveFormsModule
+=======
+    DashboardModule,
+    NgbModule
+>>>>>>> 394139eaada58b8e48a00459db1ebaf733a93311
   ],
   providers: [],
   bootstrap: [AppComponent]

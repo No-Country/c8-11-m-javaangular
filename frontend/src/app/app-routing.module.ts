@@ -5,7 +5,6 @@ import { RouterModule, Routes} from '@angular/router';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GastosComponent } from './components/gastos/gastos.component';
 
 const routes: Routes = [

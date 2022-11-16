@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GastosComponent } from './components/gastos/gastos.component';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { CreatorsComponent } from './components/landing/creators/creators.component';
 
 @NgModule({
@@ -18,13 +19,12 @@ import { CreatorsComponent } from './components/landing/creators/creators.compon
     LoginComponent,
     RegistroComponent,
     DashboardComponent,
-    GastosComponent,
-    CreatorsComponent
+    GastosComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

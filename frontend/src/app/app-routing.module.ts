@@ -12,9 +12,9 @@ const routes: Routes = [
   {path:'landing', component:LandingComponent},
   {path:'login', component:LoginComponent},
   {path:'registro', component:RegistroComponent},
-  {path:'dashboard', component:DashboardComponent},
+  { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
   {path:'gastos', component:GastosComponent},
-  {path: '', redirectTo: '/landing', pathMatch: 'full'}
+  { path: '**', redirectTo: 'landing'}
 ];
 
 @NgModule({

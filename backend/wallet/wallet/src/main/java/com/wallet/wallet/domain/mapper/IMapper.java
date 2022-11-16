@@ -1,13 +1,9 @@
 package com.wallet.wallet.domain.mapper;
 
-import com.wallet.wallet.domain.dto.response.IncomeResponseDto;
-import com.wallet.wallet.domain.model.Income;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+public interface IMapper<ENT, RES, REQ>  {
 
-@Mapper(componentModel = "spring")
-public abstract class IMapper {
+    RES entityToResponseDto(ENT entity);
+    ENT responseDtoToEntity(RES responseDto);
 
-    //@Mapping(target = "", source = "")
-    public abstract Income toIncomeResponseDto(IncomeResponseDto incomeResponseDto);
+    ENT requestDtoToEntity(REQ requestDto);
 }

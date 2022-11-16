@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wallet.wallet.domain.mapper.IMapper;
+import com.wallet.wallet.domain.mapper.IMapperCurrency;
 import com.wallet.wallet.domain.model.Currency;
 import com.wallet.wallet.domain.repository.ICurrencyRepository;
 
@@ -19,7 +19,7 @@ import com.wallet.wallet.consume.dto.CurrencyDto;
 public class CurrencyServiceImpl implements ICurrencyService{
 
     private final ICurrencyRepository repository;
-    private final IMapper mapper;
+    private final IMapperCurrency mapper;
 
     @Override
     @Transactional(rollbackFor = Throwable.class)

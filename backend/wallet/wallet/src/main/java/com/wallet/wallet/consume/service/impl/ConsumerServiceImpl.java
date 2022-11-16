@@ -14,12 +14,9 @@ import com.wallet.wallet.consume.dto.CurrencyDto;
 import com.wallet.wallet.consume.service.IConsumer;
 
 @Service
-public record ConsumerServiceImpl(ApiFixer api) implements IConsumer {
+public record ConsumerServiceImpl(ApiFixer api, ObjectMapper mapper) implements IConsumer {
 
     public List<CurrencyDto> getCurrencies() {
-        // String jsonString = api.getConnection(ENDPOINT_CURRENCIES);
-        // JSONObject jsonMain = new JSONObject(jsonString);
-        ObjectMapper mapper = new ObjectMapper();
         List<CurrencyDto> currencies = new ArrayList<>();
 
         try {

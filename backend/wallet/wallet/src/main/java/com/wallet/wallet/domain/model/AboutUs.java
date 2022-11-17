@@ -4,6 +4,7 @@ import com.wallet.wallet.domain.enums.ERoleAboutUs;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.wallet.wallet.domain.enums.ERoleAboutUs;
 
@@ -12,19 +13,28 @@ import com.wallet.wallet.domain.enums.ERoleAboutUs;
 @Data
 public class AboutUs {
 
-    //Lucas g.
-
     @Id
     @SequenceGenerator(name = "aboutUsSequence",sequenceName = "aboutUsSequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aboutUsSequence")
     private Long id;
 
+    @NotNull
     private String nameComplete;
+
+    @NotNull
     private ERoleAboutUs role;
+
+    @NotNull
     private String description;
+
+    @NotNull
     private String image;
+
+    @NotNull
+    private String email;
+
     private String linkedIn;
     private String github;
-    private String email;
+
 
 }

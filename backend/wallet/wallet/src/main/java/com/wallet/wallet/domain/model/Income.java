@@ -1,6 +1,8 @@
 package com.wallet.wallet.domain.model;
 
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -10,22 +12,30 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "incomes")
 @Data
+@SQLDelete(sql = "UPDATE incomes SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class Income {
-
-    //Lucas g.
 
     @Id
     @SequenceGenerator(name = "incomeSequence",sequenceName = "incomeSequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "incomeSequence")
     private Long id;
 
-    @NotNull()
+    @Column(nullable = false)
+    @NotNull(message = "")
     private Double amount;
+
     private String description;
-    //private Currency currency;
+
+    @Column(nullable = false)
+    @NotNull(message = "")
     private LocalDate date;
+
     private Boolean isIncluded;
     private EIncome type;
 
-    private Boolean softDelete;
+    @OneToOne
+    private Currency currency;
+
+    private Boolean deleted = Boolean.FALSE;
 }

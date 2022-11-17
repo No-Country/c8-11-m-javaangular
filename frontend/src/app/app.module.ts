@@ -13,6 +13,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { CreatorsComponent } from './components/landing/creators/creators.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthModule } from './modules/auth/auth.module';
 
 import { HttpClientModule, /*HTTP_INTERCEPTORS*/ } from '@angular/common/http';
 
@@ -31,6 +32,7 @@ import { HttpClientModule, /*HTTP_INTERCEPTORS*/ } from '@angular/common/http';
     NgbModule,
     ReactiveFormsModule,
     DashboardModule,
+    AuthModule,
     NgbModule,
     HttpClientModule
   ],

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,8 +35,8 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("usuario",a);
     if (a.email == "usuario@mail.com" && a.password == "123456"){
       this.router.navigate(['dashboard']);
-    } else {
-      this.router.navigate(['/login']);
+    } else {      
+      this.usuarioIncorrecto();
     }
   }
   get Email() {
@@ -42,6 +44,22 @@ export class LoginComponent implements OnInit {
   }
   get Password() {
     return this.loginForm.get('password')
+  }
+
+  usuarioIncorrecto() {
+    Swal.fire({
+      title: 'Usuario NO registrado',
+      text: "Algunos de los datos ingresados es incorrecto, o bien, no está registrado",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Quiero registrarme'
+    }).then((result:any) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('/registro')
+      }
+    })
   }
 
 }

@@ -10,13 +10,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-<<<<<<< HEAD
+
 import { CreatorsComponent } from './components/landing/creators/creators.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './modules/auth/auth.module';
-=======
->>>>>>> develop-front
 
 import { HttpClientModule, /*HTTP_INTERCEPTORS*/ } from '@angular/common/http';
 

@@ -14,6 +14,8 @@ import { CreatorsComponent } from './components/landing/creators/creators.compon
 
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { HttpClientModule, /*HTTP_INTERCEPTORS*/ } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,9 +31,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgbModule,
     ReactiveFormsModule,
     DashboardModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [/*interceptorProvider*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

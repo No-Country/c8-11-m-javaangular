@@ -1,5 +1,7 @@
-import {  Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SwitchService } from '../../../services/switch.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'dashboard-layout',
@@ -8,11 +10,34 @@ import { Router } from '@angular/router';
 })
 export class MenuDashboardComponent implements OnInit {
 
+  modalSwith: boolean = false;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private modalService: SwitchService) { }
 
   ngOnInit(): void {
+    this.modalService.$modal.subscribe((valor) => {
+      this.modalSwith = valor
+    })
   }
 
 
+  openModal(): void {
+    this.modalSwith = true;
+  }
+
+  closeSession() {
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Seras redirigido a la landing page",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, estoy seguro!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('/landing')
+      }
+    })
+  }
 }

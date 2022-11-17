@@ -1,7 +1,7 @@
-<div class="modal">
+<div class="modal" (click)="closeModal()">
   <div class="modal_content flex-column d-flex gap-4">
     <header class="d-flex justify-content-end">
-      <button class="btn-close"><i class="bi bi-x-lg icon-close"></i></button>
+      <button class="btn-close" (click)="closeModal()"><i class="bi bi-x-lg icon-close"></i></button>
     </header>
 
     <body class="body-modal">
@@ -70,7 +70,7 @@
         </div>
 
         <div class="d-grid distribution-btns">
-          <button class="btn btn-danger" type="button">Cancelar</button>
+          <button class="btn btn-danger" type="button" (click)="closeModal()">Cancelar</button>
           <button class="btn btn-primary d-flex flex-row gap-1 justify-content-center" type="button">
             <i class="bi bi-check"></i>
            <p> Crear movimiento </p>

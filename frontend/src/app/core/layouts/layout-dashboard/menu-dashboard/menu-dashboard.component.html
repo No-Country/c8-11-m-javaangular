@@ -5,9 +5,11 @@
         <p class="text-white fw-bold fs-5 text-center">Nombre app</p>
       </li>
 
-      <button class="btn-new-entry">Nueva entrada</button>
+      <button class="btn-new-entry" (click)="openModal()">Nueva entrada</button>
 
-      <modal-new-entry></modal-new-entry>
+      <div *ngIf="modalSwith">
+        <modal-new-entry></modal-new-entry>
+      </div>
     </div>
 
     <div class="d-flex flex-column gap-3">
@@ -41,7 +43,7 @@
         <div class="li-icon"></div>
         <p class="text-white fw-bold fs-6 text-center m-0">Configuración</p>
       </li>
-      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true}">
+      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true}" (click)="closeSession()">
         <div class="li-icon"></div>
         <p class="text-white fw-bold fs-6 text-center m-0">Cerrar sesión</p>
       </li>

@@ -11,7 +11,6 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +25,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     NgbModule,
     ReactiveFormsModule,
     DashboardModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

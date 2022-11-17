@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { SwitchService } from '../../../../services/switch.service';
 
 @Component({
   selector: 'modal-new-entry',
@@ -36,7 +37,8 @@ export class ModalNewEntryComponent implements OnInit {
     },
   ]
 
-  constructor(private formBuilder:FormBuilder) {
+  constructor(private formBuilder:FormBuilder,
+              private modalService: SwitchService) {
 
     /* this.newEntry = this.formBuilder.group(
       {
@@ -52,5 +54,9 @@ export class ModalNewEntryComponent implements OnInit {
   categorySelect(i: number) {
 
     this.selectCategory = i;
+  }
+
+  closeModal() {
+    this.modalService.$modal.emit(false)
   }
 }

@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
       confirmButtonText: 'Quiero registrarme'
     }).then((result:any) => {
       if (result.isConfirmed) {
-        this.router.navigateByUrl('/registro')
+        this.router.navigateByUrl('/auth/registro')
       }
     })
   }

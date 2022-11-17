@@ -11,7 +11,6 @@ import { StatsComponent } from './pages/stats/stats.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { RouterModule } from '@angular/router';
 import { LayoutCoreModule } from 'src/app/core/layouts/layout-dashboard/layout-core.module';
-
 @NgModule({
   declarations: [
     GeneralComponent,
@@ -26,5 +25,7 @@ import { LayoutCoreModule } from 'src/app/core/layouts/layout-dashboard/layout-c
     RouterModule,
     LayoutCoreModule
   ],
+  exports: [
+  ]
 })
 export class DashboardModule { }

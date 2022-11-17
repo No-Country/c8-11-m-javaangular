@@ -4,8 +4,12 @@ import { RouterModule, Routes} from '@angular/router';
 // Components Page
 import { LandingComponent } from './components/landing/landing.component';/*
 import { LoginComponent } from './components/login/login.component';
+<<<<<<< HEAD
 import { RegistroComponent } from './components/registro/registro.component';*/
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+=======
+import { RegistroComponent } from './components/registro/registro.component';
+>>>>>>> develop-front
 import { GastosComponent } from './components/gastos/gastos.component';
 import { LoginComponent } from './modules/auth/pages/login/login.component';
 import { RegistroComponent } from './modules/auth/pages/registro/registro.component';

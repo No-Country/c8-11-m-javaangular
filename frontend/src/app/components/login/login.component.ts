@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   ocultar: boolean = true;
 
-  constructor(private formBuilder:FormBuilder) {
+  constructor(private formBuilder:FormBuilder, private router: Router) {
     this.loginForm = this.formBuilder.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -23,11 +24,19 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  onSubmit(event:any) {
     // TODO: Use EventEmitter with form value
-    console.log(this.loginForm.value);
+    event.preventDefault();
+    console.log(this.loginForm.value);  
+    const a = this.loginForm.value;
+    console.log(a);
+    localStorage.setItem("usuario",a);
+    if (a.email == "usuario@mail.com" && a.password == "123456"){
+      this.router.navigate(['dashboard']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
-
   get Email() {
     return this.loginForm.get('email');
   }

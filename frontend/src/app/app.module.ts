@@ -11,6 +11,8 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 
+import { HttpClientModule, /*HTTP_INTERCEPTORS*/ } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,8 +28,9 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     ReactiveFormsModule,
     DashboardModule,
     NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [/*interceptorProvider*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

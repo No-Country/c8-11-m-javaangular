@@ -4,19 +4,26 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TemplateDashboardComponent } from './template-dashboard/template-dashboard.component';
 import { MenuDashboardComponent } from './menu-dashboard/menu-dashboard.component';
+import { ModalNewEntryComponent } from './components/modal-new-entry/modal-new-entry.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     MenuDashboardComponent,
-    TemplateDashboardComponent
+    TemplateDashboardComponent,
+    ModalNewEntryComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule
   ],
   exports: [
     MenuDashboardComponent,
-    TemplateDashboardComponent
+    TemplateDashboardComponent,
   ]
 })
 export class LayoutCoreModule { }

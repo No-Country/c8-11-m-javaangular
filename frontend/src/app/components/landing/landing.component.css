@@ -12,6 +12,14 @@
 span{
     color:var(--principal-color)
 }
+h1{
+    font-weight: 500;
+}
+h5{
+    font-weight: 300;
+    padding: 5px 0;
+    color: var(--letra-blanca);
+}
 
 
 /*
@@ -72,12 +80,18 @@ Estilos seccion caracteristicas
 Estilos section nuestro producto
 */
 .np-image{
-    position: absolute;
+    position: relative;
     width: 722px;
     height: 722px;
-    left: 87px;
-    top: 1225px;
+    top: -148px;
 
     background: radial-gradient(50% 50% at 50% 50%, #5D21D2 0%, rgba(93, 33, 210, 0) 100%);
     filter: blur(25px);
+}
+/*
+Estilos footer
+*/
+footer{
+    background-color: var(--principal-color);
+    height: 502px;
 }

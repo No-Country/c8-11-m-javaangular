@@ -1,0 +1,83 @@
+:host{
+    --letra-gris:#3E3E3E;
+    --letra-blanca:#fff;
+    --principal-color:#5D21D2;
+    --secondary-color:#FF8328;
+}
+
+/*Estilos generales*/
+*{
+    color: #3E3E3E;
+}
+span{
+    color:var(--principal-color)
+}
+
+
+/*
+    Insercion background morado, color del logo,
+    color blanco de letra  luego letra en hover.
+
+*/
+header{
+    color: var(--letra-blanca);
+}
+.logo-charta{
+    color: var(--secondary-color);
+}
+.background-purple{
+    display: block;
+    background-color: var(--principal-color);
+    position: absolute;
+    height: 626px;
+    width: 100%;
+    left: 0%;
+    top: 0%;
+    bottom: 0%;
+    border-bottom-right-radius: 500px;
+    z-index: -1;
+}
+.aref-menu
+{
+    color: var(--letra-blanca);
+}
+
+/*
+Color boton hero
+*/
+
+button{
+    background-color: var(--secondary-color);
+    color: var(--letra-blanca);
+}
+
+/*
+Estilos seccion caracteristicas
+*/
+.icono-container{
+    align-items: center;
+}
+.iconos{
+    width: 50px;
+}
+.icono-description{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    height: auto;
+}
+/*
+Estilos section nuestro producto
+*/
+.np-image{
+    position: absolute;
+    width: 722px;
+    height: 722px;
+    left: 87px;
+    top: 1225px;
+
+    background: radial-gradient(50% 50% at 50% 50%, #5D21D2 0%, rgba(93, 33, 210, 0) 100%);
+    filter: blur(25px);
+}

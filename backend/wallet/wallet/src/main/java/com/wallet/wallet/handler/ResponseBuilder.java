@@ -3,6 +3,8 @@ package com.wallet.wallet.handler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,8 @@ public class ResponseBuilder {
         Map<String, Object> response = new HashMap<>();
         response.put("status", httpStatus);
         response.put("path", path);
-        //response.put((object instanceof exception ? "response" : "error"), object);
+        response.put("timestamp", Timestamp.from(Instant.now()));
+        response.put((object instanceof ErrorDetails) ? "error" : "response", object);
 
         return ResponseEntity.status(httpStatus).body(response);
     };

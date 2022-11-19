@@ -14,8 +14,11 @@ public class ApiFixer {
     @Value("${api.key.fixer}")
     private String API_KEY;
 
-    private final String DEFAULT_URL = "https://api.apilayer.com/fixer/";
-    private final String HEADER_FIELD_KEY = "apikey";
+    @Value("${api.url.fixer}")
+    private String DEFAULT_URL;
+
+    @Value("${api.header-field.fixer}")
+    private String HEADER_FIELD_KEY;
 
     public String getConnection(String path) {
         HttpClient client = HttpClient.newHttpClient();

@@ -23,3 +23,5 @@ spring:
 
 # Api-Fixer KEY:
 api.key.fixer: YKmXNMGPDAXkVsqS8MUN51USNjqhDAPS
+api.url.fixer: https://api.apilayer.com/fixer/
+api.header-field.fixer: apikey

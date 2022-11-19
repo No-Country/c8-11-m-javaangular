@@ -8,8 +8,17 @@ import java.net.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import static com.wallet.wallet.domain.enums.EMessageCode.*;
+import com.wallet.wallet.handler.exeption.ApiRateLimitException;
+import com.wallet.wallet.util.Messenger;
+
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class ApiFixer {
+
+    private final Messenger messenger;
     
     @Value("${api.key.fixer}")
     private String API_KEY;
@@ -27,8 +36,13 @@ public class ApiFixer {
                 .header(HEADER_FIELD_KEY, API_KEY)
                 .build();
 
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .join();
+        String response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                                .thenApply(HttpResponse::body)
+                                .join();
+
+        if(response.contains("API rate limit")){
+            throw new ApiRateLimitException(messenger.getMessage(API_RATE_LIMIT));
+        }
+        return response;
     }
 }

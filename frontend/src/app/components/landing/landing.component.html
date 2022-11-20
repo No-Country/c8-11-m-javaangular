@@ -1,17 +1,18 @@
 <!--Header-->
 
 <header class="d-flex flex-wrap justify-content-around py-3 mb-4 ">
+  <div class="background-purple"></div>
   <div class="d-flex align-items-center mb-3 mb-md-0">
-    <a href="/" class="text-dark text-decoration-none">
-      <span class="fs-4">CHARTA</span>
+    <a href="/" class="text-decoration-none">
+      <span class="fs-4 logo-charta">CHARTA</span>
     </a>
   </div>
 
   <div>
     <ul class="nav nav-pills">
-      <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Nuestro producto</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Quienes somos</a></li>
+      <li class="nav-item"><a href="#" class="nav-link aref-menu" aria-current="page">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link aref-menu">Nuestro producto</a></li>
+      <li class="nav-item"><a href="#" class="nav-link aref-menu">Quienes somos</a></li>
     </ul>
   </div>
 
@@ -19,6 +20,7 @@
     <ul class="nav nav-pills">
       <li class="nav-item"><a routerLink="/auth/login" class="nav-link">Iniciar sesion</a></li>
       <li class="nav-item"><a routerLink="/auth/registro" class="nav-link">Crear cuenta</a></li>
+
     </ul>
   </div>
 </header>
@@ -31,18 +33,20 @@
 <div class="container col-xxl-8 px-4 py-5">
   <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
     <div class="col-10 col-sm-8 col-lg-6">
+      <!--
       <img src="./../../../assets/img/wallet-hero.jpg" class="d-block mx-lg-auto img-fluid" alt="Wallet" width="700"
         height="500" loading="lazy">
+        -->
     </div>
     <div class="col-lg-6">
-      <h1 class="display-8 fw-bold lh-1 mb-3">Organiza tus finanzas</h1>
-      <p class="lead">Hoy en día sabemos lo importante que es tener el control sobre nuestras finanzas,
+      <h1 class="display-8 fw-bold lh-1 mb-3" style="color:#fff ;">Organiza tus finanzas</h1>
+      <p class="lead"style="color:#fff ;">Hoy en día sabemos lo importante que es tener el control sobre nuestras finanzas,
         por esa razón y para darte una mano, hemos creado CHARTA donde podras registrar y ver
         todos tus ingresos y gastos, tambien te daremos estadisticas para que puedas planificar mejor
         tus siguientes movimientos financieros, y para no hacerla larga...
       </p>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
-        <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Comencemos...</button>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+        <button type="button" class="btn btn-lg px-4 me-md-2">Comencemos...</button>
       </div>
     </div>
   </div>
@@ -51,42 +55,61 @@
 <!-- Fin banner -->
 
 <!-- Inicio seccion de propiedades de CHARTA-->
-<div class="container px-4 py-5" id="custom-cards">
+<div class="container px-4 py-5 mb-5" >
 
-  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-    <div class="col">
-      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-        style="background-image: url('./../../../assets/img/multidevice-card.jpg');background-size: cover;">
-        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-          <h3 class="pt-5 mt-5 mb-4 display-8 lh-1 fw-bold">Multidispositivo</h3>
-        </div>
+  <div class="iconos-container row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+    <div class="icono-container col d-flex row-cols">
+      <div>
+       <img src="./../../../assets/icons/device.svg" class="iconos" alt="">
+      </div>
+      <div class="icono-description flex-column-flex p-3 text-shadow-1">
+        <h3 class= "fs-4 lh-1">Multiples dispositivos</h3>
+        <p>
+          Podras acceder desde cualquier dispositivo alrededor del mundo.
+        </p>
+      </div>
+    </div>      
+
+    <div class="icono-container col d-flex row-cols">
+      <div>
+       <img src="./../../../assets/icons/secure.svg" class="iconos" alt="">
+      </div>
+      <div class="icono-description flex-column d-flex p-3 text-shadow-1">
+        <h3 class= "fs-4 lh-1">Seguridad</h3>
+        <p>
+          Mantenemos todos tus datos seguros y protegidos. 
+        </p>
+      </div>
+    </div>      
+
+    <div class="icono-container col d-flex row-cols">
+      <div>
+       <img src="./../../../assets/icons/cash-stack.svg" class="iconos" alt="">
+      </div>
+      <div class="icono-description flex-column d-flex p-3 text-shadow-1">
+        <h3 class= "fs-4 lh-1">Diferentes divisas</h3>
+        <p>
+          Podras incluir tus gastos e ingresos en la divisa que prefieras.
+        </p>
       </div>
     </div>
 
-    <div class="col">
-      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-        style="background-image: url('./../../../assets/img/security-card.jpg');background-size: cover;">
-        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-          <h3 class="pt-5 mt-5 mb-4 display-8 lh-1 fw-bold">Seguro</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-        style="background-image: url('./../../../assets/img/divisas-card.jpg');background-size: cover;">
-        <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-          <h3 class="pt-5 mt-5 mb-4 display-8 lh-1 fw-bold">Elije la divisa que quieras</h3>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
-<div class="p-4 p-md-5 mb-4 rounded ">
+<div class="p-4 p-md-5 mb-4 rounded d-flex flex-lg-row-reverse ">
   <div class="col-md-6 px-0">
-    <h1 class="display-4 fw-semi-bold">Visualiza tus estadisticas</h1>
-    <p class="lead my-3"> Podes tener el control total de tus gastos y realizar los ajustes necesarios </p>
-    <p class="lead my-3"> Podes tener el control total de tus gastos y realizar los ajustes necesarios </p>
+    <span>
+      | Nuestro producto
+    </span>
+    <h1 class="display-4">Visualiza tus estadisticas</h1>
+    <ul>
+      <li class="lead my-3"> Podes tener el control total de tus gastos y realizar los ajustes necesarios </li>
+      <li class="lead my-3"> Podes tener el control total de tus gastos y realizar los ajustes necesarios </li>
+    </ul>
+  </div>
+  <div class="col np-image">
+    
   </div>
 </div>
 
@@ -195,5 +218,32 @@
       </div>
     </div>
     <footer>
-      <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
+      <div class="d-flex flex-wrap justify-content-around py-3 mb-4 ">
+        
+        <div class="d-flex row row-cols-1 row-cols-lg-3 border-bottom align-items-center" style="height:400px;">
+          <div class="col col-lg-6"> 
+            <a href="/" class="text-decoration-none">
+                <span class="fs-4 logo-charta">CHARTA</span>
+            </a>
+            <h5>
+              Charta te permitira organizar tu billetera de forma facil y rapida.
+              Todos tus gastos e ingresos en un solo lugar.
+            </h5>
+          </div>
+          <div class="col col-lg-3">
+            <h5>Compañia</h5>
+            <h5>Sobre Nosotros</h5>
+            <h5>Nuestra meta</h5>
+            <h5>Contactanos</h5>
+          </div>
+          <div class="col col-lg-3">
+            <h5>HELP</h5>
+            <h5>Atencion al cliente</h5>
+            <h5>Terminos y condiciones</h5>
+            <h5>Politica de privacidad</h5>
+          </div>
+  
+        </div>
+      </div>
+      <p class="text-center text-muted" style="top: -10px; position: relative; color: #fff;">&copy; Copyright 2022 , All rights reserved by <span style="color:#FF8328 ;">CHARTA</span></p>
     </footer>

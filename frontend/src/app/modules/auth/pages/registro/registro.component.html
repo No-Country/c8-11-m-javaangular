@@ -9,7 +9,7 @@
                   <div class="text-center">
                     <img src="../../../../../assets/img/unnamed.png"
                       style="width: 100px;" alt="logo">
-                    <h4 class="mt-1 mb-3 pb-1">Unete a Charta</h4>
+                    <h4 class="mt-1 mb-3 pb-1">Unete a CHARTA</h4>
                   </div>  
                   <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" autocomplete="off">
                     <div class="text-center">
@@ -18,7 +18,7 @@
                     <!----Ingrese su nombre--->
                     <div class="form-outline mb-3">
                       <label class="form-label" for="nombre">Nombre</label>
-                      <input type="nombre" id="nombre"  formControlName="nombre" class="form-control" aria-describedby="nombreHelp" placeholder="Escribe tu nombre aquí" [ngClass]="{'is-valid':!Nombre?.errors&& Nombre?.touched}"/> 
+                      <input type="nombre" id="nombre"  formControlName="nombre" class="form-control" aria-describedby="nombreHelp" placeholder="Maria" [ngClass]="{'is-valid':!Nombre?.errors&& Nombre?.touched}"/> 
                       <div *ngIf="Nombre?.errors && Nombre?.touched">
                         <p *ngIf="Nombre?.hasError('required')" class="text-danger">
                           Debe ingresar un nombre
@@ -28,7 +28,7 @@
                     <!----Ingrese su apellido--->
                     <div class="form-outline mb-3">
                       <label class="form-label" for="apellido">Apellido</label>
-                      <input type="apellido" id="apellido"  formControlName="apellido" class="form-control" aria-describedby="apellidoHelp" placeholder="Escribe tu apellido aquí" [ngClass]="{'is-valid':!Apellido?.errors&& Apellido?.touched}"/> 
+                      <input type="apellido" id="apellido"  formControlName="apellido" class="form-control" aria-describedby="apellidoHelp" placeholder="Gutierrez" [ngClass]="{'is-valid':!Apellido?.errors&& Apellido?.touched}"/> 
                       <div *ngIf="Apellido?.errors && Apellido?.touched">
                         <p *ngIf="Apellido?.hasError('required')" class="text-danger">
                           Debe ingresar su apellido
@@ -38,7 +38,7 @@
                     <!----Ingrese su email---->
                     <div class="form-outline mb-3">
                       <label class="form-label" for="email">Email</label>
-                      <input type="email" id="email"  formControlName="email" class="form-control" aria-describedby="emailHelp" placeholder="Escribe tu email aquí" [ngClass]="{'is-valid':!Email?.errors&& Email?.touched}"/> 
+                      <input type="email" id="email"  formControlName="email" class="form-control" aria-describedby="emailHelp" placeholder="mariagutierrez@email.com" [ngClass]="{'is-valid':!Email?.errors&& Email?.touched}"/> 
                       <div *ngIf="Email?.errors && Email?.touched">
                         <p *ngIf="Email?.hasError('required')" class="text-danger">
                           Ingrese su email

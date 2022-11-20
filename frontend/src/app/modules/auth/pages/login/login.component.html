@@ -16,16 +16,16 @@
                   <div class="text-center">
                     <img  src="../../../../../assets/img/unnamed.png"
                       style="width: 100px;" alt="logo">
-                    <h4 class="mt-1 mb-3 pb-1">Ramé</h4>
+                    <h4 class="mt-1 mb-3 pb-1">CHARTA</h4>
                   </div>  
                   <form  [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" autocomplete="off">
                     <div class="text-center">
-                        <p class="mb-3">Inicia sesión</p>
+                        <p class="mb-3">INICIO DE SESIÓN</p>
                     </div> 
                     <!-----Email----->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email"  formControlName="email" class="form-control" aria-describedby="emailHelp" placeholder="Escribe tu email aquí" [ngClass]="{'is-valid':!Email?.errors&& Email?.touched}"/> 
+                        <input type="email" id="email"  formControlName="email" class="form-control" aria-describedby="emailHelp" placeholder="usuario@email.com" [ngClass]="{'is-valid':!Email?.errors&& Email?.touched}"/> 
                         <div *ngIf="Email?.errors && Email?.touched">
                           <p *ngIf="Email?.hasError('required')" class="text-danger">
                             Ingrese su email
@@ -54,7 +54,7 @@
                     </div>
                     <!-----Boton Iniciar Sesión------->
                     <div class="text-center pt-1 mb-2 pb-1">
-                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" [disabled]="!loginForm.valid">Login</button>
+                      <button class="btn btn-primary btn-block fa-lg  mb-3" type="submit" [disabled]="!loginForm.valid">Login</button>
                     </div>
                     <div class="text-center mb-3">                        
                       <a class="text-muted" href="#!">¿Olvidaste tu contraseña?</a>

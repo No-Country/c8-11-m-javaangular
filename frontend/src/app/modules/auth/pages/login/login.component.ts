@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     const a = this.loginForm.value;
     console.log(a);
     localStorage.setItem("usuario",a);
-    if (a.email == "usuario@mail.com" && a.password == "123456"){
+    if (a.email == "usuario@email.com" && a.password == "123456"){
       this.router.navigate(['dashboard']);
     } else {
       this.usuarioIncorrecto();

@@ -8,7 +8,7 @@ import com.wallet.wallet.consume.dto.CurrencyDto;
 
 public interface IConsumer {
 
-    final String ENDPOINT_CURRENCIES = "https://api.apilayer.com/fixer/latest?symbols=symbols&base=USD";
+    final String ENDPOINT_CURRENCIES = "latest?symbols=&base=USD";
 
     List<CurrencyDto> getCurrencies();
 

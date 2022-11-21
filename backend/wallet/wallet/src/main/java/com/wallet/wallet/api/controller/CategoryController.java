@@ -7,6 +7,7 @@ import com.wallet.wallet.domain.dto.response.CategoryResponseDto;
 import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
 import com.wallet.wallet.domain.model.Category;
 import com.wallet.wallet.domain.model.Expense;
+import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -25,8 +26,8 @@ public class CategoryController {
 
     @ApiOperation(value = "Register a new category")
     @PostMapping("/save")
-    public ResponseEntity<CategoryResponseDto> save(@RequestBody CategoryRequestDto categoryRequestDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(categoryRequestDto));
+    public ResponseEntity<?> save(@RequestBody CategoryRequestDto categoryRequestDto, @RequestHeader("Authorization") String token){
+        return responseBuilder(HttpStatus.CREATED, categoryService.save(categoryRequestDto));
     }
 
     @ApiOperation(value = "Delete a category by id")

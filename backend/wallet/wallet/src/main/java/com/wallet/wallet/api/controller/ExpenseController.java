@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
+
 @RestController
 @RequestMapping("/expenses")
 @AllArgsConstructor
@@ -29,26 +31,26 @@ public class ExpenseController {
 
     @ApiOperation(value = "Register a new expense")
     @PostMapping("/save")
-    public ResponseEntity<ExpenseResponseDto> save(@RequestBody ExpenseRequestDto expenseRequestDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(expenseService.save(expenseRequestDto));
+    public ResponseEntity<?> save(@RequestBody ExpenseRequestDto expenseRequestDto) {
+        return responseBuilder(HttpStatus.CREATED, expenseService.save(expenseRequestDto));
     }
 
     @ApiOperation(value = "Find expenses by User id", hidden = true)
     @GetMapping("/user/{userId}")
-    public  ResponseEntity<List<ExpenseResponseDto>> getByUserId(@PathVariable Long userId){
-        return ResponseEntity.status(HttpStatus.OK).body(expenseService.getAllByUserId(userId));
+    public  ResponseEntity<?> getByUserId(@PathVariable Long userId){
+        return responseBuilder(HttpStatus.OK, expenseService.getAllByUserId(userId));
     }
 
     @ApiOperation(value = "Find information by User id for home", hidden = true)
     @GetMapping("/user/home/{userId}")
-    public  ResponseEntity<HomeResponseDto> getForHome(@PathVariable Long userId){
-        return ResponseEntity.status(HttpStatus.OK).body(expenseService.getForHome(userId));
+    public  ResponseEntity<?> getForHome(@PathVariable Long userId){
+        return responseBuilder(HttpStatus.OK, expenseService.getForHome(userId));
     }
 
     @ApiOperation(value = "Find balance by User id for Category name", hidden = true)
     @GetMapping("/categoryGroup/{userId}")
-    public  ResponseEntity<Map<String, Double>> groupByCategoryByUserId(@PathVariable Long userId){
-        return ResponseEntity.status(HttpStatus.OK).body(expenseService.groupByCategoryByUserId(userId));
+    public  ResponseEntity<?> groupByCategoryByUserId(@PathVariable Long userId){
+        return responseBuilder(HttpStatus.OK, expenseService.groupByCategoryByUserId(userId));
     }
 
     @ApiOperation(value = "Delete a expense by id")

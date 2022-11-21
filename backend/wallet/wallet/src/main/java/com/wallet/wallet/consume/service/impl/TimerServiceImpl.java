@@ -12,8 +12,7 @@ import com.wallet.wallet.consume.service.ITimer;
 @EnableScheduling
 public record TimerServiceImpl(IConsumer consumerService, ICurrencyService currencyService) implements ITimer{
     
-    //@Scheduled(cron = "* * " + CRON_HOURS + " * * *")
-    @Scheduled(cron = "15 * * * * ?")
+    @Scheduled(cron = "* * " + CRON_HOURS + " * * *")
     public void refreshCurrency() {
         currencyService.updateAll(consumerService.getCurrencies());
         System.out.println("asdasdasd");

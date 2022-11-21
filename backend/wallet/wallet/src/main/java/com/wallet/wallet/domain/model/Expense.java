@@ -37,11 +37,11 @@ public class Expense {
     @NotNull(message = "")
     private Category category;
 
-    //@ManyToOne()
-    //@JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    //@NotNull(message = "")
-    //private Currency currency;
+    @ManyToOne()
+    @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @NotNull(message = "")
+    private Currency currency;
 
     @Column(nullable = false)
     @NotNull(message = "")
@@ -49,11 +49,11 @@ public class Expense {
 
     private Boolean isIncluded;
 
-    //@ManyToOne()
-    //@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    //@NotNull(message = "")
-    //private User user;
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @NotNull(message = "")
+    private User user;
 
     private Boolean deleted = Boolean.FALSE;
 }

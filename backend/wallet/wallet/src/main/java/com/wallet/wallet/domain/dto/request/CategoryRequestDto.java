@@ -6,13 +6,10 @@ import lombok.Data;
 @Data
 public class CategoryRequestDto {
 
-    @Schema(hidden = true)
-    private Long id;
-
-    @Schema(type = "string", example = "comida")
+    @Schema(type = "string", example = "supermercado")
     private String name;
 
-    @Schema(type = "string", example = "food")
+    @Schema(type = "string", example = "basket")
     private String icon;
 
     @Schema(type = "string", example = "#34EF23")

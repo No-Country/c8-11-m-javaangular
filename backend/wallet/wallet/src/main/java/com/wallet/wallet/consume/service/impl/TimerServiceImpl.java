@@ -8,13 +8,13 @@ import com.wallet.wallet.api.service.ICurrencyService;
 import com.wallet.wallet.consume.service.IConsumer;
 import com.wallet.wallet.consume.service.ITimer;
 
-@Service
-@EnableScheduling
-public record TimerServiceImpl(IConsumer consumerService, ICurrencyService currencyService) implements ITimer{
+//@Service
+//@EnableScheduling
+//public record TimerServiceImpl(IConsumer consumerService, ICurrencyService currencyService) implements ITimer{
     
-    @Scheduled(cron = "* * " + CRON_HOURS + " * * *")
-    public void refreshCurrency() {
-        currencyService.updateAll(consumerService.getCurrencies());
-    }
+    //@Scheduled(cron = "* * " + CRON_HOURS + " * * *")
+    //public void refreshCurrency() {
+  //      currencyService.updateAll(consumerService.getCurrencies());
+  //  }
     
-}
+//}

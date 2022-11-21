@@ -2,15 +2,21 @@ package com.wallet.wallet.api.controller;
 
 import com.wallet.wallet.api.service.IExpenseService;
 import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
+import com.wallet.wallet.domain.dto.response.CategoryGroupResponseDto;
 import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
+import com.wallet.wallet.domain.dto.response.HomeResponseDto;
 import com.wallet.wallet.domain.model.Expense;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,10 +33,22 @@ public class ExpenseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(expenseService.save(expenseRequestDto));
     }
 
-    @ApiOperation(value = "Find a expense by id", hidden = true)
-    @GetMapping("/findOne/{id}")
-    public  ResponseEntity<ExpenseResponseDto> findOne(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(expenseService.findOne(id));
+    @ApiOperation(value = "Find expenses by User id", hidden = true)
+    @GetMapping("/user/{userId}")
+    public  ResponseEntity<List<ExpenseResponseDto>> getByUserId(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(expenseService.getAllByUserId(userId));
+    }
+
+    @ApiOperation(value = "Find information by User id for home", hidden = true)
+    @GetMapping("/user/home/{userId}")
+    public  ResponseEntity<HomeResponseDto> getForHome(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(expenseService.getForHome(userId));
+    }
+
+    @ApiOperation(value = "Find balance by User id for Category name", hidden = true)
+    @GetMapping("/categoryGroup/{userId}")
+    public  ResponseEntity<Map<String, Double>> groupByCategoryByUserId(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(expenseService.groupByCategoryByUserId(userId));
     }
 
     @ApiOperation(value = "Delete a expense by id")

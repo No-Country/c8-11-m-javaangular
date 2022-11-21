@@ -15,7 +15,6 @@ public record TimerServiceImpl(IConsumer consumerService, ICurrencyService curre
     @Scheduled(cron = "* * " + CRON_HOURS + " * * *")
     public void refreshCurrency() {
         currencyService.updateAll(consumerService.getCurrencies());
-        System.out.println("asdasdasd");
     }
     
 }

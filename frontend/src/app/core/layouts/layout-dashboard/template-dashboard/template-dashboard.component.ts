@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { SideService } from '../service/side.service';
 
 @Component({
   selector: 'template-dashboard',
@@ -8,10 +9,15 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDashboardComponent implements OnInit {
+  changer:boolean = false;
 
-  constructor() { }
+  constructor(private sideServ: SideService) { }
 
   ngOnInit(): void {
+    this.sideServ.$change.subscribe((valor)=>{
+      this.changer = valor;
+    }) 
   }
+  
 
 }

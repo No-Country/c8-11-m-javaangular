@@ -11,6 +11,10 @@ import { StatsComponent } from './pages/stats/stats.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { RouterModule } from '@angular/router';
 import { LayoutCoreModule } from 'src/app/core/layouts/layout-dashboard/layout-core.module';
+import { GastosComponent } from './pages/gastos/gastos.component';
+import { IngresosComponent } from './pages/ingresos/ingresos.component';
+import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
+import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
 @NgModule({
   declarations: [
     GeneralComponent,
@@ -18,6 +22,10 @@ import { LayoutCoreModule } from 'src/app/core/layouts/layout-dashboard/layout-c
     RevenueComponent,
     StatsComponent,
     SettingsComponent,
+    GastosComponent,
+    IngresosComponent,
+    EstadisticasComponent,
+    ConfiguracionComponent,
   ],
   imports: [
     DashboardRoutingModule,

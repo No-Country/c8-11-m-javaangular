@@ -1,9 +1,27 @@
+
 <div class="d-flex">
   <dashboard-layout></dashboard-layout>
 <!---
   <div class="custom-content d-flex column">--->
   <div>
       <router-outlet></router-outlet>
-  </div>
 
+
+<div class="d-block">
+  <div class=" header">
+    <header-layout *ngIf="changer == true"></header-layout>
+  </div>
+  <div class=" header1">
+    <header-layout *ngIf="changer == false"></header-layout>
+  </div>
+  
+  <div class=" dashboard">
+    <dashboard-layout></dashboard-layout>
+  
+    <div class="custom-content d-flex column ">
+        <router-outlet></router-outlet>
+    </div>
+  
+  </div>
 </div>
+

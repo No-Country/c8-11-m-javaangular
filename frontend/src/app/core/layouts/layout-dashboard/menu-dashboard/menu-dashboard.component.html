@@ -2,70 +2,58 @@
   <ul class="p-0 m-0 d-flex flex-column justify-content-between h-100">
     <div class="p-4">
       <li class="li-button" routerLink="/landing" style="padding-bottom: 15px;">
-        <p class="text-white fw-bold fs-5 text-center">Nombre app</p>
+        <p class="text-white fw-bold fs-5 text-center">Charta</p>
       </li>
-
       <button class="btn-new-entry text-white" (click)="openModal()" ><i class="bi bi-plus-square" style="font-size: 1rem;"></i> Nueva entrada</button>
-
       <div *ngIf="modalSwith">
         <modal-new-entry></modal-new-entry>
       </div>
     </div>
 
+    <!----Vista General---->
     <div class="d-flex flex-column gap-3">
-
-      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
-
-                      'active-link' : router.url === '/dashboard/general'}" routerLink="/dashboard/general">
-        <div class="li-icon"></div>
+      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true, 'active-link' : router.url === '/dashboard/general'}" routerLink="/dashboard/general" (click)="op()">
+        <div class="icon-aside"><i class="bi bi-grid" style="font-size: 1.2rem;"></i></div>
         <p class="text-white fw-bold fs-6 text-center m-0">General</p>
       </li>
+      <!----Mis Gastos---->
       <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
                       'active-link' : router.url === '/dashboard/gastos'}" routerLink="/dashboard/gastos">
-        <div class="li-icon"></div>
+        <div class="icon-aside"><i class="bi bi-box-arrow-down" style="font-size: 1.5rem;"></i></div>
         <p class="text-white fw-bold fs-6 text-center m-0">Mis gastos</p>
       </li>
+      <!----Mis Ingresos---->
       <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
                       'active-link' : router.url === '/dashboard/ingresos'}" routerLink="/dashboard/ingresos">
-        <div class="li-icon"></div>
+        <div class="icon-aside"><i class="bi bi-box-arrow-up" style="font-size: 1.5rem;"></i></div>
         <p class="text-white fw-bold fs-6 text-center m-0">Mis ingresos</p>
       </li>
+      <!----Estadísticas---->
       <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
                       'active-link' : router.url === '/dashboard/estadisticas'}" routerLink="/dashboard/estadisticas">
-        <div class="li-icon"></div>
+        <div class="icon-aside"><i class="bi bi-graph-up" style="font-size: 1.5rem;"></i></div>
         <p class="text-white fw-bold fs-6 text-center m-0">Estadisticas</p>
-        <p class="text-white fw-bold fs-6 text-center m-0" > <i class="bi bi-grid" style="font-size: 1.2rem;" ></i> Vista General </p>
-      </li>
-      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
-                      'active-link' : router.url === '/dashboard/revenue'}" routerLink="/dashboard/revenue">
-        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-box-arrow-up" style="font-size: 1.5rem;"></i> Mis ingresos {{changer}}</p>
-      </li>
-      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
-                      'active-link' : router.url === '/dashboard/expenses'}" routerLink="/dashboard/expenses">
-        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-box-arrow-down" style="font-size: 1.5rem;"></i> Mis gastos</p>
-      </li>
-      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
-                      'active-link' : router.url === '/dashboard/stats'}" routerLink="/dashboard/stats">
-        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-graph-up" style="font-size: 1.5rem;"></i> Estadisticas</p>
-      </li>
-
+      </li>   
     </div>
 
     <div class="pb-4">
+      <!----Configuración--->
       <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
-
                       'active-link' : router.url === '/dashboard/configuracion'}" routerLink="/dashboard/configuracion">
-        <div class="li-icon"></div>
-        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-gear" style="font-size: 1.5rem;"></i> Configuración</p>
+        <div class="icon-aside"><i class="bi bi-gear" style="font-size: 1.5rem;"></i></div>
+        <p class="text-white fw-bold fs-6 text-center m-0">Configuración</p>               
       </li>
+      <!-----Cerrar Sesión----->
       <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true}" (click)="closeSession()">
-        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-box-arrow-left" style="font-size: 1.5rem;"></i> Cerrar sesión</p>
+        <div class="icon-aside"><i class="bi bi-box-arrow-left" style="font-size: 1.5rem;"></i></div>
+        <p class="text-white fw-bold fs-6 text-center m-0">Cerrar sesión</p>
       </li>
     </div>
   </ul>
 </nav>
 
 
+<!-----Barra plegada---->
 <nav class="menu-dashboard1" *ngIf="changer == false">
   <ul class="p-0 m-0 d-flex flex-column justify-content-between h-100">
     <div class="p-4">
@@ -86,7 +74,18 @@
                       'active-link' : router.url === '/dashboard/general'}" routerLink="/dashboard/general" (click)="op()">
         <p class="text-white fw-bold fs-6 text-center m-0"> <i class="bi bi-grid" style="font-size: 1.2rem;"></i></p>
       </li>
-     
+      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
+                      'active-link' : router.url === '/dashboard/general'}" routerLink="/dashboard/revenue">
+        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-box-arrow-up" style="font-size: 1.5rem;"></i></p>
+      </li>
+      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
+                      'active-link' : router.url === '/dashboard/gastos'}" routerLink="/dashboard/expenses">
+        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-box-arrow-down" style="font-size: 1.5rem;"></i></p>
+      </li>
+      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
+                      'active-link' : router.url === '/dashboard/estadisticas'}" routerLink="/dashboard/stats">
+        <p class="text-white fw-bold fs-6 text-center m-0"><i class="bi bi-graph-up" style="font-size: 1.5rem;"></i></p>
+      </li>
 
     </div>
 

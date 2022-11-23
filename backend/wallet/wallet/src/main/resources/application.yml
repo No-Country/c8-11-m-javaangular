@@ -38,6 +38,6 @@ server:
   port: 8081
 
 # Api-Fixer KEY:
-api.key.fixer: YKmXNMGPDAXkVsqS8MUN51USNjqhDAPS
+api.key.fixer: QNqvHM1Rf3JjtimxQtMsqj0SXIqlXy7G
 api.url.fixer: https://api.apilayer.com/fixer/
 api.header-field.fixer: apikey

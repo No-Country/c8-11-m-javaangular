@@ -4,13 +4,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import static com.wallet.wallet.domain.enums.EMessageCode.*;
 import com.wallet.wallet.handler.exeption.ApiRateLimitException;
-import com.wallet.wallet.util.Messenger;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApiFixer {
 
-    private final Messenger messenger;
+    private final MessageSource messenger;
     
     @Value("${api.key.fixer}")
     private String API_KEY;
@@ -41,7 +42,7 @@ public class ApiFixer {
                                 .join();
 
         if(response.contains("API rate limit")){
-            throw new ApiRateLimitException(messenger.getMessage(API_RATE_LIMIT));
+            throw new ApiRateLimitException(messenger.getMessage(API_RATE_LIMIT.name(), null, Locale.getDefault()));
         }
         return response;
     }

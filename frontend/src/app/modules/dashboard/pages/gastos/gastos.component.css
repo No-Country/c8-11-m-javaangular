@@ -1,0 +1,10 @@
+#section {
+    text-align: center;
+    margin:25px
+}
+.seleccion {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+}

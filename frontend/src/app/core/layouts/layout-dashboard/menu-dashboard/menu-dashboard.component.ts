@@ -1,7 +1,8 @@
-import {  Component, OnInit } from '@angular/core';
+import {  Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwitchService } from '../../../services/switch.service';
 import Swal from 'sweetalert2';
+import { SideService } from '../service/side.service';
 
 @Component({
   selector: 'dashboard-layout',
@@ -10,15 +11,23 @@ import Swal from 'sweetalert2';
 })
 export class MenuDashboardComponent implements OnInit {
   modalSwith: boolean = false;
+  changer: boolean = false;
+  @Output() change = new EventEmitter();
 
-  constructor(public router: Router, private modalService: SwitchService) { }
+  constructor(public router: Router, private modalService: SwitchService, public sideServ: SideService) { }
 
   ngOnInit(): void {
     this.modalService.$modal.subscribe((valor) => {
       this.modalSwith = valor
     })
+    
+    this.sideServ.$change.subscribe((valor)=>{
+      this.changer = valor;
+    }) 
+    
+    
   }
-
+  
 
   openModal(): void {
     this.modalSwith = true;
@@ -38,5 +47,10 @@ export class MenuDashboardComponent implements OnInit {
         this.router.navigateByUrl('/landing')
       }
     })
+  }
+  
+  op(){
+    this.changer = !this.changer;
+    this.changer = !this.changer; 
   }
 }

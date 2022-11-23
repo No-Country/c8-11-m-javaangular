@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'general-component',
+  selector: 'app-general',
   templateUrl: './general.component.html',
-  styleUrls: ['./general.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./general.component.css']
 })
 export class GeneralComponent implements OnInit {
 

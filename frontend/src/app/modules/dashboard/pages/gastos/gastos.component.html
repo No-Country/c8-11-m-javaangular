@@ -3,23 +3,183 @@
         <h2>Mis Gastos</h2>
     </div>
     <div class="seleccion">
-        <!----
-        <div class="selector">
-            <input type="search">
-        </div>--->
-        <div class="selector">
-            <select name="select">
+        <div class="selector-left">
+            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto">+ Nuevo Gasto</button>            
+        </div>         
+        <div class="selector-right">
+            <select class="btn btn-light" name="select">
                 <option value="value1">Mas recientes</option>
-                <option value="value2">Mayor a menor</option>
-                <option value="value3">Menor a mayor</option>
+                <option value="value2">Mas antiguos</option>
+                <option value="value3">Mayor precio</option>
+                <option value="value3">Menor precio</option>
             </select>
+            <!----
+            <button class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</button>---->
+            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>                                                
+        </div>                                     
+    </div>
+    <div class="collapse" id="collapseExample">
+        <div class="filtros card card-body">
+            <div>
+                <button class="btn btn-danger">Servicios</button>
+            </div>
+            <div>
+                <button class="btn btn-primary">Alimentos</button>
+            </div>
+            <div>
+                <button class="btn btn-success">Varios</button>
+            </div>
+            <div>
+                <button class="btn btn-info">Vehiculos</button>
+            </div>         
         </div>
-        <div class="selector">
-            <button class="btn btn-primary">Filtrar</button>            
+      </div> 
+    
+      
+
+
+    <div class="tabla-gastos">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="p-3">
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Verduleria</td>
+                        <td>$2560</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-primary">Servicios</span></td>
+                        <td>Electricidad</td>
+                        <td>$2540</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-primary">Servicios</span></td>
+                        <td>gas</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-danger">Varios</span></td>
+                        <td>Ropa super cool</td>
+                        <td>$20580</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
+                        <td>Supermercado "Codemax"</td>
+                        <td>$20000</td>
+                        <td><app-editar></app-editar><app-borrar></app-borrar></td>
+                    </tr>                   
+                </tbody>
+            </table>
         </div>
-        <div class="selector">
-            <button class="btn btn-success">NUEVO GASTO</button>            
-        </div>       
-        
     </div>
 </section>
+
+<!--MODAL NUEVO GASTO--->
+<div class="modal fade" id="nuevoGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-agregar">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">NUEVO GASTO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!------Formulario------->
+        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarGasto()" novalidate>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input id="fecha" type="date" name="marca" class="form-control"  required>
+                </div>
+                <div class="form-group">
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <select id="categoria" type="text" name="categoria"> 
+                        <option value="red">Rojo</option>
+                        <option value="orangered">Naranja</option>
+                        <option value="yellow">Amarillo</option>
+                        <option value="green">Verde</option>
+                        <option value="lightblue">Celeste</option>                    
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="importe" class="form-label">Importe</label>
+                    <input id="importe" type="number" name="importe" class="form-control"  required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <input id="descripcion" type="text" name="descripcion" class="form-control" >
+                </div>
+            </div>
+            <div class="modal-footer botones">
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Aceptar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>                
+            </div>
+        </form>
+      </div>
+    </div>
+</div>

@@ -12,4 +12,8 @@ export class GastosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  guardarGasto(){
+    console.log("okey")
+  }
+
 }

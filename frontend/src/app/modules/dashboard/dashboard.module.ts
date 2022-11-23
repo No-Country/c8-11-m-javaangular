@@ -15,6 +15,8 @@ import { GastosComponent } from './pages/gastos/gastos.component';
 import { IngresosComponent } from './pages/ingresos/ingresos.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
+import { EditarComponent } from './botones/editar/editar.component';
+import { BorrarComponent } from './botones/borrar/borrar.component';
 @NgModule({
   declarations: [
     GeneralComponent,
@@ -26,6 +28,8 @@ import { ConfiguracionComponent } from './pages/configuracion/configuracion.comp
     IngresosComponent,
     EstadisticasComponent,
     ConfiguracionComponent,
+    EditarComponent,
+    BorrarComponent,
   ],
   imports: [
     DashboardRoutingModule,

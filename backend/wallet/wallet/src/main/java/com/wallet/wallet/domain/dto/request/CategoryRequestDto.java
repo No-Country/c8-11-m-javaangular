@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class CategoryRequestDto {
 
+    private Long id;
+
     @Schema(type = "string", example = "supermercado")
     private String name;
 

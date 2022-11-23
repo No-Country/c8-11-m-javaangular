@@ -53,6 +53,17 @@ public class ExpenseController {
         return responseBuilder(HttpStatus.OK, expenseService.groupByCategoryByUserId(userId));
     }
 
+    @ApiOperation(value = "Find by Filter and Order by User", hidden = true)
+    @GetMapping("/filter")
+    public  ResponseEntity<?> filter(@RequestParam Long userId,
+                                     @RequestParam(required = false) List<Long> categoriesId,
+                                     @RequestParam(required = false) Double amountMin,
+                                     @RequestParam(required = false) Double amountMax,
+                                     @RequestParam( defaultValue = "date") String orderBy,
+                                     @RequestParam( defaultValue = "DESC") String order){
+        return responseBuilder(HttpStatus.OK, expenseService.filter(userId, categoriesId, amountMin, amountMax, orderBy, order));
+    }
+
     @ApiOperation(value = "Delete a expense by id")
     @DeleteMapping("/delete/{id}")
     public  ResponseEntity<Void> delete(@PathVariable Long id){

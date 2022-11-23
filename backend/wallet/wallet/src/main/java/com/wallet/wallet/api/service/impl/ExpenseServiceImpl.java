@@ -1,6 +1,7 @@
 package com.wallet.wallet.api.service.impl;
 
 import com.wallet.wallet.api.service.IExpenseService;
+import com.wallet.wallet.api.service.IIncomeService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
 import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
 import com.wallet.wallet.domain.dto.response.CategoryGroupResponseDto;
@@ -9,20 +10,23 @@ import com.wallet.wallet.domain.dto.response.HomeResponseDto;
 import com.wallet.wallet.domain.dto.response.MoveResponseDto;
 import com.wallet.wallet.domain.mapper.ExpenseMapper;
 import com.wallet.wallet.domain.mapper.IMapper;
+import com.wallet.wallet.domain.mapper.IncomeMapper;
 import com.wallet.wallet.domain.model.Expense;
+import com.wallet.wallet.domain.model.Income;
 import com.wallet.wallet.domain.repository.IExpenseRepository;
+
+import com.wallet.wallet.domain.repository.IIncomeRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.net.PortUnreachableException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -31,8 +35,11 @@ import java.util.stream.Collectors;
 public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseResponseDto, ExpenseRequestDto, Long> implements IExpenseService {
 
     private final ExpenseMapper expenseMapper;
-
     private final IExpenseRepository expenseRepository;
+
+    private final IncomeMapper incomeMapper;
+    private final IIncomeService incomeService;
+    private final IIncomeRepository incomeRepository;
 
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto) {
         log.info("Gasto agregado correctamente");
@@ -77,8 +84,16 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         List<Expense> expenses = expenseRepository.getThreeByUserId(userId);
         expenses.forEach(expense -> movesResponseDto.add(expenseMapper.entityToMoveResponseDto(expense)));
 
+        List<Income> incomes = incomeRepository.getThreeByUserId(userId);
+        incomes.forEach(income -> movesResponseDto.add(incomeMapper.entityToMoveResponseDto(income)));
+
+        movesResponseDto.sort(Comparator.comparing(MoveResponseDto::getDate).reversed());
+        while(movesResponseDto.size() > 3){
+            movesResponseDto.remove(movesResponseDto.size()-1);
+        }
+
         homeResponseDto.setBalanceExpense(getBalanceMonthlyByUserId(userId));
-        //homeResponseDto.setBalanceIncome(incomeRepository.getIncomeMonthlyByUserId(userId, monthNow));
+        homeResponseDto.setBalanceIncome(incomeService.getBalanceMonthlyByUserId(userId));
 
         homeResponseDto.setMoves(movesResponseDto);
 
@@ -90,6 +105,21 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         List<ExpenseResponseDto> expenses = getAllByUserId(userId);
         Map<String, Double> categoryGroups = expenses.stream().collect(Collectors.groupingBy(ExpenseResponseDto::getCategoryName, Collectors.summingDouble(ExpenseResponseDto::getAmount)));
         return categoryGroups;
+    }
+
+    @Override
+    public List<ExpenseResponseDto> filter(Long userId, List<Long> categoriesId, Double amountMin, Double amountMax, String orderBy, String order) {
+
+        List<Expense> expenses = new ArrayList<>();
+
+        if(categoriesId != null && amountMin != null && amountMax != null) {
+            expenses = expenseRepository.filterByCategoriesAndAmount(userId, categoriesId, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy));
+        } else if(categoriesId == null){
+            expenses = expenseRepository.filterByAmount(userId, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy));
+        } else {
+            expenses = expenseRepository.filterByCategories(userId, categoriesId, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy));
+        }
+            return expenseMapper.listEntityToListResponseDto(expenses);
     }
 
     public void delete(Long id){

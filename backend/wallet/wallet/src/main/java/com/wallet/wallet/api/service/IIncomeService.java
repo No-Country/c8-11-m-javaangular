@@ -12,4 +12,6 @@ public interface IIncomeService extends GenericServiceAPI<Income, IncomeResponse
     IncomeResponseDto findById(Long Id);
 
     List<IncomeResponseDto> findAll();
+
+    Double getBalanceMonthlyByUserId(Long userId);
 }

@@ -1,1 +1,214 @@
-<p>ingresos works!</p>
+<section id="gastos">
+    <div class="titular">
+        <h2>Mis Ingresos</h2>
+    </div>
+    <div class="seleccion">
+        <div class="selector-left">
+            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto">+ Nuevo Ingreso</button>            
+        </div>         
+        <div class="selector-right">
+            <select class="btn btn-light" name="select">
+                <option value="value1">Mas recientes</option>
+                <option value="value2">Mas antiguos</option>
+                <option value="value3">Mayor precio</option>
+                <option value="value3">Menor precio</option>
+            </select>
+            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>                                                
+        </div>                                     
+    </div>
+    <div class="collapse" id="collapseExample">
+        <div class="filtros card card-body">
+            <div>
+                <button class="btn btn-danger">Servicios</button>
+            </div>
+            <div>
+                <button class="btn btn-primary">Alimentos</button>
+            </div>
+            <div>
+                <button class="btn btn-success">Varios</button>
+            </div>
+            <div>
+                <button class="btn btn-info">Vehiculos</button>
+            </div>         
+        </div>
+      </div> 
+    
+      
+
+
+    <div class="tabla-gastos">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="p-3">
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Anual</span></td>
+                        <td>Acciones en Charta</td>
+                        <td>$200000</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-warning">Anual</span></td>
+                        <td>Acciones en Twitter</td>
+                        <td>$2560</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-primary">Mensual</span></td>
+                        <td>Sueldo</td>
+                        <td>$254000</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-primary">Mensual</span></td>
+                        <td>Bono mágico</td>
+                        <td>$5000</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-danger">Diario</span></td>
+                        <td>Billetes encontrados</td>
+                        <td>$250</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-primary">Mensual</span></td>
+                        <td>Bono mágico</td>
+                        <td>$5000</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>
+                    <tr class="p-2">
+                        <td>10/10/2022</td>
+                        <td><span class="p-2 badge text-bg-danger">Diario</span></td>
+                        <td>Billetes encontrados</td>
+                        <td>$250</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>                                                           
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!--MODAL NUEVO GASTO--->
+<div class="modal fade" id="nuevoGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-agregar">
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="staticBackdropLabel">NUEVO INGRESO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!------Formulario------->
+        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input id="fecha" type="date" name="marca" class="form-control"  required>
+                </div>
+                <div class="form-group">
+                    <label for="categoria" class="form-label">Tipo</label><br>
+                    <select id="categoria" type="text" name="categoria" class="form-control"> 
+                        <option value="red">Anual</option>
+                        <option value="orangered">Mensual</option>
+                        <option value="yellow">Semanal</option>
+                        <option value="green">Diario</option>                   
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="importe" class="form-label">Importe</label>
+                    <input id="importe" type="number" name="importe" class="form-control"  required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <input id="descripcion" type="text" name="descripcion" class="form-control" >
+                </div>
+            </div>
+            <div class="modal-footer botones">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
+                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<!--MODAL EDITAR GASTO--->
+<div class="modal fade" id="editarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-agregar">
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="staticBackdropLabel">EDITAR INGRESO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!------Formulario------->
+        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input id="fecha" type="date" name="marca" class="form-control"  required>
+                </div>
+                <div class="form-group">
+                    <label for="categoria" class="form-label">Tipo</label><br>
+                    <select id="categoria" type="text" name="categoria" class="form-control"> 
+                        <option value="red">Anual</option>
+                        <option value="orangered">Mensual</option>
+                        <option value="yellow">Semanal</option>
+                        <option value="green">Diario</option>                  
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="importe" class="form-label">Importe</label>
+                    <input id="importe" type="number" name="importe" class="form-control"  required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <input id="descripcion" type="text" name="descripcion" class="form-control" >
+                </div>
+            </div>
+            <div class="modal-footer botones">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
+                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<!--MODAL ELIMINAR GASTO--->
+<div class="modal fade" id="eliminarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-agregar">
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="staticBackdropLabel">ELIMINAR INGRESO</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!------Formulario------->
+        <form >
+            <div class="modal-body">
+                <div>
+                    <h5>¿Desea eliminar este gasto?</h5>
+                </div>
+            </div>
+            <div class="modal-footer botones">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal">Eliminar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+

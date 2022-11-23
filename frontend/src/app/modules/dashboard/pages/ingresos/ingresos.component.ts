@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IngresosComponent implements OnInit {
 
+  num=0;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  guardarIngreso(){
+    console.log("Hola")
+
   }
 
 }

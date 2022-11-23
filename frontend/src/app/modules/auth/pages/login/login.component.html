@@ -1,13 +1,17 @@
 <section class="" style="background-color: #eee;">
     <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">        
         <div class="col-xl-10">
           <div class="card rounded-3 text-black">
-            <div class="row g-0">
-              <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+            <div class="row g-0">              
+              <div class="col-lg-6 d-flex align-items-center gradient-custom-2"> 
+                <div id="flecha">
+                  <a routerLink=""><i class="bi bi-arrow-left"></i></a>                  
+                </div> 
+                           
+                <div class="texto-oscuro px-3 py-4 p-md-5 mx-md-4">
                   <h4 class="mb-4">Bienvenido de nuevo</h4>
-                  <p class="small mb-0">Registra gastos e ingresos. Accede a estadísticas que permitan visualizar el flujo de tu dinero para ayudarte a ordenar tus finanzas.</p>
+                  <p class="small mb-0">Gracias por confiar en nosotros, ahora es momento de seguir organizando tu actividad financiera.</p>
                 </div>
               </div>
               <div class="col-lg-6">
@@ -54,7 +58,7 @@
                     </div>
                     <!-----Boton Iniciar Sesión------->
                     <div class="text-center pt-1 mb-2 pb-1">
-                      <button class="btn btn-primary btn-block fa-lg  mb-3" type="submit" [disabled]="!loginForm.valid">Login</button>
+                      <button class="btn btn-violet btn-block fa-lg  mb-3" type="submit" [disabled]="!loginForm.valid">Inicia sesión</button>
                     </div>
                     <div class="text-center mb-3">                        
                       <a class="text-muted" href="#!">¿Olvidaste tu contraseña?</a>
@@ -62,13 +66,17 @@
                     <!-----Boton ir a Registro------->  
                     <div class="d-flex align-items-center justify-content-center pb-4">
                       <p class="mb-0 me-2">¿No tienes una cuenta?</p>
-                      <button type="button" routerLink="/auth/registro" class="btn btn-outline-success">Registrate aquí</button>
+                      <a routerLink="/auth/registro">Crea una</a>
+
+                      <!----
+                      <button type="button" routerLink="/auth/registro" class="btn btn-outline-success">Registrate aquí</button>--->
                     </div>  
                   </form> 
-                  <!-----Volver a Landing Page------->  
+                  <!-----Volver a Landing Page-------> 
+                  <!---- 
                   <div class="text-center">
                     <a routerLink="">Cancelar</a>
-                  </div> 
+                  </div> --->
                 </div>
               </div>              
             </div>

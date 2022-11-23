@@ -9,7 +9,7 @@
                   <div class="text-center">
                     <img src="../../../../../assets/img/unnamed.png"
                       style="width: 100px;" alt="logo">
-                    <h4 class="mt-1 mb-3 pb-1">Unete a CHARTA</h4>
+                    <h4 class="mt-1 mb-3 pb-1">CHARTA</h4>
                   </div>  
                   <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" autocomplete="off">
                     <div class="text-center">
@@ -67,25 +67,31 @@
                     </div>
                     <!----Boton registrarse---->
                     <div class="text-center pt-1 mb-2 pb-1">
-                      <button class="btn btn-success btn-block fa-lg  mb-3" type="submit" [disabled]="!registroForm.valid">Registrarse</button>
+                      <button class="btn btn-violet btn-block fa-lg  mb-3" type="submit" [disabled]="!registroForm.valid">Registrarse</button>
                     </div>
                     <!----Boton a Inicio de Sesión---->
                     <div class="d-flex align-items-center justify-content-center pb-4">
                       <p class="mb-0 me-2">¿Ya tienes una cuenta?</p>
-                      <button type="button" routerLink="/auth/login" class="btn btn-outline-primary">Inicia sesión</button>
+                      <a routerLink="/auth/login">Inicia sesión</a>
+                      <!----
+                      <button type="button" routerLink="/auth/login" class="btn btn-outline-primary">Inicia sesión</button>--->
                     </div>  
                   </form>
                    <!-----Volver a Landing Page------->  
+                   <!----
                   <div class="text-center">
                     <a routerLink="">Cancelar</a>
-                  </div>
+                  </div>--->
                 </div>
               </div> 
               <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                      <h4 class="mb-4">Gestiona de forma simple tus finanzas</h4>
-                      <p class="small mb-0">Registra gastos e ingresos. Accede a estadísticas que permitan visualizar el flujo de tu dinero para ayudarte a ordenar tus finanzas.</p>
-                    </div>
+                <div id="flecha">
+                  <a routerLink=""><i class="bi bi-arrow-left"></i></a>                  
+                </div>
+                <div class="textillo px-3 py-4 p-md-5 mx-md-4">
+                  <h4 class="mb-4">Unite a Charta</h4>
+                  <p class="small mb-0">Te invitamos a que crees tu cuenta en Charta, y comiences a organizar toda tu actividad financiera en un solo lugar </p>
+                </div>                    
               </div>                             
             </div>
           </div>

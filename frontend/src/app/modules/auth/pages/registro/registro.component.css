@@ -3,10 +3,32 @@ section {
 }
 
 .gradient-custom-2 {
-    background: #5D21D2;
+    background-color: #FAFAFA;
+    color:#3E3E3E;
+}
+
+.btn-violet {
+    background-color: #5D21D2;
+    color:white
+}/*
+.textillo {    
+    position:relative;
+    top:-100px
+}*/
+
+#flecha {
+    position:absolute;
+    top:25px;
+    right:25px;
+    margin-bottom: 25px;
+    font-size: 30px;   
+}
+#flecha a {
+    color:#3E3E3E
 }
 .gradient-custom-2 h4 {
     font-size: 2rem;
+    font-weight: bolder;
 }
     
 @media (min-width: 768px) {
@@ -21,6 +43,7 @@ section {
         border-bottom-right-radius: .3rem;
     }
 }
+
 
 
 .campo {

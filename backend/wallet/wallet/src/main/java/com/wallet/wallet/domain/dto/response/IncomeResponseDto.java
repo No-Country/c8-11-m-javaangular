@@ -2,9 +2,11 @@ package com.wallet.wallet.domain.dto.response;
 
 import com.wallet.wallet.domain.model.Currency;
 import com.wallet.wallet.domain.model.EIncome;
+import lombok.Data;
 
 import java.time.LocalDate;
 
+@Data
 public class IncomeResponseDto {
 
     private Long id;
@@ -13,7 +15,13 @@ public class IncomeResponseDto {
 
     private String description;
 
-    private Currency currency;
+    private static String categoryName = "Ingreso";
+
+    private static String categoryIcon = "income";
+
+    private static String categoryColorCode = "#F239J3";
+
+    private String codeCurrency;
 
     private LocalDate date;
 

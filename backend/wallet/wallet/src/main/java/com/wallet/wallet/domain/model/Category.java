@@ -7,6 +7,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categories")
@@ -20,7 +21,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorySequence")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -29,8 +30,10 @@ public class Category {
     @Column(nullable = false)
     private String colorCode;
 
+    @Column(updatable = false)
     private Long userIdCreate;
 
+    @Column(updatable = false)
     private Boolean isDefault;
 
     private Boolean deleted = Boolean.FALSE;

@@ -5,13 +5,9 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class ExpenseResponseDto {
-
-    private Long id;
+public class MoveResponseDto {
 
     private Double amount;
-
-    private String description;
 
     private String categoryName;
 
@@ -24,7 +20,5 @@ public class ExpenseResponseDto {
     private LocalDate date;
 
     private Boolean isIncluded;
-
-    private Boolean deleted = Boolean.FALSE;
 
 }

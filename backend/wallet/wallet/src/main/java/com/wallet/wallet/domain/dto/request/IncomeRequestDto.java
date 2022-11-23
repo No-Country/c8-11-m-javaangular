@@ -15,7 +15,9 @@ public class IncomeRequestDto {
 
     private String description;
 
-    private Currency currency;
+    private Long currencyId;
+
+    private Long userId;
 
     private LocalDate date;
 
@@ -23,5 +25,5 @@ public class IncomeRequestDto {
 
     private EIncome type;
 
-    private Boolean deleted;
+    private Boolean deleted = Boolean.FALSE;;
 }

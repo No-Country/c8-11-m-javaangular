@@ -1,5 +1,6 @@
 package com.wallet.wallet.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -34,8 +35,17 @@ public class Income {
     private Boolean isIncluded;
     private EIncome type;
 
-    @OneToOne
+    @ManyToOne()
+    @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @NotNull(message = "")
     private Currency currency;
 
     private Boolean deleted = Boolean.FALSE;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @NotNull(message = "")
+    private User user;
 }

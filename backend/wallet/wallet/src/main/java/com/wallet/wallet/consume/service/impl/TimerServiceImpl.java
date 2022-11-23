@@ -16,5 +16,4 @@ public record TimerServiceImpl(IConsumer consumerService, ICurrencyService curre
     public void refreshCurrency() {
         currencyService.updateAll(consumerService.getCurrencies());
     }
-    
 }

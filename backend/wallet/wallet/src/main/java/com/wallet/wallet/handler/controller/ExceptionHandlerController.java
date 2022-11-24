@@ -60,4 +60,10 @@ public class ExceptionHandlerController {
         return responseBuilder(BAD_REQUEST, request.getRequestURI(), new ErrorDetails(exception));
     }
 
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({ RuntimeException.class })
+    public ResponseEntity<Object> internalServerErrorHandler(HttpServletRequest request, Exception exception) {
+        return responseBuilder(INTERNAL_SERVER_ERROR, request.getRequestURI(), new ErrorDetails(exception));
+    }
+
 }

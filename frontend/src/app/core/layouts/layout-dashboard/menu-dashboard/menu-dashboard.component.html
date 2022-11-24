@@ -1,13 +1,13 @@
 <!--Sidebar-->
-<div class="d-none d-md-block ">
-<nav class="menu-dashboard position-sticky"   id="sideNav" >
+
+<nav class="menu-dashboard position-sticky" id="sideNav">
   <ul class="p-0 m-0 d-flex flex-column justify-content-between h-100">
     <div class="p-4">
       <li class="" style="padding-bottom: 15px;">
-        <p class="fw-bold fs-5 text-center">Charta</p>
+        <p id="marca" class="fw-bold text-center">CHA&#1071;TA</p>
       </li>
-      
-      <button class="btn-new-entry text-white" (click)="openModal()" ><i class="bi bi-plus-square" style="font-size: 1rem;"></i></button>
+      <!----
+      <button class="btn-new-entry text-white" (click)="openModal()" ><i class="bi bi-plus-square" style="font-size: 1rem;"></i></button>--->
       <div *ngIf="modalSwith">
         <modal-new-entry></modal-new-entry>
       </div>
@@ -54,7 +54,6 @@
     </div>
   </ul>
 </nav>
-</div>
 
 <!-----Barra plegada---->
 <!-- <nav class="menu-dashboard1 position-sticky top-0" *ngIf="changer == false">

@@ -98,3 +98,6 @@ app-editar, app-borrar {
 .modal-borrar {
     background-color:rgb(255, 90, 90)
 }
+.titulo-modal-borrar {
+    margin:15px
+}

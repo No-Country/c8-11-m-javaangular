@@ -150,25 +150,24 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <!------Formulario------->
-        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarGasto()" novalidate>
+        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarGasto()" novalidate autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" name="marca" class="form-control"  required>
+                    <input id="fecha" type="date" value={{fecha}} name="marca" class="form-control"  required>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>
                     <select id="categoria" type="text" name="categoria" class="form-control"> 
-                        <option value="red">Rojo</option>
-                        <option value="orangered">Naranja</option>
-                        <option value="yellow">Amarillo</option>
-                        <option value="green">Verde</option>
-                        <option value="lightblue">Celeste</option>                    
+                        <option value="red">Servicios</option>
+                        <option value="orangered">Alimentos</option>
+                        <option value="yellow">Vehículos</option>
+                        <option value="green">Varios</option>                  
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input id="importe" type="number" name="importe" class="form-control"  required>
+                    <input id="importe" type="number" name="importe" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
@@ -188,25 +187,25 @@
 <div class="modal fade" id="editarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-agregar">
+        
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">EDITAR GASTO</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <!------Formulario------->
-        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarGasto()" novalidate>
+        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarGasto()" novalidate autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" name="marca" class="form-control"  required>
+                    <input id="fecha" type="date" value={{fecha}} name="marca" class="form-control"  required>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>
                     <select id="categoria" type="text" name="categoria" class="form-control"> 
-                        <option value="red">Rojo</option>
-                        <option value="orangered">Naranja</option>
-                        <option value="yellow">Amarillo</option>
-                        <option value="green">Verde</option>
-                        <option value="lightblue">Celeste</option>                    
+                        <option value="red">Servicios</option>
+                        <option value="orangered">Alimentos</option>
+                        <option value="yellow">Vehículos</option>
+                        <option value="green">Varios</option>                 
                     </select>
                 </div>
                 <div class="form-group">
@@ -231,15 +230,16 @@
 <div class="modal fade" id="eliminarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-agregar">
+        <!-----        
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">ELIMINAR GASTO</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+        </div>--->
         <!------Formulario------->
         <form >
             <div class="modal-body">
                 <div>
-                    <h5>¿Desea eliminar este gasto?</h5>
+                    <h5 class="titulo-modal-borrar">¿Desea eliminar este gasto?</h5>
                 </div>
             </div>
             <div class="modal-footer botones">

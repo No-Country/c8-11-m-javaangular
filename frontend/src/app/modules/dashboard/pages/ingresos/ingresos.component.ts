@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FechaService } from '../../services/fecha.service';
 
 @Component({
   selector: 'app-ingresos',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IngresosComponent implements OnInit {
 
-  num=0;
-  constructor() { }
+  fecha:any;
+  
+  constructor(private fechaService: FechaService) { }
 
   ngOnInit(): void {
+    this.fecha = this.fechaService.actual()
   }
   guardarIngreso(){
     console.log("Hola")

@@ -19,16 +19,16 @@
     <div class="collapse" id="collapseExample">
         <div class="filtros card card-body">
             <div>
-                <button class="btn btn-danger">Servicios</button>
+                <button class="btn btn-warning">Anual</button>
             </div>
             <div>
-                <button class="btn btn-primary">Alimentos</button>
+                <button class="btn btn-primary">Mensual</button>
             </div>
             <div>
-                <button class="btn btn-success">Varios</button>
+                <button class="btn btn-success">Semanal</button>
             </div>
             <div>
-                <button class="btn btn-info">Vehiculos</button>
+                <button class="btn btn-danger">Diario</button>
             </div>         
         </div>
       </div> 
@@ -54,49 +54,49 @@
                         <td><span class="p-2 badge text-bg-warning">Anual</span></td>
                         <td>Acciones en Charta</td>
                         <td>$200000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
                     </tr>
                     <tr class="p-2">
                         <td>10/10/2022</td>
                         <td><span class="p-2 badge text-bg-warning">Anual</span></td>
                         <td>Acciones en Twitter</td>
                         <td>$2560</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
                     </tr>
                     <tr class="p-2">
                         <td>10/10/2022</td>
                         <td><span class="p-2 badge text-bg-primary">Mensual</span></td>
                         <td>Sueldo</td>
                         <td>$254000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
                     </tr>
                     <tr class="p-2">
                         <td>10/10/2022</td>
                         <td><span class="p-2 badge text-bg-primary">Mensual</span></td>
                         <td>Bono mágico</td>
                         <td>$5000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
                     </tr>
                     <tr class="p-2">
                         <td>10/10/2022</td>
                         <td><span class="p-2 badge text-bg-danger">Diario</span></td>
                         <td>Billetes encontrados</td>
                         <td>$250</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
                     </tr>
                     <tr class="p-2">
                         <td>10/10/2022</td>
                         <td><span class="p-2 badge text-bg-primary">Mensual</span></td>
                         <td>Bono mágico</td>
                         <td>$5000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
                     </tr>
                     <tr class="p-2">
                         <td>10/10/2022</td>
                         <td><span class="p-2 badge text-bg-danger">Diario</span></td>
                         <td>Billetes encontrados</td>
                         <td>$250</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
                     </tr>                                                           
                 </tbody>
             </table>
@@ -117,7 +117,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" name="marca" class="form-control"  required>
+                    <input id="fecha" type="date" value={{fecha}} name="marca" class="form-control"  required>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
@@ -146,8 +146,8 @@
     </div>
 </div>
 
-<!--MODAL EDITAR GASTO--->
-<div class="modal fade" id="editarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!--MODAL EDITAR INGRESO--->
+<div class="modal fade" id="editarIngreso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-agregar">
         <div class="modal-header text-center">
@@ -155,11 +155,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <!------Formulario------->
-        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate>
+        <form id="editarIngreso" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" name="marca" class="form-control"  required>
+                    <input id="fecha" type="date" value={{fecha}} name="marca" class="form-control"  required>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
@@ -188,19 +188,20 @@
     </div>
 </div>
 
-<!--MODAL ELIMINAR GASTO--->
-<div class="modal fade" id="eliminarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!---MODAL ELIMINAR INGRESO--->
+<div class="modal fade" id="eliminarIngreso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-agregar">
+        <!---
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">ELIMINAR INGRESO</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+        </div>--->
         <!------Formulario------->
         <form >
             <div class="modal-body">
                 <div>
-                    <h5>¿Desea eliminar este gasto?</h5>
+                    <h5 class="titulo-modal-borrar">¿Desea eliminar este ingreso?</h5>
                 </div>
             </div>
             <div class="modal-footer botones">
@@ -211,4 +212,3 @@
       </div>
     </div>
 </div>
-

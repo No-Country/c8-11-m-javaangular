@@ -1,14 +1,21 @@
 :host {
     display: block;
     width: 100%;
-  }
+}
+/*
+Estilos generales*/
+*{
+  font-family: 'Open Sans';
+}
   
-  .layout-size {
+.layout-size {
     min-height: calc(100vh - 192px);
-  }
-  #myChart{
+}
+
+
+#myChart{
     background-image: url("./../../../../../assets/img/grafico-ejemplo.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-  }
+}

@@ -7,19 +7,23 @@
             <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto">+ Nuevo Gasto</button>            
         </div>
         <div>
+            
             <button type="button" class="btn btn-primary" (click)="actuco=!actuco">Hola</button>
         </div>
 
-        <div class="selector-right">
+        <div class="selector-right">            
             <select class="btn btn-light" name="select">
                 <option value="value1">Mas recientes</option>
                 <option value="value2">Mas antiguos</option>
                 <option value="value3">Mayor precio</option>
                 <option value="value3">Menor precio</option>
-            </select>
+            </select> 
+            <app-drop></app-drop>  
+                     
             <!----
             <button class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</button>---->
-            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button> 
+            <!---
+            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button> --->
             <!----------------------------------------------->  
                                                        
         </div>                                     

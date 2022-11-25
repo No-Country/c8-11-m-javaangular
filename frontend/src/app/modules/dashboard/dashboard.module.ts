@@ -5,10 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { GeneralComponent } from './pages/general/general.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { ExpensesComponent } from './pages/expenses/expenses.component';
-import { RevenueComponent } from './pages/revenue/revenue.component';
-import { StatsComponent } from './pages/stats/stats.component';
-import { SettingsComponent } from './pages/settings/settings.component';
 import { RouterModule } from '@angular/router';
 import { LayoutCoreModule } from 'src/app/core/layouts/layout-dashboard/layout-core.module';
 import { GastosComponent } from './pages/gastos/gastos.component';
@@ -17,21 +13,19 @@ import { EstadisticasComponent } from './pages/estadisticas/estadisticas.compone
 import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
 import { EditarComponent } from './botones/editar/editar.component';
 import { BorrarComponent } from './botones/borrar/borrar.component';
-import { CommonModule } from '@angular/common'
+import { CommonModule } from '@angular/common';
+import { DropComponent } from './componentes/drop/drop.component'
 
 @NgModule({
   declarations: [
     GeneralComponent,
-    ExpensesComponent,
-    RevenueComponent,
-    StatsComponent,
-    SettingsComponent,
     GastosComponent,
     IngresosComponent,
     EstadisticasComponent,
     ConfiguracionComponent,
     EditarComponent,
-    BorrarComponent
+    BorrarComponent,
+    DropComponent
   ],
   imports: [
     DashboardRoutingModule,

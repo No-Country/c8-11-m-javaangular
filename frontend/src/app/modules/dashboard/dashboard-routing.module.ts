@@ -4,13 +4,10 @@ import { TemplateDashboardComponent } from 'src/app/core/layouts/layout-dashboar
 import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 
-import { ExpensesComponent } from './pages/expenses/expenses.component';
+
 import { GastosComponent } from './pages/gastos/gastos.component';
 import { GeneralComponent } from './pages/general/general.component';
 import { IngresosComponent } from './pages/ingresos/ingresos.component';
-import { RevenueComponent } from './pages/revenue/revenue.component';
-import { SettingsComponent } from './pages/settings/settings.component';
-import { StatsComponent } from './pages/stats/stats.component';
 
 // Components Page
 

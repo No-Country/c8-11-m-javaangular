@@ -23,7 +23,7 @@ public interface IExpenseService extends GenericServiceAPI<Expense, ExpenseRespo
 
     Map<String, Double> groupByCategoryByUserId(Long userId);
 
-    HomeResponseDto getForHome(Long userId);
+    HomeResponseDto getForHome(String token);
 
     List<ExpenseResponseDto>  filter(Long userId, List<Long> categoriesId, Double amountMax, Double amountMin, String orderBy, String order);
 

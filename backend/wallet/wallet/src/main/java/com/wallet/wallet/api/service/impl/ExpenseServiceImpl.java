@@ -1,5 +1,6 @@
 package com.wallet.wallet.api.service.impl;
 
+import com.wallet.wallet.Security.jwt.JwtUtil;
 import com.wallet.wallet.api.service.IExpenseService;
 import com.wallet.wallet.api.service.IIncomeService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
@@ -13,9 +14,11 @@ import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.mapper.IncomeMapper;
 import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.Income;
+import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IExpenseRepository;
 
 import com.wallet.wallet.domain.repository.IIncomeRepository;
+import com.wallet.wallet.domain.repository.IUserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.PropertySource;
@@ -40,6 +43,10 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     private final IncomeMapper incomeMapper;
     private final IIncomeService incomeService;
     private final IIncomeRepository incomeRepository;
+
+    private final IUserRepository userRepository;
+
+    private final JwtUtil jwtUtil;
 
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto) {
         log.info("Gasto agregado correctamente");
@@ -76,7 +83,10 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     }
 
     @Override
-    public HomeResponseDto getForHome(Long userId){
+    public HomeResponseDto getForHome(String token){
+
+        Long userId = jwtUtil.extractUserId(token.substring(7));
+        User user = userRepository.findById(userId).get();
 
         HomeResponseDto homeResponseDto = new HomeResponseDto();
 
@@ -96,6 +106,8 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         homeResponseDto.setBalanceIncome(incomeService.getBalanceMonthlyByUserId(userId));
 
         homeResponseDto.setMoves(movesResponseDto);
+        homeResponseDto.setCurrencyId(user.getCurrency().getId());
+        homeResponseDto.setFirstName(user.getFirstName());
 
         return homeResponseDto;
     }

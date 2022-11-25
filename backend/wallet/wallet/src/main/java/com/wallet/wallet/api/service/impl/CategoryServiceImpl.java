@@ -1,5 +1,6 @@
 package com.wallet.wallet.api.service.impl;
 
+import com.wallet.wallet.Security.jwt.JwtUtil;
 import com.wallet.wallet.api.service.ICategoryService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
 import com.wallet.wallet.domain.dto.request.CategoryRequestDto;
@@ -8,7 +9,9 @@ import com.wallet.wallet.domain.dto.response.CategoryResponseDto;
 import com.wallet.wallet.domain.mapper.CategoryMapper;
 import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.model.Category;
+import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.ICategoryRepository;
+import com.wallet.wallet.domain.repository.IUserRepository;
 import com.wallet.wallet.handler.exeption.ExampleException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,18 +29,23 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
 
     private final ICategoryRepository categoryRepository;
 
-    //agregar lógica usuario
-    public CategoryResponseDto save(CategoryRequestDto categoryRequestDto) {
+    private final IUserRepository userRepository;
 
-        //String jwt = req...
+    private final JwtUtil jwtUtil;
 
-        //if (category.getName().isEmpty()) {
-        //    category.setIsDefault(true);
-        //} else {
-        //    category.setIsDefault(false);
-        //}
+    @Override
+    public CategoryResponseDto save(CategoryRequestDto categoryRequestDto, String token) {
 
-        //category.setUserIdCreate(jwt.extractUserId);
+        Long id = jwtUtil.extractUserId(token.substring(7));
+        User user = userRepository.findById(id).get();
+
+        categoryRequestDto.setUserIdCreate(id);
+
+        if(user.getRole().getName().toString().equals("ADMIN")){
+            categoryRequestDto.setIsDefault(true);
+        } else {
+            categoryRequestDto.setIsDefault(false);
+        }
 
         log.info("Categoría agregada correctamente");
         return super.save(categoryRequestDto);
@@ -45,10 +53,20 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
 
     //agregar lógica usuario
     @Override
-    public CategoryResponseDto update(CategoryUpdateDto categoryUpdateDto, Long id){
-        categoryUpdateDto.setId(id);
-        categoryRepository.save(categoryMapper.updateToEntity(categoryUpdateDto));
-        log.info("Categoría actualizada correctamente");
+    public CategoryResponseDto update(CategoryUpdateDto categoryUpdateDto, Long id, String token) {
+
+        Long userId = jwtUtil.extractUserId(token.substring(7));
+        User user = userRepository.findById(id).get();
+
+        Category category = categoryRepository.findById(id).get();
+
+        if (user.getRole().getName().equals("ADMIN") || userId == category.getUserIdCreate()) {
+            categoryUpdateDto.setId(id);
+            categoryRepository.save(categoryMapper.updateToEntity(categoryUpdateDto));
+            log.info("Categoría actualizada correctamente");
+        } else {
+            //exception
+        }
         return getById(id);
     }
 

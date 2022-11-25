@@ -28,7 +28,7 @@ spring:
     password: 43824382
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: 'update'
 
   mvc:
     pathmatch:

@@ -42,9 +42,9 @@ public class ExpenseController {
     }
 
     @ApiOperation(value = "Find information by User id for home", hidden = true)
-    @GetMapping("/user/home/{userId}")
-    public  ResponseEntity<?> getForHome(@PathVariable Long userId){
-        return responseBuilder(HttpStatus.OK, expenseService.getForHome(userId));
+    @GetMapping("/user/home")
+    public  ResponseEntity<?> getForHome(@RequestHeader("Authorization") String token){
+        return responseBuilder(HttpStatus.OK, expenseService.getForHome(token));
     }
 
     @ApiOperation(value = "Find balance by User id for Category name", hidden = true)

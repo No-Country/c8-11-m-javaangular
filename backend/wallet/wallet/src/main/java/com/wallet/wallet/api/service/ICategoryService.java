@@ -10,12 +10,14 @@ import java.util.List;
 
 public interface ICategoryService extends GenericServiceAPI<Category, CategoryResponseDto, CategoryRequestDto, Long> {
 
-    CategoryResponseDto update(CategoryUpdateDto categoryUpdateDto, Long id);
+    CategoryResponseDto update(CategoryUpdateDto categoryUpdateDto, Long id, String token);
 
     CategoryResponseDto getById(Long Id);
 
     List<CategoryResponseDto> getAll();
 
     List<CategoryResponseDto> getAllByUserId(Long userId);
+
+    CategoryResponseDto save(CategoryRequestDto categoryRequestDto, String token);
 
 }

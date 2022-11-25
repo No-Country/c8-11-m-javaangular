@@ -7,6 +7,8 @@ import java.util.List;
 @Data
 public class HomeResponseDto {
 
+    private String firstName;
+
     private Long currencyId;
 
     private Long lenguageId;

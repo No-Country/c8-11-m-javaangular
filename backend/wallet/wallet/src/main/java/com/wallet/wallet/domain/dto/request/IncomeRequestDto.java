@@ -25,5 +25,5 @@ public class IncomeRequestDto {
 
     private EIncome type;
 
-    private Boolean deleted = Boolean.FALSE;;
+    private Boolean deleted = Boolean.FALSE;
 }

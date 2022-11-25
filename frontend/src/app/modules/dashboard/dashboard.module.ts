@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -32,7 +33,8 @@ import { DropComponent } from './componentes/drop/drop.component'
     NgbModule,
     RouterModule,
     LayoutCoreModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
   ]

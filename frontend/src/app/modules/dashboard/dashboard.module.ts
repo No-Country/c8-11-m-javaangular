@@ -17,6 +17,8 @@ import { EstadisticasComponent } from './pages/estadisticas/estadisticas.compone
 import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
 import { EditarComponent } from './botones/editar/editar.component';
 import { BorrarComponent } from './botones/borrar/borrar.component';
+import { CommonModule } from '@angular/common'
+
 @NgModule({
   declarations: [
     GeneralComponent,
@@ -29,13 +31,14 @@ import { BorrarComponent } from './botones/borrar/borrar.component';
     EstadisticasComponent,
     ConfiguracionComponent,
     EditarComponent,
-    BorrarComponent,
+    BorrarComponent
   ],
   imports: [
     DashboardRoutingModule,
     NgbModule,
     RouterModule,
-    LayoutCoreModule
+    LayoutCoreModule,
+    CommonModule
   ],
   exports: [
   ]

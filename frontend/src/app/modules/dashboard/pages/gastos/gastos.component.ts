@@ -9,6 +9,7 @@ import { FechaService } from '../../services/fecha.service';
 export class GastosComponent implements OnInit {
 
   fecha:any;
+  actuco:boolean=true;
 
   constructor(private fechaService: FechaService) { }
 

@@ -5,7 +5,11 @@
     <div class="seleccion">
         <div class="selector-left">
             <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto">+ Nuevo Gasto</button>            
-        </div>         
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" (click)="actuco=!actuco">Hola</button>
+        </div>
+
         <div class="selector-right">
             <select class="btn btn-light" name="select">
                 <option value="value1">Mas recientes</option>
@@ -15,7 +19,9 @@
             </select>
             <!----
             <button class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</button>---->
-            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>                                                
+            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button> 
+            <!----------------------------------------------->  
+                                                       
         </div>                                     
     </div>
     <div class="collapse" id="collapseExample">
@@ -36,13 +42,13 @@
                 <button class="btn btn-success">Todos</button>
             </div>          
         </div>
-      </div> 
+    </div> 
     
       
 
-
-    <div class="tabla-gastos">
-        <div class="table-responsive">
+    <!----TABLA---->
+    <div *ngIf="actuco" class="tabla-gastos">        
+        <div  class="table-responsive">
             <table class="table table-sm">
                 <thead>
                     <tr class="p-3">
@@ -140,7 +146,165 @@
                     </tr>                   
                 </tbody>
             </table>
+        </div>        
+    </div>
+    <!----TARJETAS------>
+    <div *ngIf="!actuco" class="tabla-gastos-tar">
+        <div class="tarjeta-titulo">
+            <div class="fecha-tar">
+                <p>Fecha</p>
+            </div>
+            <div class="cate-tar">
+                <p>Categoria</p>
+            </div>
+            <div class="descri-tar">
+                <p>Decripción</p>
+            </div>
+            <div class="importe-tar">
+                <p>Importe</p>
+            </div>
+            <div class="botones-tar">
+                
+            </div>
         </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Alimentos</span>
+            </div>
+            <div class="descri-tar">
+                <p>Supermercado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+
+
     </div>
 </section>
 

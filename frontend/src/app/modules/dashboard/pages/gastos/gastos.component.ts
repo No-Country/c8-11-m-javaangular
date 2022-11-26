@@ -22,6 +22,71 @@ export class GastosComponent implements OnInit {
   editId:number=0;
   borrarId:number=0; 
 
+  lista2Gastos = [
+    {
+        fecha:'1980-11-12',
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:2500
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Servicios',
+        descripcion:'Electricidad',
+        importe:3000
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Alimentos',
+        descripcion:'Verduleria',
+        importe:5000
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Movilidad',
+        descripcion:'Arreglo Auto',
+        importe:20000
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:8500
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Varios',
+        descripcion:'Ropa Super Cool',
+        importe:4500
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Servicios',
+        descripcion:'Gas',
+        importe:4000
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:2500
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Varios',
+        descripcion:'Celular',
+        importe:50000
+    },
+    {
+        fecha:'1980-11-12',
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:2500
+    }
+  ];
+
+  
+
   constructor(private fechaService: FechaService,private gastoService:GastosService) {}
   
 

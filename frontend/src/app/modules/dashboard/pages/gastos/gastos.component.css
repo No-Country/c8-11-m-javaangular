@@ -146,3 +146,10 @@ app-editar, app-borrar {
 app-ordenar {
     margin-right: 5px;
 }
+
+.amarillo {
+    color:yellow
+}
+.rojo {
+    color:red
+}

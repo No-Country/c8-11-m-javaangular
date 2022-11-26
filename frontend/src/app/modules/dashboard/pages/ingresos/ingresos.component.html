@@ -31,12 +31,18 @@
                 <button class="btn btn-danger">Diario</button>
             </div>         
         </div>
-      </div> 
+    </div>
+
+    <!----Elección de vistas----->
+    <nav class="vistas" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
+          <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
+        </ul>
+    </nav>
     
-      
-
-
-    <div class="tabla-gastos">
+    <!-----Vista TABLA----->
+    <div *ngIf="active" class="tabla-gastos">
         <div class="table-responsive">
             <table class="table table-sm">
                 <thead>
@@ -101,6 +107,147 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <!-----Vista TARJETA---->
+    <div *ngIf="!active" class="tabla-gastos">        
+        <div class="tarjeta-titulo">
+            <div class="fecha-tar">
+                <p>Fecha</p>
+            </div>
+            <div class="cate-tar">
+                <p>Categoría</p>
+            </div>
+            <div class="descri-tar">
+                <p>Descripción</p>
+            </div>
+            <div class="importe-tar">
+                <p>Importe</p>
+            </div>
+            <div class="botones-tar">
+                <p>Editar/Eliminar</p>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Anual</span>
+            </div>
+            <div class="descri-tar">
+                <p>Acciones en CHARTA</p>
+            </div>
+            <div class="importe-tar">
+                <span>$1500000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-primary">Mensual</span>
+            </div>
+            <div class="descri-tar">
+                <p>Sueldo</p>
+            </div>
+            <div class="importe-tar">
+                <span>$155000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-warning">Anual</span>
+            </div>
+            <div class="descri-tar">
+                <p>Acciones en Twitter</p>
+            </div>
+            <div class="importe-tar">
+                <span>$5000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-primary">Mensual</span>
+            </div>
+            <div class="descri-tar">
+                <p>Sueldo 2</p>
+            </div>
+            <div class="importe-tar">
+                <span>$205000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-success">Diario</span>
+            </div>
+            <div class="descri-tar">
+                <p>Dinero encontrado</p>
+            </div>
+            <div class="importe-tar">
+                <span>$50000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-success">Diario</span>
+            </div>
+            <div class="descri-tar">
+                <p>Regalo de la tia</p>
+            </div>
+            <div class="importe-tar">
+                <span>$25000</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        <div class="tarjeta">
+            <div class="fecha-tar">
+                <p>14/11/2022</p>
+            </div>
+            <div class="cate-tar">
+                <span class="p-2 badge text-bg-info">Semanal</span>
+            </div>
+            <div class="descri-tar">
+                <p>Loteria</p>
+            </div>
+            <div class="importe-tar">
+                <span>$500</span>
+            </div>
+            <div class="botones-tar">
+                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+            </div>
+        </div>
+        
     </div>
 </section>
 

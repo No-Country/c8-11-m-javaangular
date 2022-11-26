@@ -102,3 +102,50 @@ app-editar, app-borrar {
 .titulo-modal-borrar {
     margin:15px
 }
+
+
+.tabla-gastos-tar {
+    padding:5px    
+}
+.tarjeta-titulo {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    border:2px solid #8c8c8c;
+    width:100%;
+    height:70px;
+    padding:20px;
+    margin-bottom:10px;
+    background:#FAFAFA;
+}
+.tarjeta {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    border:2px solid #c7c5c5;
+    border-radius:10px;
+    width:100%;/*
+    height:70px;*/
+    padding:20px;
+    margin-bottom:10px
+}
+.tarjeta div {
+    margin:0 5px
+}
+
+.vistas {
+    margin-bottom:5px
+}
+.vistas ul li {
+    margin-right:5px
+}
+.vista {
+    background:#5D21D2
+}
+#hola {
+    background:red
+}
+
+app-ordenar {
+    margin-right: 5px;
+}

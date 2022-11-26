@@ -129,3 +129,20 @@ app-editar, app-borrar {
 .tarjeta div {
     margin:0 5px
 }
+
+.vistas {
+    margin-bottom:5px
+}
+.vistas ul li {
+    margin-right:5px
+}
+.vista {
+    background:#5D21D2
+}
+#hola {
+    background:red
+}
+
+app-ordenar {
+    margin-right: 5px;
+}

@@ -5,20 +5,18 @@
     <div class="seleccion">
         <div class="selector-left">
             <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="openGasto()">+ Nuevo Gasto</button>            
-        </div>
-        <div>
-            
-            <button type="button" class="btn btn-primary" (click)="active=!active">Hola</button>
-        </div>
+        </div>        
 
-        <div class="selector-right">            
+        <div class="selector-right">  
+                  
             <select class="btn btn-light" name="select">
                 <option value="value1">Mas recientes</option>
                 <option value="value2">Mas antiguos</option>
                 <option value="value3">Mayor precio</option>
                 <option value="value3">Menor precio</option>
-            </select> 
-            <app-drop></app-drop>  
+            </select>
+            <app-ordenar></app-ordenar>
+            <app-filtrar></app-filtrar>  
                      
             <!----
             <button class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</button>---->
@@ -28,6 +26,7 @@
                                                        
         </div>                                     
     </div>
+    <!----
     <div class="collapse" id="collapseExample">
         <div class="filtros card card-body">
             <div>
@@ -46,9 +45,15 @@
                 <button class="btn btn-success">Todos</button>
             </div>          
         </div>
-    </div> 
-    
-      
+    </div>---->
+
+    <!-----Elección de vistas----->
+    <nav class="vistas" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
+          <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
+        </ul>
+    </nav>     
 
     <!----TABLA---->
     <div *ngIf="active" class="tabla-gastos">        
@@ -153,22 +158,22 @@
         </div>        
     </div>
     <!----TARJETAS------>
-    <div *ngIf="!active" class="tabla-gastos-tar">
+    <div *ngIf="!active" class="tabla-gastos">        
         <div class="tarjeta-titulo">
             <div class="fecha-tar">
                 <p>Fecha</p>
             </div>
             <div class="cate-tar">
-                <p>Categoria</p>
+                <p>Categoría</p>
             </div>
             <div class="descri-tar">
-                <p>Decripción</p>
+                <p>Descripción</p>
             </div>
             <div class="importe-tar">
                 <p>Importe</p>
             </div>
             <div class="botones-tar">
-                
+                <p>Editar/Eliminar</p>
             </div>
         </div>
         <div class="tarjeta">

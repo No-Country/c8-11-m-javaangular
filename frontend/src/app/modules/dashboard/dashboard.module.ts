@@ -15,7 +15,9 @@ import { ConfiguracionComponent } from './pages/configuracion/configuracion.comp
 import { EditarComponent } from './botones/editar/editar.component';
 import { BorrarComponent } from './botones/borrar/borrar.component';
 import { CommonModule } from '@angular/common';
-import { DropComponent } from './componentes/drop/drop.component'
+import { DropComponent } from './componentes/drop/drop.component';
+import { OrdenarComponent } from './componentes/ordenar/ordenar.component';
+import { FiltrarComponent } from './componentes/filtrar/filtrar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { DropComponent } from './componentes/drop/drop.component'
     ConfiguracionComponent,
     EditarComponent,
     BorrarComponent,
-    DropComponent
+    DropComponent,
+    OrdenarComponent,
+    FiltrarComponent
   ],
   imports: [
     DashboardRoutingModule,

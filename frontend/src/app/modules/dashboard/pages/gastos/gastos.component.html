@@ -3,27 +3,26 @@
         <h2>Mis Gastos</h2>
     </div>
     <div class="seleccion">
+        <!----Nuevo Gasto Botón---->
         <div class="selector-left">
             <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="openGasto()">+ Nuevo Gasto</button>            
-        </div>        
-
-        <div class="selector-right">  
-                  
+        </div> 
+        <!----Selectores y filtros----->       
+        <div class="selector-right">
+            <!----                  
             <select class="btn btn-light" name="select">
                 <option value="value1">Mas recientes</option>
                 <option value="value2">Mas antiguos</option>
                 <option value="value3">Mayor precio</option>
                 <option value="value3">Menor precio</option>
-            </select>
+            </select>---->
             <app-ordenar></app-ordenar>
-            <app-filtrar></app-filtrar>  
-                     
+            <app-filtrar></app-filtrar>                     
             <!----
             <button class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</button>---->
             <!---
             <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button> --->
-            <!----------------------------------------------->  
-                                                       
+            <!----------------------------------------------->                        
         </div>                                     
     </div>
     <!----
@@ -160,8 +159,7 @@
             </table>
         </div>        
     </div>
-    --->
-
+    ---> 
     
     <div *ngIf="active" class="tabla-gastos">        
         <div  class="table-responsive">
@@ -388,12 +386,10 @@
                 </div>
             </div>
         </div>
-        
-        
-
-
     </div>
 </section>
+
+<!-----------MODALES------------>
 
 <!--MODAL NUEVO GASTO--->
 <div class="modal fade" id="nuevoGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

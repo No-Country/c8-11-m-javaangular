@@ -18,6 +18,9 @@ import { CommonModule } from '@angular/common';
 import { DropComponent } from './componentes/drop/drop.component';
 import { OrdenarComponent } from './componentes/ordenar/ordenar.component';
 import { FiltrarComponent } from './componentes/filtrar/filtrar.component';
+import { FiltrarIngresoComponent } from './componentes/filtrar-ingreso/filtrar-ingreso.component';
+import { PaginacionPipe } from './pipes/paginacion.pipe';
+import { PaginacionIngresoPipe } from './pipes/paginacion-ingreso.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { FiltrarComponent } from './componentes/filtrar/filtrar.component';
     BorrarComponent,
     DropComponent,
     OrdenarComponent,
-    FiltrarComponent
+    FiltrarComponent,
+    FiltrarIngresoComponent,
+    PaginacionPipe,
+    PaginacionIngresoPipe
   ],
   imports: [
     DashboardRoutingModule,

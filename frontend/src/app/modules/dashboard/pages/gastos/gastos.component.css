@@ -153,3 +153,8 @@ app-ordenar {
 .rojo {
     color:red
 }
+
+.vistas-paginas {
+    display:flex;
+    justify-content:space-between
+}

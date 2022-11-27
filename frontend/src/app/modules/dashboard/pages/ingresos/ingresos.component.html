@@ -3,9 +3,11 @@
         <h2>Mis Ingresos</h2>
     </div>
     <div class="seleccion">
+        <!-----BOTÓN NUEVO INGRESO------>
         <div class="selector-left">
             <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto">+ Nuevo Ingreso</button>            
-        </div>         
+        </div>   
+        <!-----SELECTORES Y FILTROS---->      
         <div class="selector-right">
             <select class="btn btn-light" name="select">
                 <option value="value1">Mas recientes</option>
@@ -13,9 +15,12 @@
                 <option value="value3">Mayor precio</option>
                 <option value="value3">Menor precio</option>
             </select>
-            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>                                                
+            <!------
+            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>---->
+            <app-filtrar-ingreso></app-filtrar-ingreso>                                                
         </div>                                     
     </div>
+    <!-----
     <div class="collapse" id="collapseExample">
         <div class="filtros card card-body">
             <div>
@@ -31,17 +36,28 @@
                 <button class="btn btn-danger">Diario</button>
             </div>         
         </div>
-    </div>
+    </div>--->
 
-    <!----Elección de vistas----->
-    <nav class="vistas" aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
-          <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
-        </ul>
-    </nav>
+    <!-----ELECCION DE VISTAS Y PAGINACION----->
+    <div class="vistas-paginas">
+        <!-----Elección de vistas----->
+        <nav class="vistas" aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
+              <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
+            </ul>
+        </nav>
+        <!----Elección de páginas---->
+        <nav class="vistas" aria-label="Page navigation example">
+            <ul class="pagination">
+            <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
+            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+5>lista2Ingresos.length"><i class="bi bi-arrow-right"></i></button></li>
+            </ul>
+        </nav>
+    </div>
     
     <!-----Vista TABLA----->
+    <!------
     <div *ngIf="active" class="tabla-gastos">
         <div class="table-responsive">
             <table class="table table-sm">
@@ -108,8 +124,35 @@
             </table>
         </div>
     </div>
+    --->
+    <div *ngIf="active" class="tabla-gastos">        
+        <div  class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="p-3">
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of lista2Ingresos | paginacion:page">
+                    <tr class="p-2">
+                        <td>{{item.fecha}}</td>
+                        <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span></td>
+                        <td>{{item.descripcion}}</td>
+                        <td>${{item.importe}}</td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
+                    </tr>                                      
+                </tbody>
+            </table>
+        </div>        
+    </div>
 
     <!-----Vista TARJETA---->
+    <!----Estática----->
+    <!-------
     <div *ngIf="!active" class="tabla-gastos">        
         <div class="tarjeta-titulo">
             <div class="fecha-tar">
@@ -248,8 +291,51 @@
             </div>
         </div>
         
+    </div>---->
+
+    <div *ngIf="!active" class="tabla-gastos">        
+        <div class="tarjeta-titulo">
+            <div class="fecha-tar">
+                <p>Fecha</p>
+            </div>
+            <div class="cate-tar">
+                <p>Categoría</p>
+            </div>
+            <div class="descri-tar">
+                <p>Descripción</p>
+            </div>
+            <div class="importe-tar">
+                <p>Importe</p>
+            </div>
+            <div class="botones-tar">
+                <p>Editar/Eliminar</p>
+            </div>
+        </div>
+        <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacion:page">
+            <div class="tarjeta">
+                <div class="fecha-tar">
+                    <p>{{item.fecha}}</p>
+                </div>
+                <div class="cate-tar">
+                    <span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span>
+                </div>
+                <div class="descri-tar">
+                    <p>{{item.descripcion}}</p>
+                </div>
+                <div class="importe-tar">
+                    <span>${{item.importe}}</span>
+                </div>
+                <div class="botones-tar">
+                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+                </div>
+            </div>
+        </div>
+        
+        
     </div>
 </section>
+
+<!------------------MODALES---------------------->
 
 <!--MODAL NUEVO GASTO--->
 <div class="modal fade" id="nuevoGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

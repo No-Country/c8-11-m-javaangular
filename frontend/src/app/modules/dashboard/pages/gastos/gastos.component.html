@@ -46,13 +46,26 @@
         </div>
     </div>---->
 
-    <!-----Elección de vistas----->
-    <nav class="vistas" aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
-          <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
-        </ul>
-    </nav>     
+    <div class="vistas-paginas">
+        <!-----Elección de vistas----->
+        <nav class="vistas" aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
+              <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
+            </ul>
+        </nav>
+        <!----elección de páginas---->
+        <nav class="vistas" aria-label="Page navigation example">
+            <ul class="pagination">
+            <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="(lista2Gastos | paginacion:page-1).length===0"><i class="bi bi-arrow-left"></i></button></li>
+            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="(lista2Gastos | paginacion:page+1).length===0"><i class="bi bi-arrow-right"></i></button></li>
+            </ul>
+        </nav>
+    </div>
+    
+        
+    
+     
 
     <!----TABLA---->
     <!-----Estatica---->
@@ -173,7 +186,7 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of lista2Gastos">
+                <tbody *ngFor="let item of lista2Gastos | paginacion:page">
                     <tr class="p-2">
                         <td>{{item.fecha}}</td>
                         <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>

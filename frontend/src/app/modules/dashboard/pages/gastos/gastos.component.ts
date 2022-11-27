@@ -20,7 +20,10 @@ export class GastosComponent implements OnInit {
   newCategoria:string="";
   newImporte:number=0; 
   editId:number=0;
-  borrarId:number=0; 
+  borrarId:number=0;
+  
+  // Paginación
+  page:number=0;
 
   lista2Gastos = [
     {
@@ -174,7 +177,7 @@ export class GastosComponent implements OnInit {
       importe:this.newImporte
     }
     console.log(nuevoGasto)
-    console.log(nuevoGasto.fecha)
+    console.log(nuevoGasto.fecha)/*
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       data=>{},
       (error) => {
@@ -183,7 +186,7 @@ export class GastosComponent implements OnInit {
       ()=>{
         this.obtenerGastos();
         this.newDescripcion="Hola"
-      })
+      })*/
   }
 
   /*--------EDITAR GASTO----------------------------------------------*/
@@ -193,8 +196,8 @@ export class GastosComponent implements OnInit {
     const editableGasto = gasto;
     this.editId = id;  
     
-    /* Mostrar datos en el modal */
-    this.newFecha = editableGasto.fecha;
+    /* Mostrar datos en el modal *//*
+    this.newFecha = editableGasto.fecha;*/
     this.newCategoria = editableGasto.categoria;
     this.newDescripcion = editableGasto.descripcion;
     this.newImporte = editableGasto.importe;
@@ -215,13 +218,13 @@ export class GastosComponent implements OnInit {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
       });
-
+/*
     this.gastoService.actualizarGasto(editId,nuevoGasto,headers).subscribe(
       data=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerGastos()})
+      ()=>{this.obtenerGastos()})*/
   }
 
   /*------BORRAR EDUCACION---------------------------------------------*/
@@ -240,6 +243,13 @@ export class GastosComponent implements OnInit {
         alert("Algo ha fallado: " + error);
       },
       ()=>{this.obtenerGastos()})
+  }
+
+  nextPage(){
+    this.page = this.page +5;
+  }
+  previusPage(){
+    this.page = this.page -5;
   }
 
 

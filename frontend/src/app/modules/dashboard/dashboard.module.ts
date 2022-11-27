@@ -19,6 +19,7 @@ import { DropComponent } from './componentes/drop/drop.component';
 import { OrdenarComponent } from './componentes/ordenar/ordenar.component';
 import { FiltrarComponent } from './componentes/filtrar/filtrar.component';
 import { FiltrarIngresoComponent } from './componentes/filtrar-ingreso/filtrar-ingreso.component';
+import { PaginacionPipe } from './pipes/paginacion.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FiltrarIngresoComponent } from './componentes/filtrar-ingreso/filtrar-i
     DropComponent,
     OrdenarComponent,
     FiltrarComponent,
-    FiltrarIngresoComponent
+    FiltrarIngresoComponent,
+    PaginacionPipe
   ],
   imports: [
     DashboardRoutingModule,

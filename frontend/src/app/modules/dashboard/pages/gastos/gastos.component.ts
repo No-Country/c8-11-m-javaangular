@@ -28,12 +28,6 @@ export class GastosComponent implements OnInit {
   lista2Gastos = [
     {
         fecha:'1980-11-12',
-        categoria:'Alimentos',
-        descripcion:'Supermercado',
-        importe:2500
-    },
-    {
-        fecha:'1980-11-12',
         categoria:'Servicios',
         descripcion:'Electricidad',
         importe:3000

@@ -38,6 +38,7 @@
         </div>
     </div>--->
 
+    <!-----ELECCION DE VISTAS Y PAGINACION----->
     <div class="vistas-paginas">
         <!-----Elección de vistas----->
         <nav class="vistas" aria-label="Page navigation example">
@@ -46,11 +47,11 @@
               <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
             </ul>
         </nav>
-        <!----elección de páginas---->
+        <!----Elección de páginas---->
         <nav class="vistas" aria-label="Page navigation example">
             <ul class="pagination">
-            <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="(lista2Ingresos | paginacion:page-1).length===0"><i class="bi bi-arrow-left"></i></button></li>
-            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="(lista2Ingresos | paginacion:page+1).length===0"><i class="bi bi-arrow-right"></i></button></li>
+            <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
+            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+5>lista2Ingresos.length"><i class="bi bi-arrow-right"></i></button></li>
             </ul>
         </nav>
     </div>
@@ -334,7 +335,7 @@
     </div>
 </section>
 
-<!------------------MODALESS---------------------->
+<!------------------MODALES---------------------->
 
 <!--MODAL NUEVO GASTO--->
 <div class="modal fade" id="nuevoGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

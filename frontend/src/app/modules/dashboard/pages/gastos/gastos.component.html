@@ -57,8 +57,8 @@
         <!----elección de páginas---->
         <nav class="vistas" aria-label="Page navigation example">
             <ul class="pagination">
-            <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="(lista2Gastos | paginacion:page-1).length===0"><i class="bi bi-arrow-left"></i></button></li>
-            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="(lista2Gastos | paginacion:page+1).length===0"><i class="bi bi-arrow-right"></i></button></li>
+            <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
+            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+5>lista2Gastos.length"><i class="bi bi-arrow-right"></i></button></li>
             </ul>
         </nav>
     </div>

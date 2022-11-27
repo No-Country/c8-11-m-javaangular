@@ -149,3 +149,9 @@ app-editar, app-borrar {
 app-ordenar {
     margin-right: 5px;
 }
+
+
+.vistas-paginas {
+    display:flex;
+    justify-content:space-between
+}

@@ -380,7 +380,7 @@
                 <p>Editar/Eliminar</p>
             </div>
         </div>
-        <div class="tarjetas" *ngFor="let item of lista2Gastos">
+        <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page">
             <div class="tarjeta">
                 <div class="fecha-tar">
                     <p>{{item.fecha}}</p>

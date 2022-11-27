@@ -20,6 +20,7 @@ import { OrdenarComponent } from './componentes/ordenar/ordenar.component';
 import { FiltrarComponent } from './componentes/filtrar/filtrar.component';
 import { FiltrarIngresoComponent } from './componentes/filtrar-ingreso/filtrar-ingreso.component';
 import { PaginacionPipe } from './pipes/paginacion.pipe';
+import { PaginacionIngresoPipe } from './pipes/paginacion-ingreso.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PaginacionPipe } from './pipes/paginacion.pipe';
     OrdenarComponent,
     FiltrarComponent,
     FiltrarIngresoComponent,
-    PaginacionPipe
+    PaginacionPipe,
+    PaginacionIngresoPipe
   ],
   imports: [
     DashboardRoutingModule,

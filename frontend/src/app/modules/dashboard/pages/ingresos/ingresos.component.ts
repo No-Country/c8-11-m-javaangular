@@ -11,6 +11,9 @@ export class IngresosComponent implements OnInit {
   fecha:any;
   active:boolean=true;
 
+  // Paginación
+  page:number=0;
+
   lista2Ingresos = [
     {
         fecha:'1980-11-12',
@@ -76,6 +79,13 @@ export class IngresosComponent implements OnInit {
   guardarIngreso(){
     console.log("Hola")
 
+  }
+
+  nextPage(){
+    this.page = this.page +5;
+  }
+  previusPage(){
+    this.page = this.page -5;
   }
 
 }

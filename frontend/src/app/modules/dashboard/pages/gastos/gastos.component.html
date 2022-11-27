@@ -17,7 +17,8 @@
                 <option value="value3">Menor precio</option>
             </select>---->
             <app-ordenar></app-ordenar>
-            <app-filtrar></app-filtrar>                     
+            <app-filtrar></app-filtrar> 
+            <button (click)="mayorPrecio()">Mayor</button>                    
             <!----
             <button class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</button>---->
             <!---
@@ -186,7 +187,7 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of lista2Gastos | paginacion:page">
+                <tbody *ngFor="let item of lista | paginacion:page">
                     <tr class="p-2">
                         <td>{{item.fecha}}</td>
                         <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>

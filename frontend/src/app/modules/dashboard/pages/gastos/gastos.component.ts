@@ -25,6 +25,9 @@ export class GastosComponent implements OnInit {
   // Paginación
   page:number=0;
 
+  lista:Gasto[]=[];
+  datos:any;
+
   lista2Gastos = [
     {
         fecha:'1980-11-12',
@@ -150,6 +153,7 @@ export class GastosComponent implements OnInit {
     this.fechaActual = this.fechaService.actual();
     this.obtenerGastos();
     this.newFecha = new Date();
+    this.pintarDatos(this.lista2Gastos)
   }
 
   // Obtener Gastos
@@ -157,6 +161,10 @@ export class GastosComponent implements OnInit {
     this.gastoService.obtenerGastos().subscribe(data =>{
       this.listaGastos=data;
     });
+  }
+
+  pintarDatos(datos:any){
+    this.lista = datos;
   }
 
   openGasto(){
@@ -239,11 +247,19 @@ export class GastosComponent implements OnInit {
       ()=>{this.obtenerGastos()})
   }
 
+  // BOTONES DE PAGINACION
   nextPage(){
     this.page = this.page +5;
   }
   previusPage(){
     this.page = this.page -5;
+  }
+
+  // METODOS DE ORDENAMIENTO
+  mayorPrecio(){
+    this.lista = this.lista2Gastos.sort((a,b)=>b.importe-a.importe);
+    console.log(this.lista);
+    this.pintarDatos(this.lista);
   }
 
 

@@ -6,8 +6,8 @@ import { Gasto } from '../model/gasto';
 })
 export class PaginacionPipe implements PipeTransform {
 
-  transform(lista2Gastos: Gasto[], page:number=0): Gasto[] {
-    return lista2Gastos.slice(page,page+5);
+  transform(lista: Gasto[], page:number=0): Gasto[] {
+    return lista.slice(page,page+5);
   }
 
 }

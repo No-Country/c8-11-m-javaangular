@@ -41,7 +41,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
 
         categoryRequestDto.setUserIdCreate(id);
 
-        if(user.getRole().getName().toString().equals("ADMIN")){
+        if(user.getRole().name().equals("ADMIN")){
             categoryRequestDto.setIsDefault(true);
         } else {
             categoryRequestDto.setIsDefault(false);
@@ -60,7 +60,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
 
         Category category = categoryRepository.findById(id).get();
 
-        if (user.getRole().getName().equals("ADMIN") || userId == category.getUserIdCreate()) {
+        if (user.getRole().name().equals("ADMIN") || userId.equals(category.getUserIdCreate())) {
             categoryUpdateDto.setId(id);
             categoryRepository.save(categoryMapper.updateToEntity(categoryUpdateDto));
             log.info("Categoría actualizada correctamente");

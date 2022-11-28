@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-ordenar',
@@ -7,11 +8,26 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class OrdenarComponent implements OnInit {
 
-  @Output() evento = new EventEmitter<Event>();
+  @Output() mensaje = new EventEmitter<string>();
+  palabra:string="";
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  masRecientes(){
+    this.palabra = "recientes";
+    this.mensaje.emit("recientes");
+  }
+  masAntiguos(){
+    this.mensaje.emit("antiguos");
+  }
+  mayorImporte(){
+    this.mensaje.emit("mayores");
+  }
+  menorImporte(){
+    this.mensaje.emit("menores");
   }
 
 }

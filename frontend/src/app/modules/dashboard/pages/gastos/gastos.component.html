@@ -16,9 +16,8 @@
                 <option value="value3">Mayor precio</option>
                 <option value="value3">Menor precio</option>
             </select>---->
-            <app-ordenar></app-ordenar>
-            <app-filtrar></app-filtrar> 
-            <button (click)="mayorPrecio()">Mayor</button>                    
+            <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
+            <app-filtrar></app-filtrar>                  
             <!----
             <button class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</button>---->
             <!---
@@ -187,7 +186,7 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of lista | paginacion:page">
+                <tbody *ngFor="let item of lista | paginacion:page:orden">
                     <tr class="p-2">
                         <td>{{item.fecha}}</td>
                         <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
@@ -381,7 +380,7 @@
                 <p>Editar/Eliminar</p>
             </div>
         </div>
-        <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page">
+        <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page:orden">
             <div class="tarjeta">
                 <div class="fecha-tar">
                     <p>{{item.fecha}}</p>
@@ -414,7 +413,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <!------Formulario------->
-        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarGasto()" novalidate autocomplete="off" required>
+        <form  id="agregarGasto" class="add-form" (ngSubmit)="guardarGasto()" novalidate autocomplete="off" required>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
@@ -466,10 +465,10 @@
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>
                     <select id="categoria" type="text" name="categoria" class="form-control" [(ngModel)]="newCategoria" > 
-                        <option value="red">Servicios</option>
-                        <option value="orangered">Alimentos</option>
-                        <option value="yellow">Vehículos</option>
-                        <option value="green">Varios</option>                 
+                        <option value="Servicios">Servicios</option>
+                        <option value="Alimentos">Alimentos</option>
+                        <option value="Movilidad">Movilidad</option>
+                        <option value="Varios">Varios</option>                 
                     </select>
                 </div>
                 <div class="form-group">

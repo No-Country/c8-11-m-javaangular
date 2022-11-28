@@ -13,6 +13,7 @@ export class IngresosComponent implements OnInit {
 
   // Paginación
   page:number=0;
+  orden:string="";
 
   lista2Ingresos = [
     {

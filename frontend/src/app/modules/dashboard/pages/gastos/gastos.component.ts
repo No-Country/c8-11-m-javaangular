@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Gasto } from '../../model/gasto';
 import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
@@ -14,8 +15,9 @@ export class GastosComponent implements OnInit {
   fechaActual:any;
   active:boolean=true;
   listaGastos:Gasto[]=[];
-  nuevoGasto:Gasto[]=[];
-  newFecha:Date = new Date;
+  nuevoGasto:Gasto[]=[];/*
+  newFecha:Date = new Date;*/
+  newFecha:string=""
   newDescripcion:string="";
   newCategoria:string="";
   newImporte:number=0; 
@@ -24,162 +26,167 @@ export class GastosComponent implements OnInit {
   
   // Paginación
   page:number=0;
+  orden:string="recientes";
 
   lista:Gasto[]=[];
   datos:any;
+  form:FormGroup | undefined;
+  coco:boolean=true;
 
   lista2Gastos = [
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Servicios',
         descripcion:'Electricidad',
         importe:3000
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Alimentos',
         descripcion:'Verduleria',
         importe:5000
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Movilidad',
         descripcion:'Arreglo Auto',
         importe:20000
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Alimentos',
         descripcion:'Supermercado',
         importe:8500
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Varios',
         descripcion:'Ropa Super Cool',
         importe:4500
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Servicios',
         descripcion:'Gas',
         importe:4000
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Alimentos',
         descripcion:'Supermercado',
         importe:2500
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Varios',
         descripcion:'Celular',
         importe:50000
     },
     {
-        fecha:'1980-11-12',
+        fecha:'11-12-1980',
         categoria:'Alimentos',
         descripcion:'Supermercado',
         importe:2500
     },    
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Alimentos',
       descripcion:'Supermercado',
       importe:2500
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Servicios',
       descripcion:'Electricidad',
       importe:3000
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Alimentos',
       descripcion:'Verduleria',
       importe:5000
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Movilidad',
       descripcion:'Arreglo Auto',
       importe:20000
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Alimentos',
       descripcion:'Supermercado',
       importe:8500
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Varios',
       descripcion:'Ropa Super Cool',
       importe:4500
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Servicios',
       descripcion:'Gas',
       importe:4000
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Alimentos',
       descripcion:'Supermercado',
       importe:2500
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Varios',
       descripcion:'Celular',
       importe:50000
     },
     {
-      fecha:'1980-11-12',
+      fecha:'11-12-1980',
       categoria:'Alimentos',
       descripcion:'Supermercado',
       importe:2500
     }
-  ];
-  
+  ];  
 
   constructor(private fechaService: FechaService,private gastoService:GastosService) {}
   
-
   ngOnInit(): void {
     this.fechaActual = this.fechaService.actual();
-    this.obtenerGastos();
-    this.newFecha = new Date();
-    this.pintarDatos(this.lista2Gastos)
+    this.obtenerGastos();/*
+    this.newFecha = new Date();*/
+    this.pintarDatos(this.lista2Gastos)    
   }
+  
 
-  // Obtener Gastos
+  // Obtener Gastos de la API
   obtenerGastos(){
     this.gastoService.obtenerGastos().subscribe(data =>{
       this.listaGastos=data;
     });
   }
-
+  // Pintar Datos
   pintarDatos(datos:any){
     this.lista = datos;
   }
-
+  // Prueba
   openGasto(){
     this.fechaActual = this.fechaService.actual();
   }
-  // Guardar Gasto  
+  /*==================================================== */
+  /*--------------Modales Metodos CRUD-------------------*/
+
+  /*------------NUEVO GASTO---------------*/  
   guardarGasto(){
     const nuevoGasto = {
       fecha:this.newFecha,
       categoria:this.newCategoria,
-      descripcion:this.newCategoria,
+      descripcion:this.newDescripcion,
       importe:this.newImporte
     }
     console.log(nuevoGasto)
-    console.log(nuevoGasto.fecha)/*
+    console.log(nuevoGasto.fecha)
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       data=>{},
       (error) => {
@@ -188,18 +195,18 @@ export class GastosComponent implements OnInit {
       ()=>{
         this.obtenerGastos();
         this.newDescripcion="Hola"
-      })*/
+      })
   }
 
-  /*--------EDITAR GASTO----------------------------------------------*/
+  /*--------EDITAR GASTO------------*/
 
   //Boton abrir modal: Capturar Id y experiencia
   editableId(id:any,gasto: Gasto){
     const editableGasto = gasto;
     this.editId = id;  
     
-    /* Mostrar datos en el modal *//*
-    this.newFecha = editableGasto.fecha;*/
+    /* Mostrar datos en el modal */
+    this.newFecha = editableGasto.fecha;
     this.newCategoria = editableGasto.categoria;
     this.newDescripcion = editableGasto.descripcion;
     this.newImporte = editableGasto.importe;
@@ -211,7 +218,7 @@ export class GastosComponent implements OnInit {
     const nuevoGasto = {
       fecha:this.newFecha,
       categoria:this.newCategoria,
-      descripcion:this.newCategoria,
+      descripcion:this.newDescripcion,
       importe:this.newImporte
     }    
     console.log(nuevoGasto)
@@ -219,25 +226,25 @@ export class GastosComponent implements OnInit {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
-      });
-/*
+    });
+
     this.gastoService.actualizarGasto(editId,nuevoGasto,headers).subscribe(
       data=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerGastos()})*/
+      ()=>{this.obtenerGastos()})
   }
 
-  /*------BORRAR EDUCACION---------------------------------------------*/
+  /*------BORRAR GASTO-------------------*/
 
-  //BOTON abrir modal: Capturar Id y experiencia
+  //BOTON abrir modal: Capturar Id y GASTO
   trashId(id:any,gasto:Gasto[]): void{
     this.borrarId = id;   
     console.log(this.borrarId);  
   }
   
-  //BOTON ELIMINAR EDUCACION
+  //BOTON ELIMINAR GASTO
   eliminarEducacion(): void{
     this.gastoService.borrarGasto(this.borrarId).subscribe(
       data=>{},
@@ -247,6 +254,8 @@ export class GastosComponent implements OnInit {
       ()=>{this.obtenerGastos()})
   }
 
+  /*==================================================== */
+
   // BOTONES DE PAGINACION
   nextPage(){
     this.page = this.page +5;
@@ -255,12 +264,12 @@ export class GastosComponent implements OnInit {
     this.page = this.page -5;
   }
 
-  // METODOS DE ORDENAMIENTO
-  mayorPrecio(){
-    this.lista = this.lista2Gastos.sort((a,b)=>b.importe-a.importe);
-    console.log(this.lista);
-    this.pintarDatos(this.lista);
-  }
+  /*==================================================== */
 
+  // METODOS DE ORDENAMIENTO - (Recibiendo Input)
+  recibirOrden(mensaje:string){
+    this.orden = mensaje;
+    this.page=0
+  }
 
 }

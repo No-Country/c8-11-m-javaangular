@@ -137,7 +137,7 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of lista2Ingresos | paginacion:page">
+                <tbody *ngFor="let item of lista2Ingresos | paginacion:page:orden">
                     <tr class="p-2">
                         <td>{{item.fecha}}</td>
                         <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span></td>
@@ -311,7 +311,7 @@
                 <p>Editar/Eliminar</p>
             </div>
         </div>
-        <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacion:page">
+        <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacion:page:orden">
             <div class="tarjeta">
                 <div class="fecha-tar">
                     <p>{{item.fecha}}</p>

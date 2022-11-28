@@ -188,7 +188,7 @@
                 </thead>
                 <tbody *ngFor="let item of lista | paginacion:page:orden">
                     <tr class="p-2">
-                        <td>{{item.fecha}}</td>
+                        <td>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</td>
                         <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
                         <td>{{item.descripcion}}</td>
                         <td>${{item.importe}}</td>
@@ -383,7 +383,7 @@
         <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page:orden">
             <div class="tarjeta">
                 <div class="fecha-tar">
-                    <p>{{item.fecha}}</p>
+                    <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
                 </div>
                 <div class="cate-tar">
                     <span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span>

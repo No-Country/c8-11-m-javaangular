@@ -17,7 +17,7 @@ export class GastosComponent implements OnInit {
   listaGastos:Gasto[]=[];
   nuevoGasto:Gasto[]=[];/*
   newFecha:Date = new Date;*/
-  newFecha:string=""
+  newFecha:Date=new Date();
   newDescripcion:string="";
   newCategoria:string="";
   newImporte:number=0; 
@@ -26,13 +26,13 @@ export class GastosComponent implements OnInit {
   
   // Paginación
   page:number=0;
-  orden:string="recientes";
+  orden:string="";
 
   lista:Gasto[]=[];
   datos:any;
   form:FormGroup | undefined;
   coco:boolean=true;
-
+/*
   lista2Gastos = [
     {
         fecha:'11-12-1980',
@@ -148,7 +148,123 @@ export class GastosComponent implements OnInit {
       descripcion:'Supermercado',
       importe:2500
     }
-  ];  
+  ];  */
+  lista2Gastos = [
+    {
+        fecha:new Date("1978-10-2"),
+        categoria:'Servicios',
+        descripcion:'Electricidad',
+        importe:3000
+    },
+    {
+        fecha:new Date("2022-1-4"),
+        categoria:'Alimentos',
+        descripcion:'Verduleria',
+        importe:5000
+    },
+    {
+        fecha:new Date("2000-10-5"),
+        categoria:'Movilidad',
+        descripcion:'Arreglo Auto',
+        importe:20000
+    },
+    {
+        fecha:new Date("1980-4-11"),
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:8500
+    },
+    {
+        fecha:new Date("1980-10-11"),
+        categoria:'Varios',
+        descripcion:'Ropa Super Cool',
+        importe:4500
+    },
+    {
+        fecha:new Date("1980-10-11"),
+        categoria:'Servicios',
+        descripcion:'Gas',
+        importe:4000
+    },
+    {
+        fecha:new Date("1980-10-11"),
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:2500
+    },
+    {
+        fecha:new Date("1980-10-11"),
+        categoria:'Varios',
+        descripcion:'Celular',
+        importe:50000
+    },
+    {
+        fecha:new Date("1980-10-11"),
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:2500
+    },    
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Servicios',
+      descripcion:'Electricidad',
+      importe:3000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Verduleria',
+      importe:5000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Movilidad',
+      descripcion:'Arreglo Auto',
+      importe:20000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:8500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Varios',
+      descripcion:'Ropa Super Cool',
+      importe:4500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Servicios',
+      descripcion:'Gas',
+      importe:4000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Varios',
+      descripcion:'Celular',
+      importe:50000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
+    }
+  ];
 
   constructor(private fechaService: FechaService,private gastoService:GastosService) {}
   
@@ -186,7 +302,7 @@ export class GastosComponent implements OnInit {
       importe:this.newImporte
     }
     console.log(nuevoGasto)
-    console.log(nuevoGasto.fecha)
+    console.log(typeof nuevoGasto.fecha)
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       data=>{},
       (error) => {
@@ -194,8 +310,8 @@ export class GastosComponent implements OnInit {
       },
       ()=>{
         this.obtenerGastos();
-        this.newDescripcion="Hola"
-      })
+      }
+    )
   }
 
   /*--------EDITAR GASTO------------*/
@@ -269,7 +385,7 @@ export class GastosComponent implements OnInit {
   // METODOS DE ORDENAMIENTO - (Recibiendo Input)
   recibirOrden(mensaje:string){
     this.orden = mensaje;
-    this.page=0
+    this.page=0;
   }
 
 }

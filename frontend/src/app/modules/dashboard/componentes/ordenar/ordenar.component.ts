@@ -17,7 +17,6 @@ export class OrdenarComponent implements OnInit {
   }
 
   masRecientes(){
-    this.palabra = "recientes";
     this.mensaje.emit("recientes");
   }
   masAntiguos(){

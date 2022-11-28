@@ -9,15 +9,19 @@
         </div>   
         <!-----SELECTORES Y FILTROS---->      
         <div class="selector-right">
+            <!-----
             <select class="btn btn-light" name="select">
                 <option value="value1">Mas recientes</option>
                 <option value="value2">Mas antiguos</option>
                 <option value="value3">Mayor precio</option>
                 <option value="value3">Menor precio</option>
-            </select>
+            </select>--->
             <!------
             <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>---->
-            <app-filtrar-ingreso></app-filtrar-ingreso>                                                
+            <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
+            <app-filtrar-ingreso></app-filtrar-ingreso> 
+            <!---- 
+            <button (click)="compararFechas()">Comparar fechas</button>           ---->                                   
         </div>                                     
     </div>
     <!-----
@@ -137,7 +141,7 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of lista2Ingresos | paginacion:page:orden">
+                <tbody *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
                     <tr class="p-2">
                         <td>{{item.fecha}}</td>
                         <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span></td>
@@ -311,7 +315,7 @@
                 <p>Editar/Eliminar</p>
             </div>
         </div>
-        <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacion:page:orden">
+        <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
             <div class="tarjeta">
                 <div class="fecha-tar">
                     <p>{{item.fecha}}</p>
@@ -343,31 +347,31 @@
       <div class="modal-content modal-agregar">
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">NUEVO INGRESO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="fecha=newFecha"></button>
         </div>
         <!------Formulario------->
         <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" value={{fecha}} name="marca" class="form-control"  required>
+                    <input id="fechaNuevoIngreso" type="date"  name="marca" class="form-control" [(ngModel)]="newFecha" value={{fecha}} required>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
-                    <select id="categoria" type="text" name="categoria" class="form-control"> 
-                        <option value="red">Anual</option>
-                        <option value="orangered">Mensual</option>
-                        <option value="yellow">Semanal</option>
-                        <option value="green">Diario</option>                   
+                    <select id="categoria" type="text" name="categoria" class="form-control" [(ngModel)]="newCategoria"> 
+                        <option value="Anual">Anual</option>
+                        <option value="Mensual">Mensual</option>
+                        <option value="Semanal">Semanal</option>
+                        <option value="Diario">Diario</option>                   
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input id="importe" type="number" name="importe" class="form-control"  required>
+                    <input id="importe" type="number" name="importe" class="form-control" [(ngModel)]="newImporte" required>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input id="descripcion" type="text" name="descripcion" class="form-control" >
+                    <input id="descripcion" type="text" name="descripcion" class="form-control" [(ngModel)]="newDescripcion">
                 </div>
             </div>
             <div class="modal-footer botones">

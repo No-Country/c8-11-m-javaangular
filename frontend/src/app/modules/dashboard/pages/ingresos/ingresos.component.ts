@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Ingreso } from '../../model/ingreso';
 import { FechaService } from '../../services/fecha.service';
 
 @Component({
@@ -10,6 +11,12 @@ export class IngresosComponent implements OnInit {
 
   fecha:any;
   active:boolean=true;
+
+  nuevoIngreso:Ingreso[]=[];
+  newFecha:Date=new Date();
+  newCategoria:string="";
+  newDescripcion:string="";
+  newImporte?:number;
 
   // Paginación
   page:number=0;
@@ -23,7 +30,7 @@ export class IngresosComponent implements OnInit {
         importe:2500000
     },
     {
-        fecha:'1980-11-12',
+        fecha:'2022-11-28',
         categoria:'Anual',
         descripcion:'Acciones en twitter',
         importe:300
@@ -71,15 +78,22 @@ export class IngresosComponent implements OnInit {
         importe:50000
     }
   ];
+ 
   
   constructor(private fechaService: FechaService) { }
 
   ngOnInit(): void {
     this.fecha = this.fechaService.actual()
   }
-  guardarIngreso(){
-    console.log("Hola")
-
+  guardarIngreso(){    
+    const nuevoIngreso = {      
+      fecha:this.newFecha,
+      categoria:this.newCategoria,
+      descripcion:this.newDescripcion,
+      importe:this.newImporte
+    }
+    console.log(nuevoIngreso);
+    console.log(new Date(this.fechaService.actual()));
   }
 
   nextPage(){
@@ -87,6 +101,22 @@ export class IngresosComponent implements OnInit {
   }
   previusPage(){
     this.page = this.page -5;
+  }
+
+  // METODOS DE ORDENAMIENTO - (Recibiendo Input)
+  recibirOrden(mensaje:string){
+    this.orden = mensaje;
+    this.page=0
+  }
+
+  // compararFechas
+
+  compararFechas(){
+    const fecha1 = this.lista2Ingresos[0].fecha;
+    const fecha2 = this.lista2Ingresos[1].fecha;
+    console.log(fecha1);
+    console.log(fecha2);
+    console.log(fecha1<fecha2)
   }
 
 }

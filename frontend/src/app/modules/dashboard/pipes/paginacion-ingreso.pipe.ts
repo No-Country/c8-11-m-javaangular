@@ -6,8 +6,20 @@ import { Ingreso } from '../model/ingreso';
 })
 export class PaginacionIngresoPipe implements PipeTransform {
 
-  transform(lista2Ingresos: Ingreso[], page:number=0): Ingreso[] {
-    return lista2Ingresos.slice(page,page+5);
+  transform(lista: Ingreso[], page:number=0,orden:string="recientes"): Ingreso[] {
+    
+    if (orden=="recientes"){      
+      return lista.slice(page,page+5);
+    } else if (orden=="mayores"){
+        const listaFiltrada = lista.sort((a,b)=>b.importe-a.importe);
+    } else if ("menores"){
+        const listaFiltrada = lista.sort((a,b)=>a.importe-b.importe);
+    } else {
+       return lista
+    }
+    return lista.slice(page,page+5); 
+
+    
   }
 
 }

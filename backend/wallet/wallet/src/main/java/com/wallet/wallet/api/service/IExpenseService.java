@@ -16,17 +16,21 @@ import java.util.Optional;
 
 public interface IExpenseService extends GenericServiceAPI<Expense, ExpenseResponseDto, ExpenseRequestDto, Long> {
 
-    List<ExpenseResponseDto> getAllByUserId(Long userId);
+    ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto,String token);
 
-    Double getBalanceMonthlyByUserId(Long userId, Integer month, Integer year);
+    List<ExpenseResponseDto> getAllByUserId(String token);
+
+    Double getBalanceMonthlyByUserId(List<Expense> expenses);
 
     Double getBalanceSpecificByUserId(Long userId, LocalDate start, LocalDate end);
 
-    Map<String, Double> groupByCategoryByUserId(Long userId);
+    Map<String, Double> groupByCategoryByUserId(String token);
 
     HomeResponseDto getForHome(String token);
 
-    List<ExpenseResponseDto> filter(Long userId, List<Long> categoriesId, Double amountMax, Double amountMin, String orderBy, String order);
+    List<ExpenseResponseDto> filter(String token, List<Long> categoriesId, Double amountMax, Double amountMin, String orderBy, String order);
 
     StatisticsResponseDto getStatistics(String token);
+
+    void delete(Long id, String token);
 }

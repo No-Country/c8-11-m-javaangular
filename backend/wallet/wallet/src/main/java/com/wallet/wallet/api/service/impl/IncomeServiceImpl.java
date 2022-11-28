@@ -9,8 +9,10 @@ import com.wallet.wallet.domain.mapper.IncomeMapper;
 import com.wallet.wallet.domain.model.EIncome;
 import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.Income;
+import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IIncomeRepository;
 
+import com.wallet.wallet.domain.repository.IUserRepository;
 import lombok.AllArgsConstructor;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,6 +31,8 @@ public class IncomeServiceImpl extends GenericServiceImpl<Income, IncomeResponse
     private final IIncomeRepository incomeRepository;
 
     private final IncomeMapper incomeMapper;
+
+    private final IUserRepository userRepository;
 
     public IncomeResponseDto save(IncomeRequestDto incomeRequestDto) {
         return super.save(incomeRequestDto);
@@ -50,12 +54,11 @@ public class IncomeServiceImpl extends GenericServiceImpl<Income, IncomeResponse
         return incomeResponse;
     }
 
-    public Double getBalanceMonthlyByUserId(Long userId, Integer month, Integer year) {
+    public Double getBalanceMonthlyByUserId(List<Income> incomes) {
 
         Double balance = 0.0;
 
-        List<Income> incomesMonthly = convertIncome(incomeRepository.getMonthlyByUserId(userId, month, year));
-        for (Income income : incomesMonthly){
+        for (Income income : incomes){
             balance += income.getAmount();
         }
 
@@ -66,7 +69,11 @@ public class IncomeServiceImpl extends GenericServiceImpl<Income, IncomeResponse
 
         Double balance = 0.0;
 
-        List<Income> incomesYearly = convertIncome(incomeRepository.getYearlyByUserId(userId, year));
+        User user = userRepository.findById(userId).get();
+        String userCodeCurrency = user.getCurrency().getCodeCurrency();
+        Double userValueCurrency = user.getCurrency().getValueDollar();
+
+        List<Income> incomesYearly = convertIncome(incomeRepository.getYearlyByUserId(userId, year),userCodeCurrency, userValueCurrency);
         for (Income income : incomesYearly){
             balance += (income.getAmount()/12);
         }
@@ -74,14 +81,7 @@ public class IncomeServiceImpl extends GenericServiceImpl<Income, IncomeResponse
         return balance;
     }
 
-
-    // CONVERTER
-    public List<Income> convertIncome(List<Income> incomes){
-
-        //reemplazar por información del usuario
-        String userCodeCurrency = "ARS";
-        Double userValueDollar = 163.20;
-
+    public List<Income> convertIncome(List<Income> incomes, String userCodeCurrency, Double userValueDollar){
         for(Income income : incomes){
             if(!income.getCurrency().getCodeCurrency().equals(userCodeCurrency)){
                 if(income.getCurrency().getCodeCurrency().equals("USD")){

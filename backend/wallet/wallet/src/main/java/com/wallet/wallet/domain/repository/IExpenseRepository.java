@@ -23,7 +23,7 @@ public interface IExpenseRepository extends JpaRepository<Expense, Long> {
     @Query("SELECT e FROM Expense e WHERE user.id = ?1 AND category.id = ?2 ORDER BY date DESC")
     List<Expense> getByCategoryIdByUserId(Long userId, Long categoryId);
 
-    @Query("SELECT e FROM Expense e WHERE user.id = ?1 AND EXTRACT(MONTH FROM date) = ?2 AND EXTRACT(YEAR FROM date) = ?3")
+    @Query("SELECT e FROM Expense e WHERE user.id = ?1 AND EXTRACT(MONTH FROM date) = ?2 AND EXTRACT(YEAR FROM date) = ?3 ORDER BY DATE DESC")
     List<Expense> getMonthlyByUserId(Long userId, Integer monthNow, Integer yearNow);
 
     @Query("SELECT e FROM Expense e WHERE user.id = ?1 AND date BETWEEN ?2 AND ?3 ORDER BY date DESC")

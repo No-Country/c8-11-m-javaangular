@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';/*
+import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);*/
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-general',
@@ -12,9 +12,9 @@ export class GeneralComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    /*this.renderChart('myChart')*/
+    this.renderChart('myChart')
   }
-/*
+
   renderChart( id:any){
     const myChart = new Chart (id, {
       type: "line",
@@ -33,7 +33,7 @@ export class GeneralComponent implements OnInit {
         },
         {
           label: 'Ingresos',
-          data:[2000,3000,4000,5000,7000,12000,12000,3500,2000,6000],
+          data:[2000,3000,4000,5000,7000,10000,9000,3500,2000,6000],
           borderColor: [
             'rgba(255, 99, 12, 1)'
           ],
@@ -54,5 +54,5 @@ export class GeneralComponent implements OnInit {
         }
       }           
     });
-   }*/
+   }
 }

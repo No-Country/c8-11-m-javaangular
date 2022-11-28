@@ -15,12 +15,11 @@ export class GastosComponent implements OnInit {
   fechaActual:any;
   active:boolean=true;
   listaGastos:Gasto[]=[];
-  nuevoGasto:Gasto[]=[];/*
-  newFecha:Date = new Date;*/
+  nuevoGasto:Gasto[]=[];
   newFecha:Date=new Date();
   newDescripcion:string="";
   newCategoria:string="";
-  newImporte:number=0; 
+  newImporte!:number; 
   editId:number=0;
   borrarId:number=0;
   
@@ -265,6 +264,7 @@ export class GastosComponent implements OnInit {
       importe:2500
     }
   ];
+  dateKIKI:Date=new Date();
 
   constructor(private fechaService: FechaService,private gastoService:GastosService) {}
   
@@ -295,14 +295,16 @@ export class GastosComponent implements OnInit {
 
   /*------------NUEVO GASTO---------------*/  
   guardarGasto(){
-    const nuevoGasto = {
-      fecha:this.newFecha,
+    console.log("cococo    "+this.newFecha.valueOf())
+    const nuevoGasto = {      
+      fecha:this.newFecha.valueOf(),
       categoria:this.newCategoria,
       descripcion:this.newDescripcion,
       importe:this.newImporte
     }
     console.log(nuevoGasto)
-    console.log(typeof nuevoGasto.fecha)
+    
+    console.log("Hola    " + new Date(nuevoGasto.fecha))/*
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       data=>{},
       (error) => {
@@ -311,7 +313,7 @@ export class GastosComponent implements OnInit {
       ()=>{
         this.obtenerGastos();
       }
-    )
+    )*/
   }
 
   /*--------EDITAR GASTO------------*/
@@ -386,6 +388,11 @@ export class GastosComponent implements OnInit {
   recibirOrden(mensaje:string){
     this.orden = mensaje;
     this.page=0;
+  }
+
+  juju(){
+    console.log(this.lista2Gastos[0].fecha)
+    console.log(this.dateKIKI)
   }
 
 }

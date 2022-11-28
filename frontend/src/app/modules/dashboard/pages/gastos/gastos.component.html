@@ -401,6 +401,10 @@
         </div>
     </div>
 </section>
+<!----
+<button (click)="juju()">Mostrar</button>
+<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="dateKIKI"/>
+<button (click)="d.toggle()">Toggle</button>--->
 
 <!-----------MODALES------------>
 
@@ -413,11 +417,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <!------Formulario------->
-        <form  id="agregarGasto" class="add-form" (ngSubmit)="guardarGasto()" novalidate autocomplete="off" required>
+        <form  id="agregarGasto" class="add-form" (ngSubmit)="guardarGasto()" novalidate autocomplete="off" validate>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" value={{fechaActual}} name="marca" class="form-control" [(ngModel)]="newFecha" required>
+                    <input id="fecha" type="date" name="marca" class="form-control" [(ngModel)]="newFecha" required>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>

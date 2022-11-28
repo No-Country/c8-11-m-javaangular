@@ -10,7 +10,9 @@ import com.wallet.wallet.domain.mapper.UserMapper;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IUserRepository;
 import lombok.AllArgsConstructor;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 @Service

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "AboutUs", description = " " )
 public class AboutUsController {
 
-
     private final IAboutUsService aboutUsService;
 
     @ApiOperation(value = "Add a new card")

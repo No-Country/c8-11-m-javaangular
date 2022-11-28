@@ -5,10 +5,7 @@ import com.wallet.wallet.api.service.IExpenseService;
 import com.wallet.wallet.api.service.IIncomeService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
 import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
-import com.wallet.wallet.domain.dto.response.CategoryGroupResponseDto;
-import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
-import com.wallet.wallet.domain.dto.response.HomeResponseDto;
-import com.wallet.wallet.domain.dto.response.MoveResponseDto;
+import com.wallet.wallet.domain.dto.response.*;
 import com.wallet.wallet.domain.mapper.ExpenseMapper;
 import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.mapper.IncomeMapper;
@@ -29,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.PortUnreachableException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -59,11 +57,11 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     }
 
     @Override
-    public Double getBalanceMonthlyByUserId(Long userId) {
+    public Double getBalanceMonthlyByUserId(Long userId, Integer month, Integer year) {
         //return expenseRepository.getBalanceMonthlyByUserId(userId, LocalDate.now().getMonthValue(););
 
         Double balance = 0.0;
-        List<Expense> expenses = convertExpense(expenseRepository.getMonthlyByUserId(userId, LocalDate.now().getMonthValue()));
+        List<Expense> expenses = convertExpense(expenseRepository.getMonthlyByUserId(userId, month, year));
         for (Expense expense : expenses){
             balance += expense.getAmount();
         }
@@ -88,6 +86,9 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         Long userId = jwtUtil.extractUserId(token.substring(7));
         User user = userRepository.findById(userId).get();
 
+        Integer month = LocalDate.now().getMonthValue();
+        Integer year = LocalDate.now().getYear();
+
         HomeResponseDto homeResponseDto = new HomeResponseDto();
 
         List<MoveResponseDto> movesResponseDto = new ArrayList<>();
@@ -102,14 +103,61 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
             movesResponseDto.remove(movesResponseDto.size()-1);
         }
 
-        homeResponseDto.setBalanceExpense(getBalanceMonthlyByUserId(userId));
-        homeResponseDto.setBalanceIncome(incomeService.getBalanceMonthlyByUserId(userId));
+        homeResponseDto.setBalanceExpense(getBalanceMonthlyByUserId(userId, month, year));
+        homeResponseDto.setBalanceIncome(incomeService.getBalanceMonthlyByUserId(userId, month, year));
 
         homeResponseDto.setMoves(movesResponseDto);
         homeResponseDto.setCurrencyId(user.getCurrency().getId());
         homeResponseDto.setFirstName(user.getFirstName());
 
         return homeResponseDto;
+    }
+
+    public StatisticsResponseDto getStatistics(String token){
+
+        StatisticsResponseDto statisticsResponseDto = new StatisticsResponseDto();
+
+        Long userId = jwtUtil.extractUserId(token.substring(7));
+        LocalDate now = LocalDate.now();
+        Integer month = now.getMonthValue();
+        Integer year = now.getYear();
+
+        Double balanceYearly = incomeService.getBalanceYearlyByUserId(userId, now.getYear());
+
+        List<Double> incomes = new ArrayList<>();
+        List<Double> expenses = new ArrayList<>();
+        List<Month> months = new ArrayList<>();
+        Double balanceIncome = 0.0;
+        Double balanceExpense = 0.0;
+
+        if(now.getMonthValue() == 12){
+            for(int i=0; i<12; i++){
+                months.add(now.minusMonths(i).getMonth());
+                balanceIncome = incomeService.getBalanceMonthlyByUserId(userId, month - i, year) + balanceYearly;
+                incomes.add(balanceIncome);
+                balanceExpense = getBalanceMonthlyByUserId(userId, month-i, year);
+                expenses.add(balanceExpense);
+            }
+        } else {
+            for(int i=0; i<12; i++){
+                months.add(now.minusMonths(i).getMonth());
+                year = now.minusMonths(i).getYear();
+                month = now.minusMonths(i).getMonthValue();
+
+                if(month== 12){
+                    balanceYearly = incomeService.getBalanceYearlyByUserId(userId,  year);
+                }
+
+                balanceIncome = incomeService.getBalanceMonthlyByUserId(userId, month, year) + balanceYearly;
+                incomes.add(balanceIncome);
+                balanceExpense = getBalanceMonthlyByUserId(userId, month, year);
+                expenses.add(balanceExpense);
+            }
+        }
+        statisticsResponseDto.setIncomes(incomes);
+        statisticsResponseDto.setExpenses(expenses);
+        statisticsResponseDto.setMonths(months);
+        return statisticsResponseDto;
     }
 
     @Override

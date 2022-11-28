@@ -33,6 +33,8 @@ public class Income {
     private LocalDate date;
 
     private Boolean isIncluded;
+
+    @Enumerated(EnumType.STRING)
     private EIncome type;
 
     @ManyToOne()

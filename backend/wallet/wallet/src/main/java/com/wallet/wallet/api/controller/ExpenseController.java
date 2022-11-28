@@ -70,4 +70,10 @@ public class ExpenseController {
         expenseService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @ApiOperation(value = "Delete a expense by id")
+    @GetMapping("/statistics")
+    public ResponseEntity<?> getStatistics(@RequestHeader("Authorization") String token){
+        return responseBuilder(HttpStatus.OK, expenseService.getStatistics(token));
+    }
 }

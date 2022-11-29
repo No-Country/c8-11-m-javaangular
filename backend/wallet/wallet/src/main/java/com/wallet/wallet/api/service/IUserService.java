@@ -7,14 +7,8 @@ import com.wallet.wallet.domain.model.User;
 
 public interface IUserService {
 
-    User findByEmail(String email);
-
-    User findById(Long id) throws Exception;
-
     UserResponseDto validate(AuthenticationRequest authenticationRequest);
-
     UserResponseDto authenticate(AuthenticationRequest authenticationRequest);
-
     UserResponseDto save(UserRequestDto userRequestDto);
-
+    User getByEmail(String email);
 }

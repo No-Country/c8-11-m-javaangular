@@ -144,7 +144,7 @@
                 <tbody *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
                     <tr class="p-2">
                         <td>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</td>
-                        <td><span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span></td>
+                        <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span></td>
                         <td>{{item.descripcion}}</td>
                         <td>${{item.importe}}</td>
                         <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso"></app-borrar></td>
@@ -321,7 +321,7 @@
                     <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
                 </div>
                 <div class="cate-tar">
-                    <span class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span>
+                    <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span>
                 </div>
                 <div class="descri-tar">
                     <p>{{item.descripcion}}</p>

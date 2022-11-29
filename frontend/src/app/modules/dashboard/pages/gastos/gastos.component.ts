@@ -168,19 +168,19 @@ export class GastosComponent implements OnInit {
         importe:20000
     },
     {
-        fecha:new Date("1980-4-11"),
+        fecha:new Date("2021-8-6"),
         categoria:'Alimentos',
         descripcion:'Supermercado',
         importe:8500
     },
     {
-        fecha:new Date("1980-10-11"),
+        fecha:new Date("1999-2-3"),
         categoria:'Varios',
         descripcion:'Ropa Super Cool',
         importe:4500
     },
     {
-        fecha:new Date("1980-10-11"),
+        fecha:new Date("2013-8-21"),
         categoria:'Servicios',
         descripcion:'Gas',
         importe:4000
@@ -202,6 +202,120 @@ export class GastosComponent implements OnInit {
         categoria:'Alimentos',
         descripcion:'Supermercado',
         importe:2500
+    },    
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Servicios',
+      descripcion:'Electricidad',
+      importe:3000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Verduleria',
+      importe:5000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Movilidad',
+      descripcion:'Arreglo Auto',
+      importe:20000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:8500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Varios',
+      descripcion:'Ropa Super Cool',
+      importe:4500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Servicios',
+      descripcion:'Gas',
+      importe:4000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Varios',
+      descripcion:'Celular',
+      importe:50000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
+    },
+    {
+      fecha:new Date("1978-10-2"),
+      categoria:'Servicios',
+      descripcion:'Electricidad',
+      importe:3000
+    },
+    {
+      fecha:new Date("2022-1-4"),
+      categoria:'Alimentos',
+      descripcion:'Verduleria',
+      importe:5000
+    },
+    {
+      fecha:new Date("2000-10-5"),
+      categoria:'Movilidad',
+      descripcion:'Arreglo Auto',
+      importe:20000
+    },
+    {
+      fecha:new Date("1980-4-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:8500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Varios',
+      descripcion:'Ropa Super Cool',
+      importe:4500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Servicios',
+      descripcion:'Gas',
+      importe:4000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Varios',
+      descripcion:'Celular',
+      importe:50000
+    },
+    {
+      fecha:new Date("1980-10-11"),
+      categoria:'Alimentos',
+      descripcion:'Supermercado',
+      importe:2500
     },    
     {
       fecha:new Date("1980-10-11"),

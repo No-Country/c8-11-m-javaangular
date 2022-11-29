@@ -24,59 +24,113 @@ export class IngresosComponent implements OnInit {
 
   lista2Ingresos = [
     {
-        fecha:'1980-11-12',
+        fecha:new Date('2022-3-17'),
         categoria:'Anual',
         descripcion:'Acciones en CHARTA',
         importe:2500000
     },
     {
-        fecha:'2022-11-28',
+        fecha:new Date('2021-8-5'),
         categoria:'Anual',
         descripcion:'Acciones en twitter',
         importe:300
     },
     {
-        fecha:'1980-11-12',
+        fecha:new Date('2020-10-9'),
         categoria:'Mensual',
         descripcion:'Sueldo',
         importe:150000
     },
     {
-        fecha:'1980-2-15',
+        fecha:new Date('2019-5-8'),
         categoria:'Semanal',
         descripcion:'Ingreso panadería',
         importe:20000
     },
     {
-        fecha:'1980-11-12',
+        fecha:new Date('1999-6-5'),
         categoria:'Diario',
         descripcion:'Dinero encontrado en la calle',
         importe:8500
     },
     {
-        fecha:'1980-11-12',
+        fecha:new Date('2005-4-12'),
         categoria:'Semanal',
         descripcion:'ingreso peluquería',
         importe:10500
     },
     {
-        fecha:'1980-11-12',
+        fecha:new Date('1982-4-27'),
         categoria:'Mensual',
         descripcion:'Sueldo 2',
         importe:115000
     },
     {
-        fecha:'1980-11-12',
+        fecha:new Date('1995-9-23'),
         categoria:'Diario',
         descripcion:'Regalo de la tia',
         importe:25000
     },
     {
-        fecha:'1980-11-12',
+        fecha:new Date('1980-11-12'),
         categoria:'Anual',
         descripcion:'Acciones en Spice Girls',
         importe:50000
-    }
+    },
+    {
+      fecha:new Date('2022-3-17'),
+      categoria:'Anual',
+      descripcion:'Acciones en CHARTA',
+      importe:2500000
+  },
+  {
+      fecha:new Date('2021-8-5'),
+      categoria:'Anual',
+      descripcion:'Acciones en twitter',
+      importe:300
+  },
+  {
+      fecha:new Date('2020-10-9'),
+      categoria:'Mensual',
+      descripcion:'Sueldo',
+      importe:150000
+  },
+  {
+      fecha:new Date('2019-5-8'),
+      categoria:'Semanal',
+      descripcion:'Ingreso panadería',
+      importe:20000
+  },
+  {
+      fecha:new Date('1999-6-5'),
+      categoria:'Diario',
+      descripcion:'Dinero encontrado en la calle',
+      importe:8500
+  },
+  {
+      fecha:new Date('2005-4-12'),
+      categoria:'Semanal',
+      descripcion:'ingreso peluquería',
+      importe:10500
+  },
+  {
+      fecha:new Date('1982-4-27'),
+      categoria:'Mensual',
+      descripcion:'Sueldo 2',
+      importe:115000
+  },
+  {
+      fecha:new Date('1995-9-23'),
+      categoria:'Diario',
+      descripcion:'Regalo de la tia',
+      importe:25000
+  },
+  {
+      fecha:new Date('1980-11-12'),
+      categoria:'Anual',
+      descripcion:'Acciones en Spice Girls',
+      importe:50000
+  }
   ];
  
   

@@ -8,18 +8,22 @@ export class PaginacionIngresoPipe implements PipeTransform {
 
   transform(lista: Ingreso[], page:number=0,orden:string="recientes"): Ingreso[] {
     
-    if (orden=="recientes"){      
-      return lista.slice(page,page+5);
-    } else if (orden=="mayores"){
+    if (orden==""){
+      return lista.slice(page,page+10)       
+    } else if (orden==="mayores"){
         const listaFiltrada = lista.sort((a,b)=>b.importe-a.importe);
-    } else if ("menores"){
+        return listaFiltrada.slice(page,page+10) 
+    } else if (orden==="menores"){
         const listaFiltrada = lista.sort((a,b)=>a.importe-b.importe);
-    } else {
-       return lista
-    }
-    return lista.slice(page,page+5); 
-
-    
+        return listaFiltrada.slice(page,page+10) 
+    } else if (orden==="antiguos")  {
+        const listaFiltrada = lista.sort((a,b)=>a.fecha.valueOf()-b.fecha.valueOf());
+        return listaFiltrada.slice(page,page+10)
+    } else if (orden==="recientes") {
+      const listaFiltrada = lista.sort((a,b)=>b.fecha.valueOf()-a.fecha.valueOf());
+      return listaFiltrada.slice(page,page+10)
+    } 
+    return lista
   }
 
 }

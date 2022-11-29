@@ -490,10 +490,10 @@ export class GastosComponent implements OnInit {
 
   // BOTONES DE PAGINACION
   nextPage(){
-    this.page = this.page +5;
+    this.page = this.page +10;
   }
   previusPage(){
-    this.page = this.page -5;
+    this.page = this.page -10;
   }
 
   /*==================================================== */

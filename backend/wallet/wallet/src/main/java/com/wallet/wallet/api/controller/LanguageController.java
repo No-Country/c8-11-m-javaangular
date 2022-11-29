@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
+
 @RestController
 @RequestMapping("/languages")
 @AllArgsConstructor
@@ -19,12 +21,14 @@ public class LanguageController {
 
     @ApiOperation(value = "Add a new language")
     @PostMapping("/save")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> save(@RequestBody LanguageRequestDto languageRequestDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(languageService.save(languageRequestDto));
+        return responseBuilder(HttpStatus.CREATED, languageService.save(languageRequestDto));
     }
 
     @ApiOperation(value = "Delete a language by id")
     @DeleteMapping("/delete/{id}")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable Long id){
         languageService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

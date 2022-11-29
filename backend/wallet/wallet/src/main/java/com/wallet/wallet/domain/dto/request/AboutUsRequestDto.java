@@ -11,7 +11,7 @@ public class AboutUsRequestDto {
 
     private String nameComplete;
 
-    private ERoleAboutUs role;
+    private String role;
 
     private String description;
 

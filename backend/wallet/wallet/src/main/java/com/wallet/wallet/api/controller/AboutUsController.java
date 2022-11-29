@@ -35,7 +35,6 @@ public class AboutUsController {
     @ApiOperation(value = "Delete a card by id")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-
         aboutUsService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

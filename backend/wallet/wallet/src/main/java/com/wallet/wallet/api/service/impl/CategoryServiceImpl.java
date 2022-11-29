@@ -70,7 +70,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
         return getById(id);
     }
 
-    //agregar excepción
+    //agregar excepción en el generic
     @Override
     public CategoryResponseDto getById(Long Id){
         return categoryMapper.entityToResponseDto(categoryRepository.findById(Id).orElseThrow(() -> new ExampleException("")));

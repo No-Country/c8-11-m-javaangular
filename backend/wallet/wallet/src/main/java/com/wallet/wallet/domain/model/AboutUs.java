@@ -22,7 +22,7 @@ public class AboutUs {
     private String nameComplete;
 
     @NotNull
-    private ERoleAboutUs role;
+    private String role;
 
     @NotNull
     private String description;

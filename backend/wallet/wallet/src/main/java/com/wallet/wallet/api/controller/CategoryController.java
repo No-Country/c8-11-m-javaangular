@@ -22,13 +22,13 @@ public class CategoryController {
     private final ICategoryService categoryService;
 
     @ApiOperation(value = "Register a new category")
-    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    //@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody CategoryRequestDto categoryRequestDto, @RequestHeader("Authorization") String token){
         return responseBuilder(HttpStatus.CREATED, categoryService.save(categoryRequestDto, token));
     }
 
-    @ApiOperation(value = "Update category")
+    @ApiOperation(value = "Update a category by Id")
     //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> save(@RequestBody CategoryUpdateDto categoryUpdateDto, @PathVariable Long id, @RequestHeader("Authorization") String token){
@@ -36,29 +36,29 @@ public class CategoryController {
         return responseBuilder(HttpStatus.OK, categoryService.update(categoryUpdateDto, id, token));
     }
 
-    @ApiOperation(value = "Find a category by id", hidden = true)
-    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @ApiOperation(value = "Find a category by Id")
+    //@PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getById/{id}")
     public  ResponseEntity<?> getOne(@PathVariable Long id){
         return responseBuilder(HttpStatus.OK, categoryService.getById(id));
     }
 
-    @ApiOperation(value = "Find all categories", hidden = true)
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Find all categories")
+    //@PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getAll")
     public  ResponseEntity<?> getAll(){
         return responseBuilder(HttpStatus.OK, categoryService.getAll());
     }
 
-    @ApiOperation(value = "Find all categories by User id", hidden = true)
-    //@PreAuthorize("hasRole('ROLE_USER')")
+    @ApiOperation(value = "Find all categories by User id")
+    //@PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getAllByUserId")
     public  ResponseEntity<?> getAllByUserId(Long userId){
         return responseBuilder(HttpStatus.OK, categoryService.getAllByUserId(userId));
     }
 
-    @ApiOperation(value = "Delete a category by id")
-    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @ApiOperation(value = "Delete a category by Id")
+    //@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @DeleteMapping("/delete/{id}")
     public  ResponseEntity<Void> delete(@PathVariable Long id){
         categoryService.delete(id);

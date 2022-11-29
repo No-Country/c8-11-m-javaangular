@@ -1,13 +1,11 @@
 package com.wallet.wallet.domain.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categories")
@@ -21,13 +19,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorySequence")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 25)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 25)
     private String icon;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String colorCode;
 
     @Column(updatable = false)

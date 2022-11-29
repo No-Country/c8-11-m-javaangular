@@ -2,10 +2,7 @@
     display: block;
     width: 100%;
 }
-#gastos {
-    text-align: center;
-    padding:15px
-}
+/*
 .titular {
     text-align: left;
     margin-bottom:25px;    
@@ -24,14 +21,13 @@
     background:#FF8328;
     color:white
 }
-
-
+*/
+/* Estilos en tabla */
 tbody tr {
     height:20px;
     font-size: 1rem;
     background:white;
 }
-
 thead tr {
     background-color:#FAFAFA;
     font-size:1rem;
@@ -41,9 +37,6 @@ th {
 }
 td {
     padding:15px
-}
-app-editar, app-borrar {
-    margin:0 7px;
 }
 
 .filtros {
@@ -157,3 +150,5 @@ app-ordenar {
     display:flex;
     justify-content:space-between
 }
+
+  

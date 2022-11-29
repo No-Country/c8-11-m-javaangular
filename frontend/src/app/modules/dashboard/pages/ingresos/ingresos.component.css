@@ -2,14 +2,10 @@
     display: block;
     width: 100%;
 }
-#gastos {
-    text-align: center;
-    padding:15px
-}
+/*
 .titular {
     text-align: left;
-    margin-bottom:25px;
-    
+    margin-bottom:25px;    
 }
 .titular h2 {
     font-weight: bolder
@@ -24,9 +20,9 @@
 .btn-orange {
     background:#FF8328;
     color:white
-}
+}*/
 
-
+/* Estilos en Tabla*/
 tbody tr {
     height:20px;
     font-size: 1rem;
@@ -43,9 +39,11 @@ th {
 td {
     padding:15px
 }
+/*
 app-editar, app-borrar {
     margin:0 7px;
 }
+*/
 
 .filtros {
     display:flex;
@@ -154,3 +152,9 @@ app-ordenar {
     display:flex;
     justify-content:space-between
 }
+/*
+@media only screen and (max-width: 768px) {
+    #gastos{
+        padding:0
+    }
+}*/

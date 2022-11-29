@@ -1,4 +1,4 @@
-<section id="gastos">
+<section id="seccion">
     <div class="titular">
         <h2>Mis Gastos</h2>
     </div>
@@ -9,13 +9,6 @@
         </div> 
         <!----Selectores y filtros----->       
         <div class="selector-right">
-            <!----                  
-            <select class="btn btn-light" name="select">
-                <option value="value1">Mas recientes</option>
-                <option value="value2">Mas antiguos</option>
-                <option value="value3">Mayor precio</option>
-                <option value="value3">Menor precio</option>
-            </select>---->
             <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
             <app-filtrar></app-filtrar>                  
             <!----
@@ -25,6 +18,7 @@
             <!----------------------------------------------->                        
         </div>                                     
     </div>
+    <!---FILTRO POR CATEGORIA---->
     <!----
     <div class="collapse" id="collapseExample">
         <div class="filtros card card-body">
@@ -46,6 +40,7 @@
         </div>
     </div>---->
 
+    <!----ELECCION DE VISTAS Y PAGINACION----->
     <div class="vistas-paginas">
         <!-----Elección de vistas----->
         <nav class="vistas" aria-label="Page navigation example">
@@ -54,22 +49,17 @@
               <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
             </ul>
         </nav>
-        <!----elección de páginas---->
+        <!----Elección de páginas---->
         <nav class="vistas" aria-label="Page navigation example">
             <ul class="pagination">
             <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
             <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>lista2Gastos.length"><i class="bi bi-arrow-right"></i></button></li>
             </ul>
         </nav>
-    </div>
-    
-        
-    
-     
+    </div>  
 
-    <!----TABLA---->
-    <!-----Estatica---->
-    
+    <!----VISTA EN TABLA---->
+    <!-----Estatica---->    
     <!----
     <div *ngIf="active" class="tabla-gastos">     
         <div  class="table-responsive">
@@ -199,8 +189,7 @@
         </div>        
     </div>
 
-
-    <!----TARJETAS------>
+    <!----VISTA EN TARJETAS------>
     <!----Estatica----->
     <!--------
     <div *ngIf="!active" class="tabla-gastos">        
@@ -402,7 +391,7 @@
     </div>
 </section>
 <!----
-<button (click)="juju()">Mostrar</button>
+
 <input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="dateKIKI"/>
 <button (click)="d.toggle()">Toggle</button>--->
 

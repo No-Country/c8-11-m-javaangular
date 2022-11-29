@@ -7,13 +7,50 @@
   --secondary-color:#FF8328;
 }
 
+
 * {
   font-family: 'Open Sans', sans-serif;
+  margin:0;
+  padding:0;
 }
-
+/*
 h1, h2, h3, h4, h5, h6, p, ul, ol {
   margin: 0;
   padding: 0;
+}*/
+/*========ESTILOS COMUNES GASTOS E INGRESOS===========*/
+/* SECTION */
+#seccion {
+  text-align: center;
+  padding:15px
+}
+.titular {
+  text-align: left;
+  margin-bottom:25px;    
+}
+.titular h2 {
+  font-weight: bolder
+}
+.seleccion {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 25px;
+}
+.btn-orange {
+  background:#FF8328;
+  color:white
+}
+app-editar, app-borrar {
+  margin:0 7px;
+}
+
+@media only screen and (max-width: 415px) {
+  #abrete {
+    position:absolute;
+    left: -120px !important;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -22,6 +59,9 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
   }
   section {
     margin-top:-40px
+  }
+  #seccion{
+    padding:0
   }
 }
 

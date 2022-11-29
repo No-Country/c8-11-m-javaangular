@@ -163,7 +163,7 @@
         </div>        
     </div>
     ---> 
-    
+    <!-----VISTAS TABLA EN PC----->
     <div *ngIf="active" class="tabla-gastos">        
         <div  class="table-responsive">
             <table class="table table-sm">
@@ -183,6 +183,27 @@
                         <td>{{item.descripcion}}</td>
                         <td>${{item.importe}}</td>
                         <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                    </tr>                                      
+                </tbody>
+            </table>
+        </div>        
+    </div>
+    <!-----VISTAS TABLA EN MOVIL----->
+    <div *ngIf="active" class="tabla-gastos-movil">        
+        <div  class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="p-3">
+                        <th scope="col">Categoria/<br>Fecha</th>
+                        <th scope="col">Importe/<br>Descripción</th>                    
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of lista | paginacion:page:orden">
+                    <tr class="p-2">
+                        <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}})</span></td>
+                        <td>${{item.importe}}<br>{{item.descripcion}}</td>
+                        <td class="botones-tar-movil"><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
                     </tr>                                      
                 </tbody>
             </table>
@@ -350,7 +371,7 @@
 
     </div>
     ---->
-
+    <!----VISTA TARJETAS EN PC----->
     <div *ngIf="!active" class="tabla-gastos">        
         <div class="tarjeta-titulo">
             <div class="fecha-tar">
@@ -389,7 +410,37 @@
             </div>
         </div>
     </div>
+    <!----VISTA TARJETAS EN MOVIL----->
+    <div *ngIf="!active" class="tabla-gastos-movil">        
+        <div class="tarjeta-titulo-movil">
+            <div class="indica-tar-movil">
+                <p>Categoria/<br>Fecha</p>
+            </div>
+            <div class="indica-tar-movil">
+                <p>Importe/<br>Descripción</p>
+            </div>
+            <div class="indica-tar-movil">
+                <p>Modificar</p>
+            </div>
+        </div>
+        <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page:orden">
+            <div class="tarjeta">
+                <div class="fecha-tar">
+                    <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br>
+                    <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
+                </div>
+                <div class="descri-tar">
+                    <span>${{item.importe}}</span><br>
+                    <p>{{item.descripcion}}</p>
+                </div>
+                <div class="botones-tar-movil">
+                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!----
 
 <input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="dateKIKI"/>

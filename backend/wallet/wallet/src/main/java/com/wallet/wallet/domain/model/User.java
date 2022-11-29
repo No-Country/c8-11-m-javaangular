@@ -1,14 +1,13 @@
 package com.wallet.wallet.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.wallet.wallet.domain.enums.ERole;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Table(name = "users")
@@ -39,13 +38,7 @@ public class User {
     @NotNull(message = "")
     private Currency currency;
 
-    //private Language language;
-
-    @ManyToOne()
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    //@NotNull(message = "")
-    private Role role;
+    private ERole role;
 
     private Boolean deleted;
 }

@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { SideService } from '../service/side.service';
 
 @Component({
@@ -10,7 +12,7 @@ export class HeaderComComponent implements OnInit {
 
   changer: boolean = true;
 
-  constructor(public sideSer: SideService) { }
+  constructor(public sideSer: SideService, private router:Router) { }
   
 
   ngOnInit(): void {
@@ -21,7 +23,24 @@ export class HeaderComComponent implements OnInit {
     this.changer = !this.changer;
     // this.sideSer.$change = !this.sideSer.change;
     this.sideSer.$change.emit(this.changer);
-    
+
   }
+
+  closeSession() {
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Seras redirigido a la landing page",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, estoy seguro!'
+    }).then((result:any) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('/landing')
+      }
+    })
+  }
+  
 
 }

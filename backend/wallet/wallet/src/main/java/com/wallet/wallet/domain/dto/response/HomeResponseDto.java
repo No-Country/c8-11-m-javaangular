@@ -9,9 +9,7 @@ public class HomeResponseDto {
 
     private String firstName;
 
-    private Long currencyId;
-
-    private Long lenguageId;
+    private String monthNow;
 
     private Double balanceExpense;
 

@@ -13,5 +13,9 @@ public interface IIncomeService extends GenericServiceAPI<Income, IncomeResponse
 
     List<IncomeResponseDto> findAll();
 
-    Double getBalanceMonthlyByUserId(Long userId);
+    Double getBalanceMonthlyByUserId(List<Income> incomes);
+
+    Double getBalanceYearlyByUserId(Long userId, Integer year);
+
+    List<Income> convertIncome(List<Income> incomes, String userCodeCurrency, Double userValueDollar);
 }

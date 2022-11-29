@@ -31,43 +31,56 @@ public class ExpenseController {
 
     @ApiOperation(value = "Register a new expense")
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody ExpenseRequestDto expenseRequestDto) {
-        return responseBuilder(HttpStatus.CREATED, expenseService.save(expenseRequestDto));
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<?> save(@RequestBody ExpenseRequestDto expenseRequestDto, @RequestHeader("Authorization") String token) {
+        return responseBuilder(HttpStatus.CREATED, expenseService.save(expenseRequestDto, token));
     }
 
-    @ApiOperation(value = "Find expenses by User id", hidden = true)
-    @GetMapping("/user/{userId}")
-    public  ResponseEntity<?> getByUserId(@PathVariable Long userId){
-        return responseBuilder(HttpStatus.OK, expenseService.getAllByUserId(userId));
+    @ApiOperation(value = "Find expenses by User", hidden = true)
+    @GetMapping("/user")
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    public  ResponseEntity<?> getByUserId(@RequestHeader("Authorization") String token){
+        return responseBuilder(HttpStatus.OK, expenseService.getAllByUserId(token));
     }
 
-    @ApiOperation(value = "Find information by User id for home", hidden = true)
+    @ApiOperation(value = "Find information by User for home", hidden = true)
     @GetMapping("/user/home")
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
     public  ResponseEntity<?> getForHome(@RequestHeader("Authorization") String token){
         return responseBuilder(HttpStatus.OK, expenseService.getForHome(token));
     }
 
     @ApiOperation(value = "Find balance by User id for Category name", hidden = true)
-    @GetMapping("/categoryGroup/{userId}")
-    public  ResponseEntity<?> groupByCategoryByUserId(@PathVariable Long userId){
-        return responseBuilder(HttpStatus.OK, expenseService.groupByCategoryByUserId(userId));
+    @GetMapping("/categoryGroup")
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    public  ResponseEntity<?> groupByCategoryByUserId(@RequestHeader("Authorization") String token){
+        return responseBuilder(HttpStatus.OK, expenseService.groupByCategoryByUserId(token));
     }
 
     @ApiOperation(value = "Find by Filter and Order by User", hidden = true)
     @GetMapping("/filter")
-    public  ResponseEntity<?> filter(@RequestParam Long userId,
-                                     @RequestParam(required = false) List<Long> categoriesId,
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    public  ResponseEntity<?> filter(@RequestParam(required = false) List<Long> categoriesId,
                                      @RequestParam(required = false) Double amountMin,
                                      @RequestParam(required = false) Double amountMax,
                                      @RequestParam( defaultValue = "date") String orderBy,
-                                     @RequestParam( defaultValue = "DESC") String order){
-        return responseBuilder(HttpStatus.OK, expenseService.filter(userId, categoriesId, amountMin, amountMax, orderBy, order));
+                                     @RequestParam( defaultValue = "DESC") String order,
+                                     @RequestHeader("Authorization") String token){
+        return responseBuilder(HttpStatus.OK, expenseService.filter(token, categoriesId, amountMin, amountMax, orderBy, order));
+    }
+
+    @ApiOperation(value = "Delete a expense by id")
+    @GetMapping("/statistics")
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResponseEntity<?> getStatistics(@RequestHeader("Authorization") String token){
+        return responseBuilder(HttpStatus.OK, expenseService.getStatistics(token));
     }
 
     @ApiOperation(value = "Delete a expense by id")
     @DeleteMapping("/delete/{id}")
-    public  ResponseEntity<Void> delete(@PathVariable Long id){
-        expenseService.delete(id);
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
+    public  ResponseEntity<?> delete(@PathVariable Long id, @RequestHeader("Authorization") String token){
+        expenseService.delete(id, token);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

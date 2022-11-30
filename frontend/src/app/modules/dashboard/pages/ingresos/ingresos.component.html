@@ -19,7 +19,73 @@
             <!------
             <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>---->
             <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
-            <app-filtrar-ingreso></app-filtrar-ingreso> 
+            <!----
+            <app-filtrar-ingreso></app-filtrar-ingreso> ---->
+            <div class="dropdown show  d-inline-block">
+                <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-text-left"></i> Filtrar
+                </a>              
+                <div id="tobiron" class="dropdown-menu bg-light" aria-labelledby="dropdownMenuLink">
+                    <div class="text-center titulo-filtro">
+                        <p>Filtros</p>
+                    </div>
+                    <hr>
+                    <div class="item-filtro">
+                        <div class="en-linea text-center">
+                            <div class="sub-item mb-1">
+                                <label for="">Desde</label><br>
+                                <input type="date">
+                            </div>
+                            <div class="sub-item mb-2">
+                                <label for="">Hasta</label><br>
+                                <input type="date">
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="item-filtro">
+                        <div class="en-linea">
+                            <div class="sub-item mb-1">
+                                <label for="">Mínimo</label>
+                                <input type="number">
+                            </div>
+                            <div class="sub-item mb-2">
+                                <label for="">Máximo</label>
+                                <input type="number">
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="item-filtro">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Servicios
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Alimentos
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Movilidad
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Varios
+                            </label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="boton-aplicar text-center">
+                        <button class="btn btn-aceptar">Aplicar</button>
+                    </div>
+                </div>
+            </div>
             <!---- 
             <button (click)="compararFechas()">Comparar fechas</button>           ---->                                   
         </div>                                     

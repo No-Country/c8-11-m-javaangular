@@ -1,7 +1,11 @@
-#abrete {
+* {
+    margin:o;
+    padding:0
+}
+#tobironabrete {    
     margin-right: 100px!important;
     width:300px;
-    padding:10px
+    padding:10px;
 }
 .titulo-filtro p{
     font-weight: bolder;
@@ -14,4 +18,10 @@
     background:#FF8328;
     color:white;   
     margin:0 auto
+}
+@media only screen and (max-width: 420px) {
+    #abrete {
+      position:absolute;
+      left: -120px !important;
+    }
 }

@@ -102,7 +102,7 @@ app-editar, app-borrar {
 .collapse {
   margin-bottom: 5px;
 }
-.selector-right select{
+.selector-right {
   margin-right: 20px;
   padding:4px;
   border:rgb(220, 212, 212)
@@ -111,6 +111,17 @@ app-editar, app-borrar {
   display:flex;
   justify-content: space-around;
 }
+#tobiron {
+  margin-right:200px;
+  width: 300px;
+}
+@media only screen and (max-width: 450px) {
+  #tobiron {
+    margin-right: 100px!important;
+    width: 280px;
+  }
+}
+
 /*------------------------*/
 
 /*----Estilos en MODALES--*/
@@ -221,12 +232,8 @@ app-ordenar {
 }
 
 
-@media only screen and (max-width: 415px) {
-  #abrete {
-    position:absolute;
-    left: -120px !important;
-  }
-}
+
+
 .tabla-gastos-movil {
   display:none
 }

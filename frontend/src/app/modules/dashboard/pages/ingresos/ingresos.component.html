@@ -473,8 +473,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
-                    min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
                     <div *ngIf="Fecha?.errors && Fecha?.touched">
                         <p *ngIf="Fecha?.hasError('required')" class="text-danger">
                           Ingrese una fecha
@@ -483,7 +482,7 @@
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
-                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" ngModel required [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
                         <option value="Anual">Anual</option>
                         <option value="Mensual">Mensual</option>
                         <option value="Semanal">Semanal</option>
@@ -497,7 +496,7 @@
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
                     <div *ngIf="Importe?.errors && Importe?.touched">
                         <p *ngIf="Importe?.hasError('required')" class="text-danger">
                           Ingrese un importe
@@ -509,7 +508,7 @@
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
                     <div *ngIf="Descripcion?.errors && Descripcion?.touched">
                         <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
                             Ingrese una descripción
@@ -568,12 +567,11 @@
                 <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
             </div>
         </form>--->
-        <form [formGroup]="gastoForm" id="agregarEducacion" (ngSubmit)="guardarIngreso()" autocomplete="off">
+        <form [formGroup]="gastoForm" id="agregarEducacion" (ngSubmit)="actualizarIngreso()" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
-                    min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
                     <div *ngIf="Fecha?.errors && Fecha?.touched">
                         <p *ngIf="Fecha?.hasError('required')" class="text-danger">
                           Ingrese una fecha
@@ -582,7 +580,7 @@
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
-                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" ngModel required [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
                         <option value="Anual">Anual</option>
                         <option value="Mensual">Mensual</option>
                         <option value="Semanal">Semanal</option>
@@ -596,7 +594,7 @@
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
                     <div *ngIf="Importe?.errors && Importe?.touched">
                         <p *ngIf="Importe?.hasError('required')" class="text-danger">
                           Ingrese un importe
@@ -608,7 +606,7 @@
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
                     <div *ngIf="Descripcion?.errors && Descripcion?.touched">
                         <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
                             Ingrese una descripción
@@ -620,7 +618,7 @@
                 </div>
                 <div class="modal-footer botones">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidators()">Cancelar</button> 
-                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal"  [disabled]="!gastoForm.valid">Aceptar</button>                               
+                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" [disabled]="!gastoForm.valid">Aceptar</button>                               
                 </div>
             </div>    
         </form>

@@ -20,6 +20,7 @@ export class IngresosComponent implements OnInit {
   newCategoria:string="";
   newDescripcion:string="";
   newImporte?:number;
+  editId:number=0;
 
   // Paginación
   page:number=0;
@@ -174,27 +175,23 @@ export class IngresosComponent implements OnInit {
   
   // METODOS CRUD
   
-  /*-------GUARDAR NUEVO GASTO-------*/
-
-
-
-
+  /*-------GUARDAR NUEVO INGRESO-------*/
 
   guardarIngreso(){    
-    const nuevoIngreso = {      
-      fecha:this.newFecha,
-      categoria:this.newCategoria,
-      descripcion:this.newDescripcion,
-      importe:this.newImporte
-    }
-    console.log(nuevoIngreso);
-    console.log(nuevoIngreso.fecha)
-    console.log(typeof nuevoIngreso.fecha);/*
-    console.log(new Date(this.fechaService.actual()));*/
-    this.newDescripcion="";
-    this.newImporte=0;
-    this.newCategoria="";/**/
+    const nuevoGasto = this.gastoForm.value;
+    console.log(nuevoGasto);
+    this.gastoForm.reset(); 
   }
+
+  /*-------EDITAR INGRESO-------*/
+
+  actualizarIngreso(){
+    const nuevoGasto = this.gastoForm.value;
+    console.log(nuevoGasto);
+    this.gastoForm.reset();
+    const editId = this.editId;
+  }
+
 
   // BOTONES DE PAGINACION
   nextPage(){

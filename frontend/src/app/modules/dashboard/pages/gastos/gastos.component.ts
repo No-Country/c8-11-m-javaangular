@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Gasto } from '../../model/gasto';
 import { FechaService } from '../../services/fecha.service';
@@ -436,13 +436,9 @@ export class GastosComponent implements OnInit {
 
   /*------------NUEVO GASTO---------------*/  
   guardarGasto(){
-    const nuevoGasto = {      
-      fecha:this.newFecha,
-      categoria:this.newCategoria,
-      descripcion:this.newDescripcion,
-      importe:this.newImporte
-    }
+    const nuevoGasto = this.gastoForm.value;
     console.log(nuevoGasto);
+    this.gastoForm.reset();
   /*
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       data=>{},
@@ -471,14 +467,10 @@ export class GastosComponent implements OnInit {
 
   //BOTON ACTUALIZAR EXPERIENCIA
 
-  editarGasto(): void{
-    const nuevoGasto = {
-      fecha:this.newFecha,
-      categoria:this.newCategoria,
-      descripcion:this.newDescripcion,
-      importe:this.newImporte
-    }    
-    console.log(nuevoGasto)
+  actualizarGasto(): void{
+    const nuevoGasto = this.gastoForm.value;
+    console.log(nuevoGasto);
+    this.gastoForm.reset();
     const editId = this.editId;
 
     const headers = new HttpHeaders({
@@ -502,13 +494,14 @@ export class GastosComponent implements OnInit {
   }
   
   //BOTON ELIMINAR GASTO
-  eliminarEducacion(): void{
+  eliminarGasto(): void{
     this.gastoService.borrarGasto(this.borrarId).subscribe(
       data=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerGastos()})
+      ()=>{this.obtenerGastos()}
+    )
   }
 
   /*==================================================== */

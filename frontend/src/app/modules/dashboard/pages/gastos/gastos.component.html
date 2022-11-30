@@ -3,15 +3,17 @@
         <h2>Mis Gastos</h2>
     </div>
     <div class="seleccion">
-        <!----Nuevo Gasto Botón---->
+        <!----NUEVO GASTO Botón---->
         <div class="selector-left">
             <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidators()">+ Nuevo Gasto</button>            
         </div> 
         <!----Selectores y filtros----->       
         <div class="selector-right">
+            <!----ORDENAMIENTO---->
             <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
             <!----
             <app-filtrar></app-filtrar>  --->
+            <!-------FILTRO------->
             <div class="dropdown show  d-inline-block">
                 <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-text-left"></i> Filtrar
@@ -126,110 +128,7 @@
     </div>  
 
     <!----VISTA EN TABLA---->
-    <!-----Estatica---->    
-    <!----
-    <div *ngIf="active" class="tabla-gastos">     
-        <div  class="table-responsive">
-            <table class="table table-sm">
-                <thead>
-                    <tr class="p-3">
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Importe</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Verduleria</td>
-                        <td>$2560</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-primary">Servicios</span></td>
-                        <td>Electricidad</td>
-                        <td>$2540</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-primary">Servicios</span></td>
-                        <td>gas</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-danger">Varios</span></td>
-                        <td>Ropa super cool</td>
-                        <td>$20580</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>
-                    <tr class="p-2">
-                        <td>10/10/2022</td>
-                        <td><span class="p-2 badge text-bg-warning">Alimentos</span></td>
-                        <td>Supermercado "Codemax"</td>
-                        <td>$20000</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
-                    </tr>                   
-                </tbody>
-            </table>
-        </div>        
-    </div>
-    ---> 
+
     <!-----VISTAS TABLA EN PC----->
     <div *ngIf="active" class="tabla-gastos">        
         <div  class="table-responsive">
@@ -278,166 +177,7 @@
     </div>
 
     <!----VISTA EN TARJETAS------>
-    <!----Estatica----->
-    <!--------
-    <div *ngIf="!active" class="tabla-gastos">        
-        <div class="tarjeta-titulo">
-            <div class="fecha-tar">
-                <p>Fecha</p>
-            </div>
-            <div class="cate-tar">
-                <p>Categoría</p>
-            </div>
-            <div class="descri-tar">
-                <p>Descripción</p>
-            </div>
-            <div class="importe-tar">
-                <p>Importe</p>
-            </div>
-            <div class="botones-tar">
-                <p>Editar/Eliminar</p>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-        <div class="tarjeta">
-            <div class="fecha-tar">
-                <p>14/11/2022</p>
-            </div>
-            <div class="cate-tar">
-                <span class="p-2 badge text-bg-warning">Alimentos</span>
-            </div>
-            <div class="descri-tar">
-                <p>Supermercado</p>
-            </div>
-            <div class="importe-tar">
-                <span>$5000</span>
-            </div>
-            <div class="botones-tar">
-                <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
-            </div>
-        </div>
-
-
-    </div>
-    ---->
+    
     <!----VISTA TARJETAS EN PC----->
     <div *ngIf="!active" class="tabla-gastos">        
         <div class="tarjeta-titulo">
@@ -508,10 +248,7 @@
     </div>
 </section>
 
-<!----
-
-<input type="text" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="dateKIKI"/>
-<button (click)="d.toggle()">Toggle</button>--->
+<!--------------------------------------------------------->
 
 <!-----------MODALES------------>
 
@@ -524,12 +261,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
         </div>
         <!------Formulario------->
+        
         <form  [formGroup]="gastoForm" class="add-form" novalidate autocomplete="off" required id="agregarGasto" (ngSubmit)="guardarGasto()" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
-                    min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
                     <div *ngIf="Fecha?.errors && Fecha?.touched">
                         <p *ngIf="Fecha?.hasError('required')" class="text-danger">
                           Ingrese una fecha
@@ -538,7 +275,7 @@
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>
-                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
                         <option value="servicios">Servicios</option>
                         <option value="alimentos">Alimentos</option>
                         <option value="movilidad">Movilidad</option>
@@ -552,7 +289,7 @@
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
                     <div *ngIf="Importe?.errors && Importe?.touched">
                         <p *ngIf="Importe?.hasError('required')" class="text-danger">
                           Ingrese un importe
@@ -564,7 +301,7 @@
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
                     <div *ngIf="Descripcion?.errors && Descripcion?.touched">
                         <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
                             Ingrese una descripción
@@ -587,18 +324,17 @@
 <!--MODAL EDITAR GASTO--->
 <div class="modal fade" id="editarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content modal-agregar">
-        
+      <div class="modal-content modal-agregar">        
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">EDITAR GASTO</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
         </div>
         <!------Formulario------->
-        <form  [formGroup]="gastoForm" class="add-form" novalidate autocomplete="off" required id="agregarGasto" (ngSubmit)="guardarGasto()" autocomplete="off">
+        <form  [formGroup]="gastoForm" class="add-form" novalidate autocomplete="off" required id="agregarGasto" (ngSubmit)="actualizarGasto()" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" value="2018-07-22"
                     min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
                     <div *ngIf="Fecha?.errors && Fecha?.touched">
                         <p *ngIf="Fecha?.hasError('required')" class="text-danger">
@@ -608,7 +344,7 @@
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>
-                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
                         <option value="servicios">Servicios</option>
                         <option value="alimentos">Alimentos</option>
                         <option value="movilidad">Movilidad</option>
@@ -622,7 +358,7 @@
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
                     <div *ngIf="Importe?.errors && Importe?.touched">
                         <p *ngIf="Importe?.hasError('required')" class="text-danger">
                           Ingrese un importe
@@ -634,7 +370,7 @@
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
                     <div *ngIf="Descripcion?.errors && Descripcion?.touched">
                         <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
                             Ingrese una descripción
@@ -658,12 +394,6 @@
 <div class="modal fade" id="eliminarGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-agregar">
-        <!-----        
-        <div class="modal-header text-center">
-          <h5 class="modal-title" id="staticBackdropLabel">ELIMINAR GASTO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>--->
-        <!------Formulario------->
         <form >
             <div class="modal-body">
                 <div>
@@ -672,7 +402,7 @@
             </div>
             <div class="modal-footer botones">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal">Eliminar</button>
+                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" (click)="eliminarGasto()">Eliminar</button>
             </div>
         </form>
       </div>

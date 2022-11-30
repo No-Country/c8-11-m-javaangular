@@ -1,16 +1,16 @@
 section {
     height:max-content
 }
-
+/*
 .gradient-custom-2 {
     background-color: #FAFAFA;
     color:#3E3E3E;
-}
-
+}*/
+/*
 .btn-violet {
     background-color: #5D21D2;
     color:white
-}/*
+}*//*
 .textillo {    
     position:relative;
     top:-100px
@@ -30,7 +30,7 @@ section {
     font-size: 2rem;
     font-weight: bolder;
 }
-    
+/*    
 @media (min-width: 768px) {
     .gradient-form {
     height: 100vh !important;
@@ -42,10 +42,10 @@ section {
         border-top-right-radius: .3rem;
         border-bottom-right-radius: .3rem;
     }
-}
+}*/
 
 
-
+/*
 .campo {
     position: relative;
 }
@@ -66,4 +66,4 @@ section {
     text-transform: uppercase;
     cursor: pointer;
     padding: 2px 10px;
-}
+}*/

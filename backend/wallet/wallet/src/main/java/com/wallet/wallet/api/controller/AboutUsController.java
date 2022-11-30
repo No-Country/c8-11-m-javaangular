@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
+
 @RestController
 @RequestMapping("/aboutUs")
 @AllArgsConstructor
@@ -23,13 +25,13 @@ public class AboutUsController {
     @ApiOperation(value = "Add a new card")
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody AboutUsRequestDto aboutUsRequestDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(aboutUsService.save(aboutUsRequestDto));
+        return responseBuilder(HttpStatus.CREATED, aboutUsService.save(aboutUsRequestDto));
     }
 
     @ApiOperation(value = "Find all cards")
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(aboutUsService.findAll());
+        return responseBuilder(HttpStatus.OK, aboutUsService.findAll());
     }
 
     @ApiOperation(value = "Delete a card by id")

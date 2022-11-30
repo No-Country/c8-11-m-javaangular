@@ -120,7 +120,7 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         }
 
         homeResponseDto.setBalanceExpense(getBalanceMonthlyByUserId(expenses));
-        homeResponseDto.setBalanceIncome(incomeService.getBalanceMonthlyByUserId(incomes));
+        homeResponseDto.setBalanceIncome(incomeService.getBalanceMonthlyByUserId(incomes) + incomeService.getBalanceYearlyByUserId(userId,year));
 
         homeResponseDto.setFirstName(user.getFirstName());
         homeResponseDto.setMonthNow(LocalDate.now().getMonth().toString().toLowerCase());
@@ -172,6 +172,7 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
                 if(month== 12){
                     balanceYearly = incomeService.getBalanceYearlyByUserId(userId,  year);
                 }
+
                 List<Income> incomeConvert = incomeService.convertIncome(incomeRepository.getMonthlyByUserId(userId, month, year), userCodeCurrency, userValueCurrency);
                 balanceIncome = incomeService.getBalanceMonthlyByUserId(incomeConvert) + balanceYearly;
                 incomes.add(balanceIncome);

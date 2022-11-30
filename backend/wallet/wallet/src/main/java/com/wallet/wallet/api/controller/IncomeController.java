@@ -11,7 +11,6 @@ import static org.springframework.http.HttpStatus.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/incomes")
 @Api(tags = "Income", description = " " )

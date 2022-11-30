@@ -36,7 +36,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
     @Override
     public CategoryResponseDto save(CategoryRequestDto categoryRequestDto, String token) {
 
-        Long id = jwtUtil.extractUserId(token.substring(7));
+        Long id = jwtUtil.extractUserId(token.substring(7)).longValue();
         User user = userRepository.findById(id).get();
 
         categoryRequestDto.setUserIdCreate(id);

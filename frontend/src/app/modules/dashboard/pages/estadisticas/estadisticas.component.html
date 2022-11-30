@@ -1,1 +1,34 @@
-<p>estadisticas works!</p>
+<main>
+
+    <h1>"Visualizacion de estadisticas"</h1>
+
+    <hr>
+
+    <section class="d-flex row ">
+
+        <figure class="col-lg-6">
+            <h2>Comparativa general del total de ingresos  y egresos</h2>
+            <canvas id="pieChartGeneral"></canvas>
+        </figure>
+
+        <figure class="col-lg-6">
+            <h2>Gasto mas importante
+                <select id="featuresOptions">
+                    <option value="h">Año</option>
+                    <option value="l">Mes</option>
+                    <option value="l">Semana</option>
+                </select>
+            </h2>
+            <canvas id="radarChartIncomesExpenses"></canvas>
+        </figure>
+
+    </section>
+
+    <section class="d-flex row col-12 justify-content-center" >
+        <figure class="" style="height: 80vh ;">
+            <h2>Comparativa mensual de ingresos y gastos</h2>
+            <canvas id="barChartIncomesExpensesMonths"></canvas>
+        </figure>
+    </section>
+
+</main>

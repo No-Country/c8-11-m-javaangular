@@ -38,6 +38,12 @@ public class User {
     @NotNull(message = "")
     private Currency currency;
 
+    //@ManyToOne()
+    //@JoinColumn(name = "languague_id", referencedColumnName = "id", nullable = false)
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@NotNull(message = "")
+    //private Languague languague;
+
     private ERole role;
 
     private Boolean deleted;

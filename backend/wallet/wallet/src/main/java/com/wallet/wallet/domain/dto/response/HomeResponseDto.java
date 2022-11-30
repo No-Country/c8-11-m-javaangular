@@ -11,6 +11,8 @@ public class HomeResponseDto {
 
     private String monthNow;
 
+    private String symbolCurrency;
+
     private Double balanceExpense;
 
     private Double balanceIncome;

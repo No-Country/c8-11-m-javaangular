@@ -3,6 +3,7 @@ package com.wallet.wallet.api.service.impl;
 import com.wallet.wallet.Security.jwt.JwtUtil;
 import com.wallet.wallet.api.service.IExpenseService;
 import com.wallet.wallet.api.service.IIncomeService;
+import com.wallet.wallet.api.service.IUserService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
 import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
 import com.wallet.wallet.domain.dto.response.*;
@@ -15,23 +16,17 @@ import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IExpenseRepository;
 
 import com.wallet.wallet.domain.repository.IIncomeRepository;
-import com.wallet.wallet.domain.repository.IUserRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.PropertySource;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.net.PortUnreachableException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Slf4j
 @Service
 public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseResponseDto, ExpenseRequestDto, Long> implements IExpenseService {
 
@@ -42,21 +37,21 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     private final IIncomeService incomeService;
     private final IIncomeRepository incomeRepository;
 
-    private final IUserRepository userRepository;
+    private final IUserService userService;
 
     private final JwtUtil jwtUtil;
 
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto, String token) {
-        Long userId = jwtUtil.extractUserId(token.substring(7));
+        Long userId = jwtUtil.extractUserId(token);
         expenseRequestDto.setUserId(userId);
-        log.info("Gasto agregado correctamente");
+
         return super.save(expenseRequestDto);
     }
 
     @Override
     public List<ExpenseResponseDto> getAllByUserId(String token) {
-        Long userId = jwtUtil.extractUserId(token.substring(7));
-        User user = userRepository.findById(userId).get();
+        Long userId = jwtUtil.extractUserId(token);
+        User user = userService.getById(userId);
         String userCodeCurrency = user.getCurrency().getCodeCurrency();
         Double userValueCurrency = user.getCurrency().getValueDollar();
         return expenseMapper.listEntityToListResponseDto(convertExpense(expenseRepository.getAllByUserId(userId), userCodeCurrency, userValueCurrency));
@@ -96,8 +91,8 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     @Override
     public HomeResponseDto getForHome(String token){
 
-        Long userId = jwtUtil.extractUserId(token.substring(7));
-        User user = userRepository.findById(userId).get();
+        Long userId = jwtUtil.extractUserId(token);
+        User user = userService.getById(userId);
         String userCodeCurrency = user.getCurrency().getCodeCurrency();
         Double userValueCurrency = user.getCurrency().getValueDollar();
 
@@ -110,11 +105,12 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         HomeResponseDto homeResponseDto = new HomeResponseDto();
 
         List<MoveResponseDto> movesResponseDto = new ArrayList<>();
-        for(int i=0; i<3; i++){
-            movesResponseDto.add(expenseMapper.entityToMoveResponseDto(expenses.get(i)));
-        }
 
-        for(int i=0; i<3; i++){
+        for(int i=0; expenses.size()>3 ? i<3 : i<expenses.size(); i++){
+            movesResponseDto.add(expenseMapper.entityToMoveResponseDto(expenses.get(i)));
+            }
+
+        for(int i=0; incomes.size()>3 ? i<3 : i<incomes.size(); i++){
             movesResponseDto.add(incomeMapper.entityToMoveResponseDto(incomes.get(i)));
         }
 
@@ -128,6 +124,7 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
 
         homeResponseDto.setFirstName(user.getFirstName());
         homeResponseDto.setMonthNow(LocalDate.now().getMonth().toString().toLowerCase());
+        homeResponseDto.setSymbolCurrency(user.getCurrency().getSymbol());
         homeResponseDto.setMoves(movesResponseDto);
 
         return homeResponseDto;
@@ -137,8 +134,8 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
 
         StatisticsResponseDto statisticsResponseDto = new StatisticsResponseDto();
 
-        Long userId = jwtUtil.extractUserId(token.substring(7));
-        User user = userRepository.findById(userId).get();
+        Long userId = jwtUtil.extractUserId(token);
+        User user = userService.getById(userId);
         String userCodeCurrency = user.getCurrency().getCodeCurrency();
         Double userValueCurrency = user.getCurrency().getValueDollar();
 
@@ -219,7 +216,6 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         Optional<Expense> expense = expenseRepository.findById(id);
         if(expense.get().getUser().getId() == id){
             super.delete(id);
-            log.info("Gasto eliminado correctamente");
         }
     }
 

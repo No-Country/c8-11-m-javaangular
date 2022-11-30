@@ -23,4 +23,6 @@ public class Currency {
     //@Schema (example = 0.0016)
     private Double valueDollar;
 
+    private String symbol;
+
 }

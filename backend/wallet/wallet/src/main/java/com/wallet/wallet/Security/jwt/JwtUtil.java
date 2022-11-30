@@ -36,7 +36,10 @@ public class JwtUtil {
 
    public Date extractExpiration(String token) { return extractClaim(token, Claims::getExpiration); }
 
-   public Long extractUserId(String token) { return (Long) extractAllClaims(token).get("user_id"); }
+
+   public Long extractUserId(String token) {
+      return Long.valueOf(extractAllClaims(token.substring(7)).get("user_id").toString());
+   }
 
    public static String generateToken(User user) {
 

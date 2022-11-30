@@ -12,4 +12,8 @@ public interface GenericServiceAPI<ENT, RES, REQ, ID> {
     JpaRepository<ENT, ID> getRepository();
 
     IMapper<ENT, RES, REQ> getMapper();
+
+    default boolean tokenNotValid(String token){
+        return (token.trim().isEmpty());
+    }
 }

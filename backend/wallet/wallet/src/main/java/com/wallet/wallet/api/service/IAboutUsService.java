@@ -6,7 +6,6 @@ import com.wallet.wallet.domain.dto.response.AboutUsResponseDto;
 import com.wallet.wallet.domain.model.AboutUs;
 
 import java.util.List;
-import java.util.Set;
 
 
 public interface IAboutUsService extends GenericServiceAPI<AboutUs, AboutUsResponseDto, AboutUsRequestDto, Long> {

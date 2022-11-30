@@ -43,16 +43,7 @@ export class GeneralComponent implements OnInit {
           tension: 0.2,
           fill:true
         }]
-      },
-      options:{
-        plugins:{
-          legend:{
-            labels:{
-              
-            }
-          }
-        }
-      }           
+      }
     });
    }
 }

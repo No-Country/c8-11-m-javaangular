@@ -1,6 +1,5 @@
 package com.wallet.wallet.domain.repository;
 
-import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.Income;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

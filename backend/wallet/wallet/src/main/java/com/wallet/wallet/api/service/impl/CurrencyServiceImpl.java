@@ -31,6 +31,7 @@ public class CurrencyServiceImpl implements ICurrencyService{
             List<Currency> updateCurrencies = repository.findAll();
             for (int i = 0; i < currencies.size(); i++) {
                 updateCurrencies.get(i).setValueDollar(currencies.get(i).getValueDollar());
+                repository.saveAll(updateCurrencies);
             } 
         }
     }

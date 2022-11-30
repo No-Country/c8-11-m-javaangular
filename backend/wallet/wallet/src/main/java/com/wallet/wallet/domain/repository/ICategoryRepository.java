@@ -1,7 +1,6 @@
 package com.wallet.wallet.domain.repository;
 
 import com.wallet.wallet.domain.model.Category;
-import com.wallet.wallet.domain.model.Expense;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

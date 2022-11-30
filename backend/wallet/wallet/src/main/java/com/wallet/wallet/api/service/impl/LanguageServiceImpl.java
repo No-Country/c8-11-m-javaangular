@@ -9,12 +9,10 @@ import com.wallet.wallet.domain.mapper.LanguageMapper;
 import com.wallet.wallet.domain.model.Language;
 import com.wallet.wallet.domain.repository.ILanguageRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
-@Slf4j
 @Service
 public class LanguageServiceImpl extends GenericServiceImpl<Language, LanguageResponseDto, LanguageRequestDto, Long> implements ILanguageService {
 

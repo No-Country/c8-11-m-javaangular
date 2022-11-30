@@ -7,8 +7,9 @@ import com.wallet.wallet.domain.model.User;
 
 public interface IUserService {
 
-    UserResponseDto validate(AuthenticationRequest authenticationRequest);
-    UserResponseDto authenticate(AuthenticationRequest authenticationRequest);
-    UserResponseDto save(UserRequestDto userRequestDto);
+    UserResponseDto validate(AuthenticationRequest dto);
+    UserResponseDto authenticate(AuthenticationRequest dto);
+    UserResponseDto save(UserRequestDto dto);
     User getByEmail(String email);
+    User getById(Long id);
 }

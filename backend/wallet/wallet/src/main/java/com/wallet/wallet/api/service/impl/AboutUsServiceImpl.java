@@ -20,21 +20,19 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class AboutUsServiceImpl extends GenericServiceImpl<AboutUs, AboutUsResponseDto, AboutUsRequestDto, Long> implements IAboutUsService {
+public class AboutUsServiceImpl extends GenericServiceImpl<AboutUs, AboutUsResponseDto, AboutUsRequestDto, Long>
+        implements IAboutUsService {
 
-    private final IAboutUsRepository aboutUsRepository;
-
+    private final IAboutUsRepository repository;
     private final AboutUsMapper aboutUsMapper;
 
-
-    public AboutUsResponseDto save(AboutUsRequestDto aboutUsRequestDto) {
-        return super.save(aboutUsRequestDto);
+    public AboutUsResponseDto save(AboutUsRequestDto dto) {
+        return super.save(dto);
     }
 
     @Override
-    public List<AboutUsResponseDto> findAll(){
-
-        List<AboutUsResponseDto> response = aboutUsRepository.findAll()
+    public List<AboutUsResponseDto> findAll() {
+        List<AboutUsResponseDto> response = repository.findAll()
                 .stream()
                 .map(s -> aboutUsMapper.entityToResponseDto(s))
                 .collect(Collectors.toList());
@@ -43,13 +41,13 @@ public class AboutUsServiceImpl extends GenericServiceImpl<AboutUs, AboutUsRespo
         return response;
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         super.delete(id);
     }
 
     @Override
     public JpaRepository<AboutUs, Long> getRepository() {
-        return aboutUsRepository;
+        return repository;
     }
 
     @Override

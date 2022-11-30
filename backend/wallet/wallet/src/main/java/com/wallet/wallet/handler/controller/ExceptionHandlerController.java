@@ -7,6 +7,7 @@ import static org.springframework.http.HttpStatus.*;
 
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +16,8 @@ import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 import com.wallet.wallet.handler.ErrorDetails;
-import com.wallet.wallet.handler.exeption.ExampleException;
+import com.wallet.wallet.handler.exeption.ResourceNotFoundException;
+import com.wallet.wallet.handler.exeption.UserUnauthorizedException;
 
 import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
 
@@ -24,7 +26,7 @@ public class ExceptionHandlerController {
 
     @ResponseStatus(NOT_FOUND)
     @ExceptionHandler({ NotFoundException.class,
-            ExampleException.class
+            ResourceNotFoundException.class
     })
     public ResponseEntity<Object> notFoundHandler(HttpServletRequest request, Exception exception) {
         return responseBuilder(NOT_FOUND, request.getRequestURI(), new ErrorDetails(exception));
@@ -37,7 +39,10 @@ public class ExceptionHandlerController {
     }
 
     @ResponseStatus(UNAUTHORIZED)
-    @ExceptionHandler({ Unauthorized.class })
+    @ExceptionHandler({ Unauthorized.class, 
+            BadCredentialsException.class,
+            UserUnauthorizedException.class 
+    })
     public ResponseEntity<Object> unauthorizedHandler(HttpServletRequest request, Exception exception) {
         return responseBuilder(FORBIDDEN, request.getRequestURI(), new ErrorDetails(exception));
     }

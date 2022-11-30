@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -21,6 +21,7 @@ import { FiltrarComponent } from './componentes/filtrar/filtrar.component';
 import { FiltrarIngresoComponent } from './componentes/filtrar-ingreso/filtrar-ingreso.component';
 import { PaginacionPipe } from './pipes/paginacion.pipe';
 import { PaginacionIngresoPipe } from './pipes/paginacion-ingreso.pipe';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { PaginacionIngresoPipe } from './pipes/paginacion-ingreso.pipe';
     RouterModule,
     LayoutCoreModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
   ]

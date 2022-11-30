@@ -5,7 +5,7 @@
     <div class="seleccion">
         <!----Nuevo Gasto Botón---->
         <div class="selector-left">
-            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="openGasto()">+ Nuevo Gasto</button>            
+            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidators()">+ Nuevo Gasto</button>            
         </div> 
         <!----Selectores y filtros----->       
         <div class="selector-right">
@@ -521,36 +521,63 @@
       <div class="modal-content modal-agregar">
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">NUEVO GASTO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
         </div>
         <!------Formulario------->
-        <form  id="agregarGasto" class="add-form" (ngSubmit)="guardarGasto()" novalidate autocomplete="off" validate>
+        <form  [formGroup]="gastoForm" class="add-form" novalidate autocomplete="off" required id="agregarGasto" (ngSubmit)="guardarGasto()" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" name="marca" class="form-control" [(ngModel)]="newFecha" required>
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
+                    min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
+                    <div *ngIf="Fecha?.errors && Fecha?.touched">
+                        <p *ngIf="Fecha?.hasError('required')" class="text-danger">
+                          Ingrese una fecha
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>
-                    <select id="categoria" type="text" name="categoria" class="form-control" [(ngModel)]="newCategoria"> 
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
                         <option value="servicios">Servicios</option>
                         <option value="alimentos">Alimentos</option>
                         <option value="movilidad">Movilidad</option>
                         <option value="varios">Varios</option>                  
                     </select>
+                    <div *ngIf="Categoria?.errors && Categoria?.touched">
+                        <p *ngIf="Categoria?.hasError('required')" class="text-danger">
+                          Ingrese una categoria
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input id="importe" type="number" name="importe" class="form-control" [(ngModel)]="newImporte" required>
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <div *ngIf="Importe?.errors && Importe?.touched">
+                        <p *ngIf="Importe?.hasError('required')" class="text-danger">
+                          Ingrese un importe
+                        </p>
+                        <p *ngIf="Importe?.hasError('min')" class="text-danger">
+                            El importe debe ser mayor a cero
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input id="descripcion" type="text" name="descripcion" class="form-control" [(ngModel)]="newDescripcion">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <div *ngIf="Descripcion?.errors && Descripcion?.touched">
+                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                            Ingrese una descripción
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                            Menos de 20 caracteres
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer botones">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
-                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidators()">Cancelar</button> 
+                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal"  [disabled]="!gastoForm.valid">Aceptar</button>                               
             </div>
         </form>
       </div>
@@ -564,36 +591,63 @@
         
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">EDITAR GASTO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
         </div>
         <!------Formulario------->
-        <form id="agregarEducacion" class="add-form" (ngSubmit)="editarGasto()" novalidate autocomplete="off">
+        <form  [formGroup]="gastoForm" class="add-form" novalidate autocomplete="off" required id="agregarGasto" (ngSubmit)="guardarGasto()" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" value={{fechaActual}} name="marca" class="form-control" [(ngModel)]="newFecha" required>
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
+                    min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
+                    <div *ngIf="Fecha?.errors && Fecha?.touched">
+                        <p *ngIf="Fecha?.hasError('required')" class="text-danger">
+                          Ingrese una fecha
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Categoria</label><br>
-                    <select id="categoria" type="text" name="categoria" class="form-control" [(ngModel)]="newCategoria" > 
-                        <option value="Servicios">Servicios</option>
-                        <option value="Alimentos">Alimentos</option>
-                        <option value="Movilidad">Movilidad</option>
-                        <option value="Varios">Varios</option>                 
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                        <option value="servicios">Servicios</option>
+                        <option value="alimentos">Alimentos</option>
+                        <option value="movilidad">Movilidad</option>
+                        <option value="varios">Varios</option>                  
                     </select>
+                    <div *ngIf="Categoria?.errors && Categoria?.touched">
+                        <p *ngIf="Categoria?.hasError('required')" class="text-danger">
+                          Ingrese una categoria
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input id="importe" type="number" name="importe" class="form-control" [(ngModel)]="newImporte" required>
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <div *ngIf="Importe?.errors && Importe?.touched">
+                        <p *ngIf="Importe?.hasError('required')" class="text-danger">
+                          Ingrese un importe
+                        </p>
+                        <p *ngIf="Importe?.hasError('min')" class="text-danger">
+                            El importe debe ser mayor a cero
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input id="descripcion" type="text" name="descripcion" class="form-control" [(ngModel)]="newDescripcion" >
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <div *ngIf="Descripcion?.errors && Descripcion?.touched">
+                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                            Ingrese una descripción
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                            Menos de 20 caracteres
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer botones">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
-                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidators()">Cancelar</button> 
+                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal"  [disabled]="!gastoForm.valid">Aceptar</button>                               
             </div>
         </form>
       </div>

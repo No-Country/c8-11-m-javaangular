@@ -5,7 +5,7 @@
     <div class="seleccion">
         <!-----BOTÓN NUEVO INGRESO------>
         <div class="selector-left">
-            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto">+ Nuevo Ingreso</button>            
+            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidators()">+ Nuevo Ingreso</button>            
         </div>   
         <!-----SELECTORES Y FILTROS---->      
         <div class="selector-right">
@@ -460,43 +460,70 @@
 
 <!------------------MODALES---------------------->
 
-<!--MODAL NUEVO GASTO--->
+<!--MODAL NUEVO INGRESO--->
 <div class="modal fade" id="nuevoGasto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-agregar">
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">NUEVO INGRESO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="fecha=newFecha"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
         </div>
         <!------Formulario------->
-        <form id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off">
+        <form [formGroup]="gastoForm" id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off" required>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fechaNuevoIngreso" type="date"  name="marca" class="form-control" [(ngModel)]="newFecha" value={{fecha}} required>
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
+                    min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
+                    <div *ngIf="Fecha?.errors && Fecha?.touched">
+                        <p *ngIf="Fecha?.hasError('required')" class="text-danger">
+                          Ingrese una fecha
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
-                    <select id="categoria" type="text" name="categoria" class="form-control" [(ngModel)]="newCategoria"> 
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" ngModel required [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
                         <option value="Anual">Anual</option>
                         <option value="Mensual">Mensual</option>
                         <option value="Semanal">Semanal</option>
                         <option value="Diario">Diario</option>                   
                     </select>
+                    <div *ngIf="Categoria?.errors && Categoria?.touched">
+                        <p *ngIf="Categoria?.hasError('required')" class="text-danger">
+                          Ingrese una categoria
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input id="importe" type="number" name="importe" class="form-control" [(ngModel)]="newImporte" required>
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <div *ngIf="Importe?.errors && Importe?.touched">
+                        <p *ngIf="Importe?.hasError('required')" class="text-danger">
+                          Ingrese un importe
+                        </p>
+                        <p *ngIf="Importe?.hasError('min')" class="text-danger">
+                            El importe debe ser mayor a cero
+                        </p>  
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input id="descripcion" type="text" name="descripcion" class="form-control" [(ngModel)]="newDescripcion">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <div *ngIf="Descripcion?.errors && Descripcion?.touched">
+                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                            Ingrese una descripción
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                            Menos de 20 caracteres
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer botones">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
-                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
-            </div>
+                <div class="modal-footer botones">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidators()">Cancelar</button> 
+                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal"  [disabled]="!gastoForm.valid">Aceptar</button>                               
+                </div>
+            </div>    
         </form>
       </div>
     </div>
@@ -508,9 +535,10 @@
       <div class="modal-content modal-agregar">
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">EDITAR INGRESO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
         </div>
         <!------Formulario------->
+        <!---
         <form id="editarIngreso" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
@@ -539,6 +567,62 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
                 <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
             </div>
+        </form>--->
+        <form [formGroup]="gastoForm" id="agregarEducacion" (ngSubmit)="guardarIngreso()" autocomplete="off">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" class="form-control"  value="2018-07-22"
+                    min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
+                    <div *ngIf="Fecha?.errors && Fecha?.touched">
+                        <p *ngIf="Fecha?.hasError('required')" class="text-danger">
+                          Ingrese una fecha
+                        </p>  
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="categoria" class="form-label">Tipo</label><br>
+                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" class="form-control" [(ngModel)]="newCategoria" ngModel required [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                        <option value="Anual">Anual</option>
+                        <option value="Mensual">Mensual</option>
+                        <option value="Semanal">Semanal</option>
+                        <option value="Diario">Diario</option>                   
+                    </select>
+                    <div *ngIf="Categoria?.errors && Categoria?.touched">
+                        <p *ngIf="Categoria?.hasError('required')" class="text-danger">
+                          Ingrese una categoria
+                        </p>  
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="importe" class="form-label">Importe</label>
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [(ngModel)]="newImporte" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
+                    <div *ngIf="Importe?.errors && Importe?.touched">
+                        <p *ngIf="Importe?.hasError('required')" class="text-danger">
+                          Ingrese un importe
+                        </p>
+                        <p *ngIf="Importe?.hasError('min')" class="text-danger">
+                            El importe debe ser mayor a cero
+                        </p>  
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" class="form-control" [(ngModel)]="newDescripcion" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
+                    <div *ngIf="Descripcion?.errors && Descripcion?.touched">
+                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                            Ingrese una descripción
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                            Menos de 20 caracteres
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer botones">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidators()">Cancelar</button> 
+                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal"  [disabled]="!gastoForm.valid">Aceptar</button>                               
+                </div>
+            </div>    
         </form>
       </div>
     </div>

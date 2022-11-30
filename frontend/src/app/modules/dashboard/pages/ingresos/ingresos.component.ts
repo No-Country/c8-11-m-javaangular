@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ingreso } from '../../model/ingreso';
 import { FechaService } from '../../services/fecha.service';
 
@@ -11,6 +12,8 @@ export class IngresosComponent implements OnInit {
 
   fecha:any;
   active:boolean=true;
+
+  gastoForm:FormGroup;
 
   nuevoIngreso:Ingreso[]=[];
   newFecha:Date=new Date();
@@ -126,19 +129,57 @@ export class IngresosComponent implements OnInit {
       importe:25000
   },
   {
-      fecha:new Date('1980-11-12'),
+      fecha:new Date('2022-11-24'),
       categoria:'Anual',
       descripcion:'Acciones en Spice Girls',
       importe:50000
   }
   ];
+  constante:Date=new Date();
  
   
-  constructor(private fechaService: FechaService) { }
+  constructor(private fechaService: FechaService,private formBuilder:FormBuilder) {
+    this.gastoForm = this.formBuilder.group(
+      {      
+        fecha: ['', [Validators.required]],
+        categoria: ['',[Validators.required]],
+        importe:['',[Validators.required,Validators.min(0)]],
+        descripcion:['',[Validators.required,Validators.maxLength(20)]]
+      }
+    )
+  }
 
   ngOnInit(): void {
-    this.fecha = this.fechaService.actual()
+    this.fecha = this.fechaService.actual();
   }
+
+  // Propiedades para los validadores
+  get Fecha() { 
+    return this.gastoForm.get('fecha'); 
+  }
+  get Categoria() {
+    return this.gastoForm.get('categoria')
+  }
+  get Importe() { 
+    return this.gastoForm.get('importe'); 
+  }
+  get Descripcion() {
+    return this.gastoForm.get('descripcion')
+  }
+
+  clearValidators() {
+    this.gastoForm.reset(this.gastoForm.value);
+  }
+
+  
+  // METODOS CRUD
+  
+  /*-------GUARDAR NUEVO GASTO-------*/
+
+
+
+
+
   guardarIngreso(){    
     const nuevoIngreso = {      
       fecha:this.newFecha,
@@ -147,9 +188,15 @@ export class IngresosComponent implements OnInit {
       importe:this.newImporte
     }
     console.log(nuevoIngreso);
-    console.log(new Date(this.fechaService.actual()));
+    console.log(nuevoIngreso.fecha)
+    console.log(typeof nuevoIngreso.fecha);/*
+    console.log(new Date(this.fechaService.actual()));*/
+    this.newDescripcion="";
+    this.newImporte=0;
+    this.newCategoria="";/**/
   }
 
+  // BOTONES DE PAGINACION
   nextPage(){
     this.page = this.page +5;
   }

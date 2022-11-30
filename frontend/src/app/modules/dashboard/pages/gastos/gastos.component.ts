@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Gasto } from '../../model/gasto';
 import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
@@ -26,6 +26,8 @@ export class GastosComponent implements OnInit {
   // Paginación
   page:number=0;
   orden:string="";
+
+  gastoForm:FormGroup;
 
   lista:Gasto[]=[];
   datos:any;
@@ -380,7 +382,16 @@ export class GastosComponent implements OnInit {
   ];
   dateKIKI:Date=new Date();
 
-  constructor(private fechaService: FechaService,private gastoService:GastosService) {}
+  constructor(private fechaService: FechaService,private gastoService:GastosService,private formBuilder:FormBuilder) {
+    this.gastoForm = this.formBuilder.group(
+      {      
+        fecha: ['', [Validators.required]],
+        categoria: ['',[Validators.required]],
+        importe:['',[Validators.required,Validators.min(0)]],
+        descripcion:['',[Validators.required,Validators.maxLength(20)]]
+      }
+    )
+  }
   
   ngOnInit(): void {
     this.fechaActual = this.fechaService.actual();
@@ -388,6 +399,25 @@ export class GastosComponent implements OnInit {
     this.newFecha = new Date();*/
     this.pintarDatos(this.lista2Gastos)    
   }
+
+  // Propiedades para los validadores
+  get Fecha() { 
+    return this.gastoForm.get('fecha'); 
+  }
+  get Categoria() {
+    return this.gastoForm.get('categoria')
+  }
+  get Importe() { 
+    return this.gastoForm.get('importe'); 
+  }
+  get Descripcion() {
+    return this.gastoForm.get('descripcion')
+  }
+
+  clearValidators() {
+    this.gastoForm.reset(this.gastoForm.value);
+  }
+
   
 
   // Obtener Gastos de la API
@@ -400,25 +430,20 @@ export class GastosComponent implements OnInit {
   pintarDatos(datos:any){
     this.lista = datos;
   }
-  // Prueba
-  openGasto(){
-    this.fechaActual = this.fechaService.actual();
-  }
+  
   /*==================================================== */
   /*--------------Modales Metodos CRUD-------------------*/
 
   /*------------NUEVO GASTO---------------*/  
   guardarGasto(){
-    console.log("cococo    "+this.newFecha.valueOf())
     const nuevoGasto = {      
-      fecha:this.newFecha.valueOf(),
+      fecha:this.newFecha,
       categoria:this.newCategoria,
       descripcion:this.newDescripcion,
       importe:this.newImporte
     }
-    console.log(nuevoGasto)
-    
-    console.log("Hola    " + new Date(nuevoGasto.fecha))/*
+    console.log(nuevoGasto);
+  /*
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       data=>{},
       (error) => {

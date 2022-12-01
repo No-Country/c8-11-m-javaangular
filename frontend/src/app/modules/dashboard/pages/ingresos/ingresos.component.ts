@@ -140,7 +140,7 @@ export class IngresosComponent implements OnInit {
       importe:50000
   }
   ];
-  constante:Date=new Date();
+  
  
   
   constructor(private fechaService: FechaService,private formBuilder:FormBuilder, private ingresoService:IngresosService) {
@@ -154,14 +154,14 @@ export class IngresosComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void {
-    this.fecha = this.fechaService.actual();
+  ngOnInit(): void {/*
+    this.fecha = this.fechaService.actual();*/
     this.obtenerIngresos()
   }
 
   obtenerIngresos(){
     this.ingresoService.obtenerIngresos().subscribe(data =>{
-    this.listaIngreso=data.response;
+    this.listaIngreso=data;
     console.log(this.listaIngreso)
     });
   }

@@ -196,6 +196,7 @@
     </div>
     --->
     <!-----VISTA TABLA EN PC-->
+    
     <div *ngIf="active" class="tabla-gastos">        
         <div  class="table-responsive">
             <table class="table table-sm">
@@ -221,6 +222,7 @@
         </div>        
     </div>
     <!-----VISTA TABLA EN MOVIL---->
+    
     <div *ngIf="active" class="tabla-gastos-movil">        
         <div  class="table-responsive">
             <table class="table table-sm">
@@ -385,6 +387,7 @@
         
     </div>---->
     <!-----VISTA TARJETA EN PC------->
+    
     <div *ngIf="!active" class="tabla-gastos">        
         <div class="tarjeta-titulo">
             <div class="fecha-tar">
@@ -426,6 +429,7 @@
         
     </div>
     <!----VISTA TARJETAS EN MOVIL----->
+    
     <div *ngIf="!active" class="tabla-gastos-movil">        
         <div class="tarjeta-titulo-movil">
             <div class="indica-tar-movil">
@@ -453,36 +457,12 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>  
 </section>
 
 <h3 style="color:red">Recibiendo los datos del back</h3>
 
-<div *ngIf="active" class="tabla-gastos">        
-    <div  class="table-responsive">
-        <table class="table table-sm">
-            <thead>
-                <tr class="p-3">
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Importe</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let item of listaIngreso">
-                <tr class="p-2">
-                    <td>{{item.date}}</td>
-                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.type=='Alimentos'),'text-bg-success':(item.type=='servicios'),'text-bg-danger':(item.type=='Movilidad'),'text-bg-primary':(item.type=='YEARLY')}">{{item.type}}</span></td>
-                    <td>{{item.description}}</td>
-                    <td>${{item.amount}}</td>
-                    <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar></td>
-                </tr>                                      
-            </tbody>
-        </table>
-    </div>        
-</div>
-<p style="display:none">{{listaIngreso[0].amount}}</p>
+
 
 <!------------------MODALES---------------------->
 

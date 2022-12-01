@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Gasto } from '../../model/gasto';
+import { ResGastos } from '../../model/res-gastos';
 import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
 
@@ -13,10 +14,12 @@ import { GastosService } from '../../services/gastos.service';
 export class GastosComponent implements OnInit {
 
   fechaActual:any;
+  // Vistas Tabla/Tarjeta
   active:boolean=true;
 
-  listaGastos:any[]=[];
+  listaGastos:any;
 
+  // CRUD
   nuevoGasto:Gasto[]=[];
   newFecha:Date=new Date();
   newDescripcion:string="";
@@ -29,11 +32,13 @@ export class GastosComponent implements OnInit {
   page:number=0;
   orden:string="";
 
+  // Formularios
   gastoForm:FormGroup;
+  form:FormGroup | undefined;
 
   lista:Gasto[]=[];
   datos:any;
-  form:FormGroup | undefined;
+  
   coco:boolean=true;
 /*
   lista2Gastos = [
@@ -382,7 +387,6 @@ export class GastosComponent implements OnInit {
       importe:2500
     }
   ];
-  dateKIKI:Date=new Date();
 
   constructor(private fechaService: FechaService,private gastoService:GastosService,private formBuilder:FormBuilder) {
     this.gastoForm = this.formBuilder.group(
@@ -397,20 +401,26 @@ export class GastosComponent implements OnInit {
   
   ngOnInit(): void {
     this.fechaActual = this.fechaService.actual();
-    this.obtenerGastos();/*
-    this.newFecha = new Date();*/
-    /*
-    this.pintarDatos(this.lista2Gastos) */
+    this.obtenerGastos();
     this.lista = this.lista2Gastos
   }
 
 
-  // Obtener Gastos de la API
+  // Obtener Gastos
   obtenerGastos(){
-    this.gastoService.obtenerGastos().subscribe(data =>{
-      this.listaGastos = data.response;      
-      console.log(this.listaGastos)
-    });
+    this.gastoService.obtenerGastos().subscribe(
+      data =>{
+        this.listaGastos = data.response;      
+        console.log(this.listaGastos)
+      },    
+      err => {/*
+        this.isLogged = false;
+        this.errMsj = err.error.message;
+        alert("Algo ha fallado");
+        this.router.navigate(['/']);*/
+        console.error("Los datos del servidor no llegan");
+        console.log(err);
+      });
   }
   // Pintar Datos
   pintarDatos(datos:any){

@@ -15,7 +15,7 @@ export class GastosService {
   
   //OBTENER GASTOS
   public obtenerGastos():Observable<any>{
-    return this.http.get<Gasto[]>(this.gastoURL + "user")    
+    return this.http.get<any>(this.gastoURL + "user")    
   }
 
   //TODO:Buscar metodo

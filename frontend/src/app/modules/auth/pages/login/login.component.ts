@@ -60,10 +60,11 @@ export class LoginComponent implements OnInit {
     });
     this.authService.login(this.loginUsuario,headers).subscribe(      
       data => {
-        console.log(data)/*
-        this.isLogged = true;       
-        this.tokenService.setToken(data.token);
-        this.router.navigate(['/dashboard']);*/
+        console.log(data)
+        this.isLogged = true;     
+        this.tokenService.setToken(data.response.jwt);
+        this.tokenService.setUserName(data.response.firstName);
+        this.router.navigate(['/dashboard']);
       },
       err => {/*
         this.isLogged = false;
@@ -71,7 +72,7 @@ export class LoginComponent implements OnInit {
         alert("Algo ha fallado");
         this.router.navigate(['/']);*/
         console.error("JO JO JO")
-        console.log(err);
+        this.usuarioIncorrecto();
       }
     );}
   }   

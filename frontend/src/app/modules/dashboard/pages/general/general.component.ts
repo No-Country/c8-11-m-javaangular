@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { GeneralService } from '../../services/general.service';
 Chart.register(...registerables);
 
 @Component({
@@ -9,11 +10,25 @@ Chart.register(...registerables);
 })
 export class GeneralComponent implements OnInit {
 
-  constructor() { }
+  nombreUsuario:string="Usuario";
+
+  constructor(private generalService:GeneralService) { }
 
   ngOnInit(): void {
-    this.renderChart('myChart')
+    this.renderChart('myChart');
+    const nombreishon = sessionStorage.getItem('UserName');
+    if (nombreishon){
+      this.nombreUsuario=nombreishon
+    }
+    this.obtenerMovimientos()
   }
+
+  obtenerMovimientos(){
+    this.generalService.obtenerDatos().subscribe(data =>{
+      console.log(data)
+    });
+  }
+
 
   renderChart( id:any){
     const myChart = new Chart (id, {

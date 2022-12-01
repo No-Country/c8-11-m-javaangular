@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'AuthToken';
 const USER_EMAIL_KEY = 'AuthUserName';
 const AUTHORITIES_KEY = 'AuthAuthorities';
+const USERNAME_KEY = 'UserName';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,14 @@ roles: Array<string> = [];
 
   public getToken(): string{
     return sessionStorage.getItem(TOKEN_KEY)!;
+  }
+
+  public setUserName(userName:string):void{
+    return sessionStorage.setItem(USERNAME_KEY,userName);
+  }
+
+  public getUserName(): string{
+    return sessionStorage.getItem(USERNAME_KEY)!;
   }
 
   public setUserEmail(userName: string): void{

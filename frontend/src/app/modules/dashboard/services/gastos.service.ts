@@ -14,7 +14,7 @@ export class GastosService {
   gastoURL = environment.baseUrl + "expenses/";
   
   //OBTENER GASTOS
-  public obtenerGastos():Observable<Gasto[]>{
+  public obtenerGastos():Observable<any>{
     return this.http.get<Gasto[]>(this.gastoURL + "user")    
   }
 

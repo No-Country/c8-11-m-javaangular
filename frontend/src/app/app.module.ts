@@ -15,6 +15,7 @@ import { CreatorsComponent } from './components/landing/creators/creators.compon
 // Modules
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { interceptorProvider } from './interceptors/interceptor.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     NgbModule,
     HttpClientModule
   ],
-  providers: [/*interceptorProvider*/],
+  providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,7 +14,7 @@ export class IngresosService {
   URL = environment.baseUrl + "incomes/";
   
   //OBTENER DATOS
-  public obtenerIngresos():Observable<Ingreso[]>{
+  public obtenerIngresos():Observable<any>{
     return this.http.get<Ingreso[]>(this.URL + "findAll")    
   }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SwitchService } from '../../../services/switch.service';
 import Swal from 'sweetalert2';
 import { SideService } from '../service/side.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'dashboard-layout',
@@ -14,7 +15,7 @@ export class MenuDashboardComponent implements OnInit {
   changer: boolean = false;
   @Output() change = new EventEmitter();
 
-  constructor(public router: Router, private modalService: SwitchService, public sideServ: SideService) { }
+  constructor(public authService:AuthService,public router: Router, private modalService: SwitchService, public sideServ: SideService) { }
 
   ngOnInit(): void {
     this.modalService.$modal.subscribe((valor) => {
@@ -44,6 +45,8 @@ export class MenuDashboardComponent implements OnInit {
       confirmButtonText: 'Si, estoy seguro!'
     }).then((result:any) => {
       if (result.isConfirmed) {
+        this.authService.logOut();
+        console.log("cerrando sesion")
         this.router.navigateByUrl('/landing')
       }
     })

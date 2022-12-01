@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ingreso } from '../../model/ingreso';
 import { FechaService } from '../../services/fecha.service';
+import { IngresosService } from '../../services/ingresos.service';
 
 @Component({
   selector: 'app-ingresos',
@@ -14,6 +15,8 @@ export class IngresosComponent implements OnInit {
   active:boolean=true;
 
   gastoForm:FormGroup;
+
+  listaIngreso:any[]=[];
 
   nuevoIngreso:Ingreso[]=[];
   newFecha:Date=new Date();
@@ -140,7 +143,7 @@ export class IngresosComponent implements OnInit {
   constante:Date=new Date();
  
   
-  constructor(private fechaService: FechaService,private formBuilder:FormBuilder) {
+  constructor(private fechaService: FechaService,private formBuilder:FormBuilder, private ingresoService:IngresosService) {
     this.gastoForm = this.formBuilder.group(
       {      
         fecha: ['', [Validators.required]],
@@ -153,6 +156,14 @@ export class IngresosComponent implements OnInit {
 
   ngOnInit(): void {
     this.fecha = this.fechaService.actual();
+    this.obtenerIngresos()
+  }
+
+  obtenerIngresos(){
+    this.ingresoService.obtenerIngresos().subscribe(data =>{
+    this.listaIngreso=data.response;
+    console.log(this.listaIngreso)
+    });
   }
 
   /*============================================================*/

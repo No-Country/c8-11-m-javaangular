@@ -14,7 +14,9 @@ export class GastosComponent implements OnInit {
 
   fechaActual:any;
   active:boolean=true;
-  listaGastos:Gasto[]=[];
+
+  listaGastos:any[]=[];
+
   nuevoGasto:Gasto[]=[];
   newFecha:Date=new Date();
   newDescripcion:string="";
@@ -397,15 +399,17 @@ export class GastosComponent implements OnInit {
     this.fechaActual = this.fechaService.actual();
     this.obtenerGastos();/*
     this.newFecha = new Date();*/
-    this.pintarDatos(this.lista2Gastos)    
+    /*
+    this.pintarDatos(this.lista2Gastos) */
+    this.lista = this.lista2Gastos
   }
 
 
   // Obtener Gastos de la API
   obtenerGastos(){
     this.gastoService.obtenerGastos().subscribe(data =>{
-      /*this.listaGastos=data;*/
-      console.log(data)
+      this.listaGastos = data.response;      
+      console.log(this.listaGastos)
     });
   }
   // Pintar Datos

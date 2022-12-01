@@ -23,19 +23,20 @@ import java.util.List;
 @AllArgsConstructor
 public class SecurityConfiguration {
 
+
     private final JwtRequestFilter jwtRequestFilter;
 
     @Bean
     SecurityFilterChain configuration(HttpSecurity http) throws Exception {
 
-        http.csrf().disable()
-           .authorizeRequests()
-           .antMatchers(HttpMethod.POST, "/users/**").permitAll()
-           .anyRequest().authenticated()
-           .and()
-           .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-           .sessionManagement()
-           .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/users/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         return http.build();
     }

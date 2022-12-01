@@ -21,6 +21,7 @@ export class IngresosComponent implements OnInit {
   newDescripcion:string="";
   newImporte?:number;
   editId:number=0;
+  borrarId:number=0;
 
   // Paginación
   page:number=0;
@@ -154,6 +155,63 @@ export class IngresosComponent implements OnInit {
     this.fecha = this.fechaService.actual();
   }
 
+  /*============================================================*/
+  
+  // METODOS CRUD
+  
+  /*-------GUARDAR NUEVO INGRESO----------------*/
+
+  guardarIngreso(){    
+    const nuevoGasto = this.gastoForm.value;
+    console.log(nuevoGasto);
+    this.gastoForm.reset(); 
+  }
+
+  /*-------EDITAR INGRESO-----------------------*/
+
+  editableId(id:number,ingreso:Ingreso){
+    const editableGasto = ingreso;
+    this.editId = id;
+    console.log(id);
+    console.log(ingreso);
+  }
+
+  actualizarIngreso(){
+    const nuevoGasto = this.gastoForm.value;
+    console.log(nuevoGasto);
+    this.gastoForm.reset();
+    const editId = this.editId;
+  }
+
+  /*-------EDITAR INGRESO-----------------------*/
+
+  trashId(id:number):void{
+    this.borrarId = id;   
+    console.log(this.borrarId);
+  }
+
+  /*============================================================*/
+
+  // BOTONES DE PAGINACION
+  nextPage(){
+    this.page = this.page +5;
+  }
+  previusPage(){
+    this.page = this.page -5;
+  }
+
+  /*============================================================*/
+
+  // METODOS DE ORDENAMIENTO - (Recibiendo Input)
+  recibirOrden(mensaje:string){
+    this.orden = mensaje;
+    this.page=0
+  }
+
+  /*============================================================*/
+
+  // VALIDATORS
+
   // Propiedades para los validadores
   get Fecha() { 
     return this.gastoForm.get('fecha'); 
@@ -167,54 +225,8 @@ export class IngresosComponent implements OnInit {
   get Descripcion() {
     return this.gastoForm.get('descripcion')
   }
-
   clearValidators() {
     this.gastoForm.reset(this.gastoForm.value);
-  }
-
-  
-  // METODOS CRUD
-  
-  /*-------GUARDAR NUEVO INGRESO-------*/
-
-  guardarIngreso(){    
-    const nuevoGasto = this.gastoForm.value;
-    console.log(nuevoGasto);
-    this.gastoForm.reset(); 
-  }
-
-  /*-------EDITAR INGRESO-------*/
-
-  actualizarIngreso(){
-    const nuevoGasto = this.gastoForm.value;
-    console.log(nuevoGasto);
-    this.gastoForm.reset();
-    const editId = this.editId;
-  }
-
-
-  // BOTONES DE PAGINACION
-  nextPage(){
-    this.page = this.page +5;
-  }
-  previusPage(){
-    this.page = this.page -5;
-  }
-
-  // METODOS DE ORDENAMIENTO - (Recibiendo Input)
-  recibirOrden(mensaje:string){
-    this.orden = mensaje;
-    this.page=0
-  }
-
-  // compararFechas
-
-  compararFechas(){
-    const fecha1 = this.lista2Ingresos[0].fecha;
-    const fecha2 = this.lista2Ingresos[1].fecha;
-    console.log(fecha1);
-    console.log(fecha2);
-    console.log(fecha1<fecha2)
   }
 
 }

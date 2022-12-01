@@ -148,7 +148,7 @@
                         <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
                         <td>{{item.descripcion}}</td>
                         <td>${{item.importe}}</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar></td>
                     </tr>                                      
                 </tbody>
             </table>
@@ -169,7 +169,7 @@
                     <tr class="p-2">
                         <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}})</span></td>
                         <td>${{item.importe}}<br>{{item.descripcion}}</td>
-                        <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar></td>
+                        <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar></td>
                     </tr>                                      
                 </tbody>
             </table>
@@ -212,7 +212,7 @@
                     <span>${{item.importe}}</span>
                 </div>
                 <div class="botones-tar">
-                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"  (click)="trashId(item.importe)"></app-borrar>
                 </div>
             </div>
         </div>
@@ -241,7 +241,7 @@
                     <p>{{item.descripcion}}</p>
                 </div>
                 <div class="botones-tar-movil">
-                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"></app-borrar>
+                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar>
                 </div>
             </div>
         </div>

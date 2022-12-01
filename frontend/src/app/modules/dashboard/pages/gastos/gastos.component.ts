@@ -400,25 +400,6 @@ export class GastosComponent implements OnInit {
     this.pintarDatos(this.lista2Gastos)    
   }
 
-  // Propiedades para los validadores
-  get Fecha() { 
-    return this.gastoForm.get('fecha'); 
-  }
-  get Categoria() {
-    return this.gastoForm.get('categoria')
-  }
-  get Importe() { 
-    return this.gastoForm.get('importe'); 
-  }
-  get Descripcion() {
-    return this.gastoForm.get('descripcion')
-  }
-
-  clearValidators() {
-    this.gastoForm.reset(this.gastoForm.value);
-  }
-
-  
 
   // Obtener Gastos de la API
   obtenerGastos(){
@@ -439,7 +420,7 @@ export class GastosComponent implements OnInit {
     const nuevoGasto = this.gastoForm.value;
     console.log(nuevoGasto);
     this.gastoForm.reset();
-  /*
+    // Servicio Gasto Service  
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       data=>{},
       (error) => {
@@ -448,7 +429,7 @@ export class GastosComponent implements OnInit {
       ()=>{
         this.obtenerGastos();
       }
-    )*/
+    )
   }
 
   /*--------EDITAR GASTO------------*/
@@ -456,7 +437,9 @@ export class GastosComponent implements OnInit {
   //Boton abrir modal: Capturar Id y experiencia
   editableId(id:any,gasto: Gasto){
     const editableGasto = gasto;
-    this.editId = id;  
+    this.editId = id;
+    console.log(id);
+    console.log(gasto);
     
     /* Mostrar datos en el modal */
     this.newFecha = editableGasto.fecha;
@@ -465,7 +448,7 @@ export class GastosComponent implements OnInit {
     this.newImporte = editableGasto.importe;
   }
 
-  //BOTON ACTUALIZAR EXPERIENCIA
+  // Boton Actualizar Experiencia
 
   actualizarGasto(): void{
     const nuevoGasto = this.gastoForm.value;
@@ -488,7 +471,7 @@ export class GastosComponent implements OnInit {
   /*------BORRAR GASTO-------------------*/
 
   //BOTON abrir modal: Capturar Id y GASTO
-  trashId(id:any,gasto:Gasto[]): void{
+  trashId(id:any): void{
     this.borrarId = id;   
     console.log(this.borrarId);  
   }
@@ -522,9 +505,24 @@ export class GastosComponent implements OnInit {
     this.page=0;
   }
 
-  juju(){
-    console.log(this.lista2Gastos[0].fecha)
-    console.log(this.dateKIKI)
-  }
+  /*==================================================== */
 
+  // VALIDATORS
+  
+  // Propiedades para los validadores
+  get Fecha() { 
+    return this.gastoForm.get('fecha'); 
+  }
+  get Categoria() {
+    return this.gastoForm.get('categoria')
+  }
+  get Importe() { 
+    return this.gastoForm.get('importe'); 
+  }
+  get Descripcion() {
+    return this.gastoForm.get('descripcion')
+  }
+  clearValidators() {
+    this.gastoForm.reset(this.gastoForm.value);
+  }
 }

@@ -404,7 +404,8 @@ export class GastosComponent implements OnInit {
   // Obtener Gastos de la API
   obtenerGastos(){
     this.gastoService.obtenerGastos().subscribe(data =>{
-      this.listaGastos=data;
+      /*this.listaGastos=data;*/
+      console.log(data)
     });
   }
   // Pintar Datos

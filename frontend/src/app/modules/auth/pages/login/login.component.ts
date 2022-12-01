@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -54,7 +55,10 @@ export class LoginComponent implements OnInit {
     console.log("El usuario tiene estos datos:");
     console.log(this.loginUsuario);
     console.log("Se llama al servicio");
-    this.authService.login(this.loginUsuario).subscribe(      
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    this.authService.login(this.loginUsuario,headers).subscribe(      
       data => {
         console.log(data)/*
         this.isLogged = true;       

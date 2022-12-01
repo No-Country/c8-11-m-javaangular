@@ -526,4 +526,8 @@ export class GastosComponent implements OnInit {
   clearValidators() {
     this.gastoForm.reset(this.gastoForm.value);
   }
+
+  filtrar(){
+    console.log("se esta filtrando")
+  }
 }

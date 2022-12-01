@@ -15,6 +15,15 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
+  httpOptions : any    = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
+
   public nuevo(nuevoUsuario: NuevoUsuario): Observable<any> {
     console.log("El servicio Registro esta corriendo en la URL:");
     console.log(this.URL+'register');
@@ -24,7 +33,7 @@ export class AuthService {
   public login(loginUsuario: LoginUsuario,httpHeaders:HttpHeaders): Observable<any>{
     console.log("El servicio login esta corriendo en la URL");
     console.log(this.URL+'login');
-    return this.httpClient.post<any>(this.URL + 'login/',loginUsuario)    
+    return this.httpClient.post<any>(this.URL + 'login',loginUsuario,this.httpOptions.headers)    
   }
     
   

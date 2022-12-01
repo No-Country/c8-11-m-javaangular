@@ -2,22 +2,13 @@
     margin:o;
     padding:0
 }
-#tobironabrete {    
-    margin-right: 100px!important;
-    width:300px;
-    padding:10px;
-}
-.titulo-filtro p{
-    font-weight: bolder;
-}
-.form-check {
-    margin-left:20px
-}
-
 .btn-aceptar {
     background:#FF8328;
     color:white;   
     margin:0 auto
+}
+#boton-filtrar {
+    padding:20px
 }
 @media only screen and (max-width: 420px) {
     #abrete {

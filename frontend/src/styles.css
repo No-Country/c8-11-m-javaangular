@@ -83,6 +83,9 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
   background:#FF8328;
   color:white
 }
+.btn-orange:hover {
+  border:1px solid #FF8328
+}
 /* Botones en tabla */
 app-editar, app-borrar {
   margin:0 7px;

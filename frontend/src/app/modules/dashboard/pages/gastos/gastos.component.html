@@ -11,9 +11,10 @@
         <div class="selector-right">
             <!----ORDENAMIENTO---->
             <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
-            <!----
-            <app-filtrar></app-filtrar>  --->
+            <!-----
+            <app-filtrar></app-filtrar>--->
             <!-------FILTRO------->
+            
             <div class="dropdown show  d-inline-block">
                 <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-text-left"></i> Filtrar
@@ -23,60 +24,47 @@
                         <p>Filtros</p>
                     </div>
                     <hr>
-                    <div class="item-filtro">
-                        <div class="en-linea text-center">
-                            <div class="sub-item mb-1">
-                                <label for="">Desde</label><br>
-                                <input type="date">
+                    <!----
+                    <form (ngSubmit)="filtrar()">
+                        <div class="form-group text-center">
+                            <label for="">Desde</label><br>
+                            <input type="date" style="width:150px">                
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="">Hasta</label><br>
+                            <input type="date" style="width:150px">
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="">Importe mínimo</label><br>
+                            <input type="number" style="width:150px">
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="">Importe máximo</label><br>
+                            <input type="number" style="width:150px">
+                        </div>
+                        <div class="from-group text-center categorias">
+                            <label for="">Categorias</label><br>
+                            <div class="item-cate">                                
+                                <input type="checkbox" class="btn-check m-2" name="options-servicios" id="options-servicios" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="options-servicios">Servicios</label>
                             </div>
-                            <div class="sub-item mb-2">
-                                <label for="">Hasta</label><br>
-                                <input type="date">
-                            </div>                
-                        </div>
-                    </div>
-                    <div class="item-filtro">
-                        <div class="en-linea">
-                            <div class="sub-item mb-1">
-                                <label for="">Mínimo</label>
-                                <input type="number">
+                            <div class="item-cate">                                
+                                <input type="checkbox" class="btn-check m-2" name="options-alimentos" id="options-alimentos" autocomplete="off">
+                                <label class="btn btn-outline-warning" for="options-alimentos">Alimentos</label>
                             </div>
-                            <div class="sub-item mb-2">
-                                <label for="">Máximo</label>
-                                <input type="number">
-                            </div>                
+                            <div class="item-cate">                                
+                                <input type="checkbox" class="btn-check m-2" name="options-movilidad" id="options-movilidad" autocomplete="off">
+                                <label class="btn btn-outline-danger" for="options-movilidad">Movilidad</label>
+                            </div>
+                            <div class="item-cate">
+                                <input type="checkbox" class="btn-check m-2" name="options-varios" id="options-varios" autocomplete="off">
+                                <label class="btn btn-outline-success" for="options-varios">Varios</label>
+                            </div>                           
+                        </div>            
+                        <div class="boton-aplicar text-center">
+                            <button type="submit" data-toggle="dropdown" class="btn btn-orange">Aplicar</button>
                         </div>
-                    </div>
-                    <div class="item-filtro">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Servicios
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Alimentos
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Movilidad
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Varios
-                            </label>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="boton-aplicar text-center">
-                        <button class="btn btn-aceptar">Aplicar</button>
-                    </div>
+                    </form>  --->                 
                 </div>
             </div>
 

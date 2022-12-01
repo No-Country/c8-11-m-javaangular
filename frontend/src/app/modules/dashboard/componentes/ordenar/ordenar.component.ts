@@ -9,7 +9,8 @@ import { runInThisContext } from 'vm';
 export class OrdenarComponent implements OnInit {
 
   @Output() mensaje = new EventEmitter<string>();
-  palabra:string="";
+
+  palabra:string="Ordenar por";
 
   constructor() { }
 
@@ -18,15 +19,19 @@ export class OrdenarComponent implements OnInit {
 
   masRecientes(){
     this.mensaje.emit("recientes");
+    this.palabra="Mas recientes"
   }
   masAntiguos(){
     this.mensaje.emit("antiguos");
+    this.palabra="Mas antiguos"
   }
   mayorImporte(){
     this.mensaje.emit("mayores");
+    this.palabra="Mayor importe"
   }
   menorImporte(){
     this.mensaje.emit("menores");
+    this.palabra="Menor importe"
   }
 
 }

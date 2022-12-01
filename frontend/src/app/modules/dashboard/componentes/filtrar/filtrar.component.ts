@@ -11,5 +11,8 @@ export class FiltrarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  filtrar(){
+    console.log("Se esta filtrando")
+  }
 
 }

@@ -162,4 +162,8 @@ app-ordenar {
       width: 280px;
     }
 }
+
+#seleccion-categoria input {
+    margin:10px
+}
   

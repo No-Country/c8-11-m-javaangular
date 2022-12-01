@@ -3,7 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 import Swal from 'sweetalert2';
+import { LoginUsuario } from '../../models/login-usuario';
+import { AuthService } from '../../services/auth.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +18,13 @@ export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;  
   ocultar: boolean = true; 
+  isLogged:boolean=false;
+  loginUsuario: LoginUsuario={email:"",password:""};
+  emailUsuario: string="";
+  password: string="";
+  errMsj:string="";
 
-  constructor(private formBuilder:FormBuilder, private router: Router) {
+  constructor(private formBuilder:FormBuilder, private router: Router,private authService:AuthService,private tokenService:TokenService) {
     this.loginForm = this.formBuilder.group(
       {      
         email: ['', [Validators.required, Validators.email]],
@@ -26,9 +35,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(event:any) {
+  onLogin(event:any) {
     // TODO: Use EventEmitter with form value
-    event.preventDefault();
+    /*event.preventDefault();
     console.log(this.loginForm.value);  
     const a = this.loginForm.value;
     console.log(a);
@@ -37,8 +46,32 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['dashboard']);
     } else {
       this.usuarioIncorrecto();
-    }
-  }
+    }*/
+    this.loginUsuario = this.loginForm.value;
+    if (this.loginUsuario.email=="usuario@email.com" && this.loginUsuario.password=="123456"){
+      this.router.navigate(['/dashboard'])
+    } else {
+    console.log("El usuario tiene estos datos:");
+    console.log(this.loginUsuario);
+    console.log("Se llama al servicio");
+    this.authService.login(this.loginUsuario).subscribe(      
+      data => {
+        console.log(data)/*
+        this.isLogged = true;       
+        this.tokenService.setToken(data.token);
+        this.router.navigate(['/dashboard']);*/
+      },
+      err => {/*
+        this.isLogged = false;
+        this.errMsj = err.error.message;
+        alert("Algo ha fallado");
+        this.router.navigate(['/']);*/
+        console.error("JO JO JO")
+        console.log(err);
+      }
+    );}
+  }   
+  
   
   get Email() { 
     return this.loginForm.get('email'); 

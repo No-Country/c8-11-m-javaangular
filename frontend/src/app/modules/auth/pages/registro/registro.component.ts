@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NuevoUsuario } from '../../models/nuevo-usuario';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registro',
@@ -9,9 +11,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegistroComponent implements OnInit {
 
   registroForm:FormGroup; 
-  ocultar:boolean=true;   
+  ocultar:boolean=true;
+  
+  nuevoUsuario: NuevoUsuario={nombre:"",apellido:"",email:"",password:""};
 
-  constructor(private formBuilder:FormBuilder) {
+  constructor(
+    private formBuilder:FormBuilder,
+    private authService: AuthService) {
+
     this.registroForm = this.formBuilder.group(
       {      
         nombre: ['', [Validators.required]],
@@ -24,11 +31,31 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  onRegister() {
     // TODO: Use EventEmitter with form value
-    console.log(this.registroForm.value);
-  }
+    this.nuevoUsuario=this.registroForm.value;
+    console.log(this.nuevoUsuario);
+    this.authService.nuevo(this.nuevoUsuario).subscribe(      
+      data => {
+        console.log(data)/*
+        this.isLogged = true;       
+        this.tokenService.setToken(data.token);
+        this.router.navigate(['/dashboard']);*/
+      },
+      err => {/*
+        this.isLogged = false;
+        this.errMsj = err.error.message;
+        alert("Algo ha fallado");
+        this.router.navigate(['/']);*/
+        console.error("JO JO JO")
+        console.log(err);
+      }
+    )}
+  
 
+  /*=================================================*/
+
+  // VALIDATORS  
   get Nombre() { 
     return this.registroForm.get('nombre'); 
   }

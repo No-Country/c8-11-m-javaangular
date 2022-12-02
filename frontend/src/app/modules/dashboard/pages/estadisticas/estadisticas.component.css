@@ -1,4 +1,10 @@
+*{
+    transition: none;
+}
 canvas{
     object-fit: contain;
     width: 100%;
+}
+.titular-estadisticas{
+    font-size: 26px;
 }

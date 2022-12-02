@@ -11,15 +11,15 @@
   <div>
     <ul class="nav nav-pills">
       <li class="nav-item"><a href="#" class="nav-link aref-menu" aria-current="page" >Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link aref-menu">Nuestro producto</a></li>
-      <li class="nav-item"><a href="#" class="nav-link aref-menu">Quienes somos</a></li>
+      <li class="nav-item"><a href="#nuestroProducto" class="nav-link aref-menu">Nuestro producto</a></li>
+      <li class="nav-item"><a href="#conocenos" class="nav-link aref-menu">Quienes somos</a></li>
     </ul>
   </div>
 
   <div>
     <ul class="nav nav-pills">
-      <li class="nav-item"><a  routerLink="/auth/login" class="nav-link" style="color:#fff ;">Iniciar sesion</a></li>
-      <li class="nav-item"><a  routerLink="/auth/registro" class="nav-link" style="background-color:#fff; color: #5d21d2;">Crear cuenta</a></li>
+      <li class="nav-item"><a  routerLink="/auth/login" class="nav-link">Iniciar sesion</a></li>
+      <li class="nav-item"><a  routerLink="/auth/registro" class="nav-link nav-link-crear" >Crear cuenta</a></li>
     </ul>
   </div>
 </header>
@@ -30,7 +30,7 @@
 -->
 
 <div class="container col-xxl-8 px-4 py-5">
-  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-4">
     <div class="col-10 col-sm-8 col-lg-6">
       <!--
       <img src="./../../../assets/img/wallet-hero.jpg" class="d-block mx-lg-auto img-fluid" alt="Wallet" width="700"
@@ -96,7 +96,7 @@
 
   </div>
 </div>
-<div class="p-4 p-md-5 mb-4 rounded d-flex flex-lg-row-reverse ">
+<div class="p-4 p-md-5 mb-4 rounded d-flex flex-lg-row-reverse " id="nuestroProducto">
   <div class="col-md-6 px-0">
     <span>
       | Nuestro producto
@@ -104,7 +104,8 @@
     <h1 class="display-4">Visualiza tus estadisticas</h1>
     <ul>
       <li class="lead my-3"> Podes tener el control total de tus gastos y realizar los ajustes necesarios </li>
-      <li class="lead my-3"> Podes tener el control total de tus gastos y realizar los ajustes necesarios </li>
+      <li class="lead my-3"> Para cumplir tus sueños podras visualizar en donde tenes un 
+        mayor gasto y hacer un tracking de tus movimientos financieros </li>
     </ul>
   </div>
   <div class="col np-image">
@@ -137,7 +138,7 @@
   </div>
 </div>
 
- <div class="container px-4 py-5" id="icon-grid">
+ <div class="container px-4 py-5" id="conocenos">
       <span>| Conócenos</span>
       <h2 class="pb-2 ">Conoce a nuestro equipo</h2>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
@@ -223,32 +224,37 @@
 
 
 <footer>
-      <div class="footer-content d-flex flex-wrap justify-content-around py-3 mb-4  border-bottom">
+      <div class="footer-content d-flex flex-wrap justify-content-around py-3 mb-3  border-bottom">
         
-        <div class="d-flex row row-cols-1 row-cols-lg-3 align-items-center" style="height:400px;">
+        <div class="d-flex row row-cols-1 row-cols-lg-3 align-items-center" style="height:427px;">
           <div class="col col-lg-6"> 
             <a href="/" class="text-decoration-none">
               <span class="fw-bold text-center logo-charta fs-4 ">CHA&#1071;TA</span>
             </a>
-            <h5>
+            <p style="font-size: 17px; color: #fff;">
               Charta te permitira organizar tu billetera de forma facil y rapida.
               Todos tus gastos e ingresos en un solo lugar.
-            </h5>
+            </p>
           </div>
           <div class="col col-lg-3">
             <h5>Compañia</h5>
-            <h5>Sobre Nosotros</h5>
-            <h5>Nuestra meta</h5>
-            <h5>Contactanos</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2" style="color: #fff;">Sobre Nosotros</li>
+              <li class="nav-item mb-2" style="color: #fff;">Nuestra meta</li>
+              <li class="nav-item mb-2" style="color: #fff;">Contactanos</li>
+            </ul>
           </div>
           <div class="col col-lg-3">
             <h5>HELP</h5>
-            <h5>Atencion al cliente</h5>
-            <h5>Terminos y condiciones</h5>
-            <h5>Politica de privacidad</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2" style="color: #fff;">Atencion al cliente</li>
+              <li class="nav-item mb-2" style="color: #fff;">Terminos y condiciones</li>
+              <li class="nav-item mb-2" style="color: #fff;">Politica de privacidad</li>
+            </ul>
+           
           </div>
   
         </div>
       </div>
-      <p class="text-center text-muted" style="top: -10px; position: relative; color: #fff;">&copy; Copyright 2022 , All rights reserved by <span style="color:#FF8328 ;">CHARTA</span></p>
+      <p class="text-center text-muted" style="color: #fff;">&copy; Copyright 2022 , All rights reserved by <span style="color:#FF8328 ;">CHARTA</span></p>
 </footer>

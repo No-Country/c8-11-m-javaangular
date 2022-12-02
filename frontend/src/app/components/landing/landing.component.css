@@ -50,7 +50,23 @@ header{
 {
     color: var(--letra-blanca);
 }
-
+.nav-link{
+    color: #fff;
+}
+.nav-link-crear{
+    color: #000;
+    background-color: #fff;
+}
+.aref-menu:hover{
+    color: var(--secondary-color)
+}
+.nav-link:hover{
+    color: var(--secondary-color);
+}
+.nav-link-crear:hover{
+    color: #fff;
+    background-color: var(--secondary-color);
+}
 /*
 Color boton hero
 */
@@ -58,6 +74,10 @@ Color boton hero
 button{
     background-color: var(--secondary-color);
     color: var(--letra-blanca);
+}
+button:hover{
+    background-color: #fff;
+    color: var(--secondary-color)
 }
 
 /*
@@ -99,3 +119,12 @@ footer{
 .footer-content{
     padding: 0px 100px;
 }
+/*Media query*/
+
+@media (max-width:730px){
+    .background-purple{
+        border-bottom-right-radius:0;
+
+    }
+}
+    

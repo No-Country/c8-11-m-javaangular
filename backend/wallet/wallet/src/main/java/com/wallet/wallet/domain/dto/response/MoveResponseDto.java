@@ -7,18 +7,20 @@ import java.time.LocalDate;
 @Data
 public class MoveResponseDto {
 
-    private Double amount;
+    private Double importe;
 
-    private String categoryName;
+    private String categoria;
 
-    private String categoryIcon;
+    private String categoriaIcono;
 
-    private String categoryColorCode;
+    private String categoriaColor;
 
-    private String codeCurrency;
+    private String monedaCodigo;
 
-    private LocalDate date;
+    private LocalDate fecha;
 
-    private Boolean isIncluded;
+    private String tipo;
+
+    private Boolean esIncluida;
 
 }

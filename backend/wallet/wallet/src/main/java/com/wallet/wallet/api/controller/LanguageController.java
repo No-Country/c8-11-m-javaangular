@@ -22,6 +22,13 @@ public record LanguageController(ILanguageService service) {
         return responseBuilder(CREATED, service.save(dto));
     }
 
+    @ApiOperation(value = "Find a language by Id")
+    // @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<?> getOne(@PathVariable Long id) {
+        return responseBuilder(OK, service.getById(id));
+    }
+
     @ApiOperation(value = "Delete a language by id")
     @DeleteMapping("/delete/{id}")
     //@PreAuthorize("hasAuthority('ADMIN')")

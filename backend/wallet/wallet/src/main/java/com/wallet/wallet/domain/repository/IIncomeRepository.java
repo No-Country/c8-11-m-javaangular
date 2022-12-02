@@ -16,7 +16,7 @@ public interface IIncomeRepository extends JpaRepository<Income, Long> {
     @Query("SELECT i FROM Income i WHERE user.id = ?1 AND EXTRACT(MONTH FROM date) = ?2 AND EXTRACT(YEAR FROM date) = ?3 AND type != 'YEARLY'")
     List<Income> getMonthlyByUserId(Long userId, Integer monthNow, Integer yearNow);
 
-    @Query("SELECT i FROM Income i WHERE user.id = ?1 AND EXTRACT(MONTH FROM date) = ?2 AND EXTRACT(YEAR FROM date) = ?3")
+    @Query("SELECT i FROM Income i WHERE user.id = ?1 AND EXTRACT(MONTH FROM date) = ?2 AND EXTRACT(YEAR FROM date) = ?3 ORDER BY DATE DESC")
     List<Income> getMonthlyByUserIdForHome(Long userId, Integer monthNow, Integer yearNow);
 
     @Query("SELECT i FROM Income i WHERE user.id = ?1 AND EXTRACT(YEAR FROM date) = ?2 AND type = 'YEARLY'")

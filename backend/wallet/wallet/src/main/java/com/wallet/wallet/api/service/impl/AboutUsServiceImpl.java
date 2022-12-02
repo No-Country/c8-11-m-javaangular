@@ -9,6 +9,7 @@ import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.model.AboutUs;
 import com.wallet.wallet.domain.repository.IAboutUsRepository;
 
+import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,11 @@ public class AboutUsServiceImpl extends GenericServiceImpl<AboutUs, AboutUsRespo
     @Override
     public IMapper<AboutUs, AboutUsResponseDto, AboutUsRequestDto> getMapper() {
         return aboutUsMapper;
+    }
+
+    @Override
+    public MessageSource getMessenger() {
+        return null;
     }
 
 }

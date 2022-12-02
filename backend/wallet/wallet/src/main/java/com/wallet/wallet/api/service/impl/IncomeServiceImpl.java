@@ -13,9 +13,12 @@ import com.wallet.wallet.domain.repository.IIncomeRepository;
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,16 +77,22 @@ public class IncomeServiceImpl extends GenericServiceImpl<Income, IncomeResponse
         return balance;
     }
 
+    //genérico
+    public Double formatDecimals(Double number, Integer decimals) {
+        return Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    }
+
     public List<Income> convertIncome(List<Income> incomes, String userCodeCurrency, Double userValueDollar){
         for(Income income : incomes){
             if(!income.getCurrency().getCodeCurrency().equals(userCodeCurrency)){
                 if(income.getCurrency().getCodeCurrency().equals("USD")){
-                    income.setAmount(income.getAmount()*income.getCurrency().getValueDollar());
+                    income.setAmount(formatDecimals(income.getAmount()*income.getCurrency().getValueDollar(),2));
                 } else {
-                    income.setAmount((income.getAmount()/income.getCurrency().getValueDollar()) * userValueDollar);
+                    income.setAmount(formatDecimals((income.getAmount()/income.getCurrency().getValueDollar()) * userValueDollar,2));
                 }
             }
         }
+
         return incomes;
     }
 
@@ -99,5 +108,10 @@ public class IncomeServiceImpl extends GenericServiceImpl<Income, IncomeResponse
     @Override
     public IMapper<Income, IncomeResponseDto, IncomeRequestDto> getMapper() {
         return mapper;
+    }
+
+    @Override
+    public MessageSource getMessenger() {
+        return null;
     }
 }

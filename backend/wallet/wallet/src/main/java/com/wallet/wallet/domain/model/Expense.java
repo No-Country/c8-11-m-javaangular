@@ -50,7 +50,7 @@ public class Expense {
     private Boolean isIncluded;
 
     @ManyToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull(message = "")
     private User user;

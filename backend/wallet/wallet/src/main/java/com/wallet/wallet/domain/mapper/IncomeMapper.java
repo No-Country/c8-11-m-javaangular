@@ -24,10 +24,14 @@ public abstract class IncomeMapper implements IMapper<Income, IncomeResponseDto,
     @Mapping(source = "userId", target = "user.id")
     public abstract Income requestDtoToEntity(IncomeRequestDto incomeRequestDto);
 
-    //@Mapping(source = "category.name", target = "categoryName")
-    //@Mapping(source = "category.icon", target = "categoryIcon")
-    //@Mapping(source = "category.colorCode", target = "categoryColorCode")
-    @Mapping(source = "currency.codeCurrency", target = "codeCurrency")
+
+    @Mapping(source = "amount", target = "importe")
+    @Mapping(source = "type", target = "categoria")
+    //@Mapping(source = "category.icon", target = "categoriaIcono")
+    //@Mapping(source = "category.colorCode", target = "categoriaColor")
+    @Mapping(source = "currency.codeCurrency", target = "monedaCodigo")
+    @Mapping(source = "date", target = "fecha")
+    @Mapping(constant = "ingreso", target = "tipo")
     public abstract MoveResponseDto entityToMoveResponseDto(Income income);
 
 }

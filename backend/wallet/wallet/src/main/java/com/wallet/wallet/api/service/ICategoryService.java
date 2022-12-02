@@ -12,12 +12,11 @@ public interface ICategoryService extends GenericServiceAPI<Category, CategoryRe
 
     CategoryResponseDto update(CategoryUpdateDto categoryUpdateDto, Long id, String token);
 
-    CategoryResponseDto getById(Long Id);
-
     List<CategoryResponseDto> getAll();
 
     List<CategoryResponseDto> getAllByUserId(Long userId);
 
     CategoryResponseDto save(CategoryRequestDto categoryRequestDto, String token);
+
 
 }

@@ -11,4 +11,6 @@ public class LanguageRequestDto {
 
     private String flag;
 
+    private Boolean deleted = Boolean.FALSE;
+
 }

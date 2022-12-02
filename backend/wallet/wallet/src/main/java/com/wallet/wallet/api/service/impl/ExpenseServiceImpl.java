@@ -5,26 +5,38 @@ import com.wallet.wallet.api.service.IExpenseService;
 import com.wallet.wallet.api.service.IIncomeService;
 import com.wallet.wallet.api.service.IUserService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
+import com.wallet.wallet.domain.dto.request.CategoryUpdateDto;
 import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
+import com.wallet.wallet.domain.dto.request.ExpenseUpdateDto;
 import com.wallet.wallet.domain.dto.response.*;
+import com.wallet.wallet.domain.enums.ERole;
 import com.wallet.wallet.domain.mapper.ExpenseMapper;
 import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.mapper.IncomeMapper;
+import com.wallet.wallet.domain.model.Category;
 import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.Income;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IExpenseRepository;
+import static com.wallet.wallet.domain.enums.EMessageCode.*;
 
 import com.wallet.wallet.domain.repository.IIncomeRepository;
+import com.wallet.wallet.handler.exeption.UserUnauthorizedException;
 import lombok.AllArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.wallet.wallet.domain.enums.EMessageCode.INVALID_TOKEN;
+import static com.wallet.wallet.domain.enums.EMessageCode.USER_UNAUTHORIZED;
 
 @AllArgsConstructor
 @Service
@@ -41,11 +53,43 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
 
     private final JwtUtil jwtUtil;
 
+    private final MessageSource messenger;
+
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto, String token) {
         Long userId = jwtUtil.extractUserId(token);
         expenseRequestDto.setUserId(userId);
 
         return super.save(expenseRequestDto);
+    }
+
+    @Override
+    public ExpenseResponseDto update(ExpenseUpdateDto expenseUpdateDto, Long id, String token) {
+        if(tokenNotValid(token)){
+            throw new BadCredentialsException(messenger.getMessage(INVALID_TOKEN.name(), null, Locale.getDefault()));
+        }
+
+        Long userId = jwtUtil.extractUserId(token);
+        User user = userService.getById(userId);
+
+        Expense expense = expenseRepository.findById(id).get();
+
+        if (userId.equals(expense.getUser().getId())) {
+            expenseUpdateDto.setId(id);
+            Expense expenseSave = expenseMapper.updateToEntity(expenseUpdateDto);
+            expenseSave.setCurrency(expense.getCurrency());
+            expenseSave.setUser(expense.getUser());
+            expenseRepository.save(expenseSave);
+        } else {
+            throw new UserUnauthorizedException(messenger.getMessage(USER_UNAUTHORIZED.name(),
+                    new Object[] {userId, expense.getUser().getId()}, Locale.getDefault()));
+        }
+        return getById(id);
+    }
+
+    // agregar excepción en el generic
+    @Override
+    public ExpenseResponseDto getById(Long Id) {
+        return expenseMapper.entityToResponseDto(expenseRepository.findById(Id).get());
     }
 
     @Override
@@ -114,13 +158,13 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
             movesResponseDto.add(incomeMapper.entityToMoveResponseDto(incomes.get(i)));
         }
 
-        movesResponseDto.sort(Comparator.comparing(MoveResponseDto::getDate).reversed());
+        movesResponseDto.sort(Comparator.comparing(MoveResponseDto::getFecha).reversed());
         while(movesResponseDto.size() > 3){
             movesResponseDto.remove(movesResponseDto.size()-1);
         }
 
-        homeResponseDto.setBalanceExpense(getBalanceMonthlyByUserId(expenses));
-        homeResponseDto.setBalanceIncome(incomeService.getBalanceMonthlyByUserId(incomes) + incomeService.getBalanceYearlyByUserId(userId,year));
+        homeResponseDto.setBalanceExpense(formatDecimals(getBalanceMonthlyByUserId(expenses),2));
+        homeResponseDto.setBalanceIncome(formatDecimals(incomeService.getBalanceMonthlyByUserId(incomes) + incomeService.getBalanceYearlyByUserId(userId,year), 2));
 
         homeResponseDto.setFirstName(user.getFirstName());
         homeResponseDto.setMonthNow(LocalDate.now().getMonth().toString().toLowerCase());
@@ -190,43 +234,58 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     @Override
     public Map<String, Double> groupByCategoryByUserId(String token){
         List<ExpenseResponseDto> expenses = getAllByUserId(token);
-        Map<String, Double> categoryGroups = expenses.stream().collect(Collectors.groupingBy(ExpenseResponseDto::getCategoryName, Collectors.summingDouble(ExpenseResponseDto::getAmount)));
+        Map<String, Double> categoryGroups = expenses.stream().collect(Collectors.groupingBy(ExpenseResponseDto::getCategoria, Collectors.summingDouble(ExpenseResponseDto::getImporte)));
         return categoryGroups;
     }
 
     @Override
-    public List<ExpenseResponseDto> filter(String token, List<Long> categoriesId, Double amountMin, Double amountMax, String orderBy, String order) {
+    public List<ExpenseResponseDto> filter(String token, List<Long> categoriesId, Double amountMin, Double amountMax, LocalDate start, LocalDate end, String orderBy, String order) {
 
-        Long userId = jwtUtil.extractUserId(token.substring(7));
+        Long userId = jwtUtil.extractUserId(token);
+        User user = userService.getById(userId);
+        String userCodeCurrency = user.getCurrency().getCodeCurrency();
+        Double userValueCurrency = user.getCurrency().getValueDollar();
 
         List<Expense> expenses = new ArrayList<>();
 
-        if(categoriesId != null && amountMin != null && amountMax != null) {
-            expenses = expenseRepository.filterByCategoriesAndAmount(userId, categoriesId, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy));
-        } else if(categoriesId == null){
-            expenses = expenseRepository.filterByAmount(userId, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy));
-        } else {
-            expenses = expenseRepository.filterByCategories(userId, categoriesId, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy));
+        if(categoriesId != null && start != null && end != null){
+            expenses = convertExpense(expenseRepository.filterByCategoriesAndDate(userId, categoriesId, start, end, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
+        } else if(categoriesId != null){
+            expenses = convertExpense(expenseRepository.filterByCategories(userId, categoriesId, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
+        } else if(start != null && end != null){
+            expenses = convertExpense(expenseRepository.filterByDate(userId, start, end, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
+        }
+
+        if(amountMin != null && amountMax != null){
+            for(Expense expense : expenses){
+                if(expense.getAmount() < amountMin || expense.getAmount() > expense.getAmount()){
+                    expenses.remove(expense);
+                }
+            }
         }
 
         return expenseMapper.listEntityToListResponseDto(expenses);
     }
 
     public void delete(Long id, String token){
-        //mover lógica al generic, agregar excepciones
         Optional<Expense> expense = expenseRepository.findById(id);
         if(expense.get().getUser().getId() == id){
             super.delete(id);
         }
     }
 
+    //genérico
+    public Double formatDecimals(Double number, Integer decimals) {
+        return Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    }
+
     public List<Expense> convertExpense(List<Expense> expenses, String userCodeCurrency, Double userValueDollar){
         for(Expense expense : expenses){
             if(!expense.getCurrency().getCodeCurrency().equals(userCodeCurrency)){
                 if(expense.getCurrency().getCodeCurrency().equals("USD")){
-                    expense.setAmount(expense.getAmount()*expense.getCurrency().getValueDollar());
+                    expense.setAmount(formatDecimals((expense.getAmount()*expense.getCurrency().getValueDollar()),2));
                 } else {
-                    expense.setAmount((expense.getAmount()/expense.getCurrency().getValueDollar()) * userValueDollar);
+                    expense.setAmount(formatDecimals(((expense.getAmount()/expense.getCurrency().getValueDollar()) * userValueDollar),2));
                 }
             }
         }
@@ -241,6 +300,11 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     @Override
     public IMapper<Expense, ExpenseResponseDto, ExpenseRequestDto> getMapper() {
         return expenseMapper;
+    }
+
+    @Override
+    public MessageSource getMessenger() {
+        return messenger;
     }
 
 }

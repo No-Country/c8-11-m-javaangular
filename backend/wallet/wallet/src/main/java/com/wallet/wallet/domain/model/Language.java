@@ -10,15 +10,15 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "lenguages")
+@Table(name = "languages")
 @Data
-@SQLDelete(sql = "UPDATE lenguages SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE languages SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 public class Language {
 
     @Id
-    @SequenceGenerator(name = "lenguageSequence",sequenceName = "lenguageSequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lenguageSequence")
+    @SequenceGenerator(name = "languageSequence",sequenceName = "languageSequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "languageSequence")
     private Long id;
 
     @Column(nullable = false)
@@ -28,5 +28,7 @@ public class Language {
     //@Column(nullable = false)
     //@NotNull(message = "")
     private String flag;
+
+    private Boolean deleted;
 
 }

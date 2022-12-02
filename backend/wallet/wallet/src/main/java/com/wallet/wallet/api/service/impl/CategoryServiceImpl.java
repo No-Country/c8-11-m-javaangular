@@ -75,11 +75,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
         return getById(id);
     }
 
-    // agregar excepción en el generic
-    @Override
-    public CategoryResponseDto getById(Long Id) {
-        return categoryMapper.entityToResponseDto(repository.findById(Id).get());
-    }
+
 
     @Override
     public List<CategoryResponseDto> getAll() {
@@ -105,5 +101,10 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
     @Override
     public IMapper<Category, CategoryResponseDto, CategoryRequestDto> getMapper() {
         return categoryMapper;
+    }
+
+    @Override
+    public MessageSource getMessenger() {
+        return null;
     }
 }

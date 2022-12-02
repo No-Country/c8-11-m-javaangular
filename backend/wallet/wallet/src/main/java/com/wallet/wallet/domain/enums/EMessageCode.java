@@ -7,7 +7,8 @@ public enum EMessageCode {
 
     INVALID_TOKEN,
 
-    RESOURCE_NOT_FOUND_BY_ID,    
+    RESOURCE_NOT_FOUND_BY_ID,
+    RESOURCE_NOT_FIND_BY_ID,
     USER_NOT_FOUND_BY_EMAIL,    
     USER_UNAUTHORIZED
     

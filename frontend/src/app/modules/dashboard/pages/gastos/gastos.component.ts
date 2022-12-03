@@ -35,7 +35,9 @@ export class GastosComponent implements OnInit {
   orden:string="";
 
   // Formularios
-  gastoForm:FormGroup;
+  addGastoForm:FormGroup;
+  editGastoForm:FormGroup;
+
   form:FormGroup | undefined;
 
   lista:Gasto[]=[];
@@ -272,19 +274,42 @@ export class GastosComponent implements OnInit {
     }
   ];
 
-  constructor(private hojaService:HojaService,private fechaService: FechaService,private gastoService:GastosService,private formBuilder:FormBuilder, private router:Router) {
-    this.gastoForm = this.formBuilder.group(
+  recargar:number=0;
+
+  constructor(private fechaService: FechaService,
+              private gastoService:GastosService,
+              private formBuilder:FormBuilder, 
+              private router:Router) {
+    this.addGastoForm = this.formBuilder.group(
       {      
         fecha: ['', [Validators.required]],
-        categoria: ['',[Validators.required]],
+        categoriaId: ['',[Validators.required]],
         importe:['',[Validators.required,Validators.min(0)]],
-        descripcion:['',[Validators.required,Validators.maxLength(20)]]
+        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
+    this.editGastoForm = this.formBuilder.group(
+      {      
+        fecha: ['', [Validators.required]],
+        categoriaId: ['',[Validators.required]],
+        importe:['',[Validators.required,Validators.min(0)]],
+        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        monedaId:1,
+        esIncluida:true
       }
     )
   }
   
   ngOnInit(): void {
-    this.obtenerDatos()      
+    this.obtenerDatos();
+    this.lista = this.lista2Gastos;
+         
+  }
+
+  recargate(){
+    this.recargar=this.recargar+1;
   }
 
 
@@ -294,12 +319,17 @@ export class GastosComponent implements OnInit {
       (data) =>{
         this.listaGastos = data.response;      
         console.log(this.listaGastos);
+        setTimeout(this.recargate,2000)
       },
       (error) => {
         console.error("Los datos del servidor no llegan");
         console.log(error);
       },
-      ()=>console.log("Datos cargados"));      
+      ()=>{
+        console.log("Datos cargados");
+        console.log(this.listaGastos);
+        this.recargar=this.recargar+1;  
+    })    
   }
   
   /*==================================================== */
@@ -307,18 +337,23 @@ export class GastosComponent implements OnInit {
 
   /*------------NUEVO GASTO---------------*/  
   guardarGasto(){
-    const quantum = { "amount": 1000,
-    "description": "AWS",
-    "categoryId": 4,
-    "currencyId": 1,
-    "date": "2022-12-31",
-    "isIncluded": true}
-    console.log(quantum);
-    const nuevoGasto = this.gastoForm.value;
+    // Almacenando el Formulario
+    const nuevoGasto = this.addGastoForm.value;
+    console.log("NUEVO  GASTO:");
     console.log(nuevoGasto);
-    this.gastoForm.reset();
+    // Reseteando el Formulario
+    this.addGastoForm = this.formBuilder.group(
+      {      
+        fecha: [''],
+        categoriaId: [''],
+        importe:[''],
+        descripcion:[''],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
     // Servicio Gasto Service  
-    this.gastoService.guardarGasto(quantum).subscribe(
+    this.gastoService.guardarGasto(nuevoGasto).subscribe(
       (data)=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
@@ -333,17 +368,45 @@ export class GastosComponent implements OnInit {
   /*--------EDITAR GASTO------------*/
 
   //Boton abrir modal: Capturar Id y experiencia
-  editableId(id:any,gasto: Gasto){
-    const editableGasto = gasto;
+  editableId(id:any,expense: any){
+    const editableGasto = expense;
     this.editId = id;
     console.log(id);
-    console.log(gasto);
+    console.log(expense);
+    const categoria = editableGasto.categoria;
+    console.log(categoria);
+    let categoriaId = 0;
+    switch(categoria){
+      case "Alimentos":categoriaId=1
+        break;
+      case "Servicios":categoriaId=2
+        break;
+      case "Movilidad":categoriaId=3
+        break;
+      case "Varios":categoriaId=4
+        break;
+      default:
+        break;
+    }
     
-    /* Mostrar datos en el modal */
+    
+    /* Mostrar datos en el modal *//*
     this.newFecha = editableGasto.fecha;
-    this.newCategoria = editableGasto.categoria;
+    this.newCategoria = editableGasto.categoriaId;
     this.newDescripcion = editableGasto.descripcion;
-    this.newImporte = editableGasto.importe;
+    this.newImporte = editableGasto.importe;*/
+
+    this.editGastoForm = this.formBuilder.group(
+      {      
+        fecha: [editableGasto.fecha],
+        categoriaId: [categoriaId],
+        importe:[editableGasto.importe],
+        descripcion:[editableGasto.descripcion],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
+    console.log(this.editGastoForm.value)
   }
 
   // Boton Actualizar Experiencia
@@ -351,9 +414,9 @@ export class GastosComponent implements OnInit {
   headers = 'Access-Control-Allow-Origin';
 
   actualizarGasto(): void{
-    const nuevoGasto = this.gastoForm.value;
+    const nuevoGasto = this.editGastoForm.value;
     console.log(nuevoGasto);
-    this.gastoForm.reset();
+    this.editGastoForm.reset();
     const editId = this.editId;
 
     const quantum = { "amount": 123.5,
@@ -416,19 +479,22 @@ export class GastosComponent implements OnInit {
   
   // Propiedades para los validadores
   get Fecha() { 
-    return this.gastoForm.get('fecha'); 
+    return this.addGastoForm.get('fecha'); 
   }
   get Categoria() {
-    return this.gastoForm.get('categoria')
+    return this.addGastoForm.get('categoria')
   }
   get Importe() { 
-    return this.gastoForm.get('importe'); 
+    return this.addGastoForm.get('importe'); 
   }
   get Descripcion() {
-    return this.gastoForm.get('descripcion')
+    return this.addGastoForm.get('descripcion')
   }
-  clearValidators() {
-    this.gastoForm.reset(this.gastoForm.value);
+  clearValidatorsAdd() {
+    this.addGastoForm.reset(this.addGastoForm.value);
+  }
+  clearValidatorsEdit() {
+    this.editGastoForm.reset(this.editGastoForm.value);
   }
 
   filtrar(){

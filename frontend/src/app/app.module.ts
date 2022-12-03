@@ -18,6 +18,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { interceptorProvider } from './interceptors/interceptor.service';
 import { HojaComponent } from './components/hoja/hoja.component';
 import { GastosService } from './modules/dashboard/services/gastos.service';
+import { RecargaDirective } from './directives/recarga.directive';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { GastosService } from './modules/dashboard/services/gastos.service';
     AppComponent,
     LandingComponent,
     GastosComponent,
-    HojaComponent
+    HojaComponent,
+    RecargaDirective
   ],
   imports: [
     BrowserModule,

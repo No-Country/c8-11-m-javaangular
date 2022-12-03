@@ -1,32 +1,32 @@
-<main>
+<main class="d-flex row  flex-lg-row   container justify-content-center" style="width:100%">
 
-    <h1>"Visualizacion de estadisticas"</h1>
+    <h1>Estadisticas</h1>
 
     <hr>
 
-    <section class="d-flex row ">
+    <section class="d-flex flex-column flex-lg-row justify-content center">
 
-        <figure class="col-lg-6">
-            <h2>Comparativa general del total de ingresos  y egresos</h2>
-            <canvas id="pieChartGeneral"></canvas>
+        <figure class="col col-lg-6">
+            <h2  class="titular titular-estadisticas">Comparativa general total de ingresos y egresos</h2>
+            <canvas id="pieChartGeneral" style="max-height:400px;"></canvas>
         </figure>
 
-        <figure class="col-lg-6">
-            <h2>Gasto mas importante
-                <select id="featuresOptions">
+        <figure class="col col-lg-6">
+            <h2 class="titular-estadisticas">Gasto mas importante
+                <select id="featuresOptions" style="font-size: 20px ;">
                     <option value="h">Año</option>
                     <option value="l">Mes</option>
                     <option value="l">Semana</option>
                 </select>
             </h2>
-            <canvas id="radarChartIncomesExpenses"></canvas>
+            <canvas id="radarChartIncomesExpenses" style="max-height:450px "></canvas>
         </figure>
 
     </section>
 
-    <section class="d-flex row col-12 justify-content-center" >
+    <section class="d-flex row col-12 justify-content-center flex-md-column" >
         <figure class="" style="height: 80vh ;">
-            <h2>Comparativa mensual de ingresos y gastos</h2>
+            <h2 class="titular-estadisticas">Comparativa mensual de ingresos y gastos</h2>
             <canvas id="barChartIncomesExpensesMonths"></canvas>
         </figure>
     </section>

@@ -147,11 +147,7 @@ export class IngresosComponent implements OnInit {
     "date": "2022-12-31",
     "type": "MONTHLY",
     "currencyId": 1
-  }
-
-
-  
-  
+  } 
  
   
   constructor(private fechaService: FechaService,private formBuilder:FormBuilder, private ingresoService:IngresosService) {

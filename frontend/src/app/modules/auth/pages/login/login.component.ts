@@ -37,17 +37,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(event:any) {
-    // TODO: Use EventEmitter with form value
-    /*event.preventDefault();
-    console.log(this.loginForm.value);  
-    const a = this.loginForm.value;
-    console.log(a);
-    localStorage.setItem("usuario",a);
-    if (a.email == "usuario@email.com" && a.password == "123456"){
-      this.router.navigate(['dashboard']);
-    } else {
-      this.usuarioIncorrecto();
-    }*/
     this.loginUsuario = this.loginForm.value;
     if (this.loginUsuario.email=="usuario@email.com" && this.loginUsuario.password=="123456"){
       this.router.navigate(['/dashboard'])
@@ -66,8 +55,8 @@ export class LoginComponent implements OnInit {
         this.tokenService.setUserName(data.response.firstName);
         this.router.navigate(['/dashboard']);
       },
-      err => {/*
-        this.isLogged = false;
+      err => {
+        this.isLogged = false;/*
         this.errMsj = err.error.message;
         alert("Algo ha fallado");
         this.router.navigate(['/']);*/

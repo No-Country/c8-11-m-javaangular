@@ -1,6 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HojaService } from 'src/app/services/hoja.service';
 import { Gasto } from '../../model/gasto';
 import { ResGastos } from '../../model/res-gastos';
 import { FechaService } from '../../services/fecha.service';
@@ -37,129 +39,11 @@ export class GastosComponent implements OnInit {
   form:FormGroup | undefined;
 
   lista:Gasto[]=[];
-  datos:any;
-  
-  coco:boolean=true;
-/*
+  datos:any;  
+
   lista2Gastos = [
     {
-        fecha:'11-12-1980',
-        categoria:'Servicios',
-        descripcion:'Electricidad',
-        importe:3000
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Alimentos',
-        descripcion:'Verduleria',
-        importe:5000
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Movilidad',
-        descripcion:'Arreglo Auto',
-        importe:20000
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Alimentos',
-        descripcion:'Supermercado',
-        importe:8500
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Varios',
-        descripcion:'Ropa Super Cool',
-        importe:4500
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Servicios',
-        descripcion:'Gas',
-        importe:4000
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Alimentos',
-        descripcion:'Supermercado',
-        importe:2500
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Varios',
-        descripcion:'Celular',
-        importe:50000
-    },
-    {
-        fecha:'11-12-1980',
-        categoria:'Alimentos',
-        descripcion:'Supermercado',
-        importe:2500
-    },    
-    {
-      fecha:'11-12-1980',
-      categoria:'Alimentos',
-      descripcion:'Supermercado',
-      importe:2500
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Servicios',
-      descripcion:'Electricidad',
-      importe:3000
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Alimentos',
-      descripcion:'Verduleria',
-      importe:5000
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Movilidad',
-      descripcion:'Arreglo Auto',
-      importe:20000
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Alimentos',
-      descripcion:'Supermercado',
-      importe:8500
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Varios',
-      descripcion:'Ropa Super Cool',
-      importe:4500
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Servicios',
-      descripcion:'Gas',
-      importe:4000
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Alimentos',
-      descripcion:'Supermercado',
-      importe:2500
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Varios',
-      descripcion:'Celular',
-      importe:50000
-    },
-    {
-      fecha:'11-12-1980',
-      categoria:'Alimentos',
-      descripcion:'Supermercado',
-      importe:2500
-    }
-  ];  */
-  lista2Gastos = [
-    {
-        fecha:new Date("1978-10-2"),
+        fecha:new Date("2022-1-4"),
         categoria:'Servicios',
         descripcion:'Electricidad',
         importe:3000
@@ -388,7 +272,7 @@ export class GastosComponent implements OnInit {
     }
   ];
 
-  constructor(private fechaService: FechaService,private gastoService:GastosService,private formBuilder:FormBuilder) {
+  constructor(private hojaService:HojaService,private fechaService: FechaService,private gastoService:GastosService,private formBuilder:FormBuilder, private router:Router) {
     this.gastoForm = this.formBuilder.group(
       {      
         fecha: ['', [Validators.required]],
@@ -400,31 +284,22 @@ export class GastosComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.fechaActual = this.fechaService.actual();
-    this.obtenerGastos();
-    this.lista = this.lista2Gastos
+    this.obtenerDatos()      
   }
 
 
   // Obtener Gastos
-  obtenerGastos(){
+  obtenerDatos(){
     this.gastoService.obtenerGastos().subscribe(
-      data =>{
+      (data) =>{
         this.listaGastos = data.response;      
-        console.log(this.listaGastos)
-      },    
-      err => {/*
-        this.isLogged = false;
-        this.errMsj = err.error.message;
-        alert("Algo ha fallado");
-        this.router.navigate(['/']);*/
+        console.log(this.listaGastos);
+      },
+      (error) => {
         console.error("Los datos del servidor no llegan");
-        console.log(err);
-      });
-  }
-  // Pintar Datos
-  pintarDatos(datos:any){
-    this.lista = datos;
+        console.log(error);
+      },
+      ()=>console.log("Datos cargados"));      
   }
   
   /*==================================================== */
@@ -432,17 +307,25 @@ export class GastosComponent implements OnInit {
 
   /*------------NUEVO GASTO---------------*/  
   guardarGasto(){
+    const quantum = { "amount": 1000,
+    "description": "AWS",
+    "categoryId": 4,
+    "currencyId": 1,
+    "date": "2022-12-31",
+    "isIncluded": true}
+    console.log(quantum);
     const nuevoGasto = this.gastoForm.value;
     console.log(nuevoGasto);
     this.gastoForm.reset();
     // Servicio Gasto Service  
-    this.gastoService.guardarGasto(nuevoGasto).subscribe(
-      data=>{},
+    this.gastoService.guardarGasto(quantum).subscribe(
+      (data)=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
       },
       ()=>{
-        this.obtenerGastos();
+        this.obtenerDatos();
+        console.log("Gasto creado")
       }
     )
   }
@@ -465,22 +348,29 @@ export class GastosComponent implements OnInit {
 
   // Boton Actualizar Experiencia
 
+  headers = 'Access-Control-Allow-Origin';
+
   actualizarGasto(): void{
     const nuevoGasto = this.gastoForm.value;
     console.log(nuevoGasto);
     this.gastoForm.reset();
     const editId = this.editId;
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+    const quantum = { "amount": 123.5,
+    "description": "Hola",
+    "categoryId": 3,
+    "currencyId": 2,
+    "date": "2022-12-30",
+    "isIncluded": true}
+    console.log(quantum);
 
-    this.gastoService.actualizarGasto(editId,nuevoGasto,headers).subscribe(
+
+    this.gastoService.actualizarGasto(editId,quantum,this.headers).subscribe(
       data=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerGastos()})
+      ()=>{this.obtenerDatos()})
   }
 
   /*------BORRAR GASTO-------------------*/
@@ -498,7 +388,7 @@ export class GastosComponent implements OnInit {
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerGastos()}
+      ()=>{this.obtenerDatos()}
     )
   }
 

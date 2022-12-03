@@ -5,7 +5,6 @@ import { SideService } from '../service/side.service';
   selector: 'template-dashboard',
   templateUrl: './template-dashboard.component.html',
   styleUrls: ['./template-dashboard.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDashboardComponent implements OnInit {

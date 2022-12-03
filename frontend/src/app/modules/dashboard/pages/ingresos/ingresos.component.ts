@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ingreso } from '../../model/ingreso';
@@ -140,6 +141,16 @@ export class IngresosComponent implements OnInit {
       importe:50000
   }
   ];
+
+  quantum = {
+    "amount": 1289.444444,
+    "date": "2022-12-31",
+    "type": "MONTHLY",
+    "currencyId": 1
+  }
+
+
+  
   
  
   
@@ -154,14 +165,13 @@ export class IngresosComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void {/*
-    this.fecha = this.fechaService.actual();*/
+  ngOnInit(): void {
     this.obtenerIngresos()
   }
 
   obtenerIngresos(){
     this.ingresoService.obtenerIngresos().subscribe(data =>{
-    this.listaIngreso=data;
+    this.listaIngreso=data.response;
     console.log(this.listaIngreso)
     });
   }
@@ -175,30 +185,57 @@ export class IngresosComponent implements OnInit {
   guardarIngreso(){    
     const nuevoGasto = this.gastoForm.value;
     console.log(nuevoGasto);
-    this.gastoForm.reset(); 
+    this.gastoForm.reset();
+    console.log(this.quantum)
+
+    this.ingresoService.guardarIngreso(this.quantum).subscribe(
+      data=>{},
+      (error) => {
+        alert("Algo ha fallado: " + error);
+      },
+      ()=>{this.obtenerIngresos()}
+    ) 
   }
 
   /*-------EDITAR INGRESO-----------------------*/
 
-  editableId(id:number,ingreso:Ingreso){
+  editableId(id:number,ingreso:any){
     const editableGasto = ingreso;
     this.editId = id;
     console.log(id);
     console.log(ingreso);
   }
-
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
   actualizarIngreso(){
-    const nuevoGasto = this.gastoForm.value;
-    console.log(nuevoGasto);
+    const nuevoIngreso = this.gastoForm.value;
+    console.log(nuevoIngreso);
     this.gastoForm.reset();
     const editId = this.editId;
+    this.ingresoService.actualizarIngreso(editId,nuevoIngreso,this.headers).subscribe(
+      data=>{},
+      (error) => {
+        alert("Algo ha fallado: " + error);
+      },
+      ()=>{this.obtenerIngresos()}
+    )
   }
 
-  /*-------EDITAR INGRESO-----------------------*/
+  /*-------ELIMINAR INGRESO-----------------------*/
 
   trashId(id:number):void{
     this.borrarId = id;   
     console.log(this.borrarId);
+  }
+  eliminarIngreso(): void{
+    this.ingresoService.borrarIngreso(this.borrarId).subscribe(
+      data=>{},
+      (error) => {
+        alert("Algo ha fallado: " + error);
+      },
+      ()=>{this.obtenerIngresos()}
+    )
   }
 
   /*============================================================*/

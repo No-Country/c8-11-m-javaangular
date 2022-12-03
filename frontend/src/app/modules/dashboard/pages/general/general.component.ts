@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { GastosService } from '../../services/gastos.service';
 import { GeneralService } from '../../services/general.service';
 Chart.register(...registerables);
 
@@ -12,7 +13,7 @@ export class GeneralComponent implements OnInit {
 
   nombreUsuario:string="Usuario";
 
-  constructor(private generalService:GeneralService) { }
+  constructor(private generalService:GeneralService, private gastoService: GastosService) { }
 
   ngOnInit(): void {
     this.renderChart('myChart');
@@ -20,13 +21,26 @@ export class GeneralComponent implements OnInit {
     if (nombreishon){
       this.nombreUsuario=nombreishon
     }
-    this.obtenerMovimientos()
+    this.obtenerMovimientos();
+    this.obtenerGastos();
   }
 
   obtenerMovimientos(){
     this.generalService.obtenerDatos().subscribe(data =>{
       console.log(data)
     });
+  }
+  obtenerGastos(){
+    this.gastoService.obtenerGastos().subscribe(
+      data =>{
+        const listaGastos = JSON.stringify(data.response);
+        sessionStorage.setItem("listaGastos",listaGastos);        
+      },    
+      err => {
+        console.error("Los datos del servidor no llegan");
+        console.log(err);
+      }
+    );
   }
 
 

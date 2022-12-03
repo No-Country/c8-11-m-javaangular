@@ -5,20 +5,16 @@ import com.wallet.wallet.api.service.IExpenseService;
 import com.wallet.wallet.api.service.IIncomeService;
 import com.wallet.wallet.api.service.IUserService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
-import com.wallet.wallet.domain.dto.request.CategoryUpdateDto;
 import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
 import com.wallet.wallet.domain.dto.request.ExpenseUpdateDto;
 import com.wallet.wallet.domain.dto.response.*;
-import com.wallet.wallet.domain.enums.ERole;
 import com.wallet.wallet.domain.mapper.ExpenseMapper;
 import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.mapper.IncomeMapper;
-import com.wallet.wallet.domain.model.Category;
 import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.Income;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IExpenseRepository;
-import static com.wallet.wallet.domain.enums.EMessageCode.*;
 
 import com.wallet.wallet.domain.repository.IIncomeRepository;
 import com.wallet.wallet.handler.exeption.UserUnauthorizedException;
@@ -29,7 +25,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -58,64 +53,50 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto, String token) {
         Long userId = jwtUtil.extractUserId(token);
         expenseRequestDto.setUserId(userId);
-
         return super.save(expenseRequestDto);
     }
 
     @Override
     public ExpenseResponseDto update(ExpenseUpdateDto expenseUpdateDto, Long id, String token) {
-        if(tokenNotValid(token)){
-            throw new BadCredentialsException(messenger.getMessage(INVALID_TOKEN.name(), null, Locale.getDefault()));
-        }
 
         Long userId = jwtUtil.extractUserId(token);
-        User user = userService.getById(userId);
 
-        Expense expense = expenseRepository.findById(id).get();
+        Optional<Expense> expense = expenseRepository.findById(id);
 
-        if (userId.equals(expense.getUser().getId())) {
+        if (userId.equals(expense.get().getUser().getId())) {
             expenseUpdateDto.setId(id);
             Expense expenseSave = expenseMapper.updateToEntity(expenseUpdateDto);
-            expenseSave.setCurrency(expense.getCurrency());
-            expenseSave.setUser(expense.getUser());
+            expenseSave.setCurrency(expense.get().getCurrency());
+            expenseSave.setUser(expense.get().getUser());
             expenseRepository.save(expenseSave);
         } else {
             throw new UserUnauthorizedException(messenger.getMessage(USER_UNAUTHORIZED.name(),
-                    new Object[] {userId, expense.getUser().getId()}, Locale.getDefault()));
+                    new Object[] {userId, expense.get().getUser().getId()}, Locale.getDefault()));
         }
         return getById(id);
     }
 
-    // agregar excepción en el generic
     @Override
-    public ExpenseResponseDto getById(Long Id) {
-        return expenseMapper.entityToResponseDto(expenseRepository.findById(Id).get());
+    public ExpenseResponseDto getById(Long id, String token) {
+
+        Long userId = jwtUtil.extractUserId(token);
+
+        Optional<Expense> expense = expenseRepository.findById(id);
+
+        if (userId.equals(expense.get().getUser().getId())) {
+            return super.getById(id);
+        } else {
+            throw new UserUnauthorizedException(messenger.getMessage(USER_UNAUTHORIZED.name(),
+                    new Object[] {userId, expense.get().getUser().getId()}, Locale.getDefault()));
+        }
     }
 
     @Override
     public List<ExpenseResponseDto> getAllByUserId(String token) {
         Long userId = jwtUtil.extractUserId(token);
         User user = userService.getById(userId);
-        String userCodeCurrency = user.getCurrency().getCodeCurrency();
-        Double userValueCurrency = user.getCurrency().getValueDollar();
-        return expenseMapper.listEntityToListResponseDto(convertExpense(expenseRepository.getAllByUserId(userId), userCodeCurrency, userValueCurrency));
+        return expenseMapper.listEntityToListResponseDto(convertExpense(expenseRepository.getAllByUserId(userId), user.getCurrency().getCodeCurrency(), user.getCurrency().getValueDollar()));
     }
-
-
-
-    /*
-    @Override
-    public Double getBalanceSpecificByUserId(Long userId, LocalDate start, LocalDate end) {
-        //return expenseRepository.getBalanceSpecificByUserId(userId, start, end);
-
-        Double balance = 0.0;
-        List<Expense> expenses = convertExpense(expenseRepository.getSpecificByUserId(userId, start, end));
-        for (Expense expense : expenses){
-            balance += expense.getAmount();
-        }
-        return balance;
-    }
-    */
 
     @Override
     public Double getBalanceMonthlyByUserId(List<Expense> expenses) {
@@ -125,11 +106,6 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
             balance += expense.getAmount();
         }
         return balance;
-    }
-
-    @Override
-    public Double getBalanceSpecificByUserId(Long userId, LocalDate start, LocalDate end) {
-        return null;
     }
 
     @Override
@@ -267,10 +243,17 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         return expenseMapper.listEntityToListResponseDto(expenses);
     }
 
-    public void delete(Long id, String token){
+    public void delete(Long id, String token) {
+
+        Long userId = jwtUtil.extractUserId(token);
+
         Optional<Expense> expense = expenseRepository.findById(id);
-        if(expense.get().getUser().getId() == id){
+
+        if (userId.equals(expense.get().getUser().getId())) {
             super.delete(id);
+        } else {
+            throw new UserUnauthorizedException(messenger.getMessage(USER_UNAUTHORIZED.name(),
+                    new Object[]{userId, expense.get().getUser().getId()}, Locale.getDefault()));
         }
     }
 

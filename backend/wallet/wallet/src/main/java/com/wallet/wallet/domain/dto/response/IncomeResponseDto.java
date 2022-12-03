@@ -1,7 +1,6 @@
 package com.wallet.wallet.domain.dto.response;
 
-import com.wallet.wallet.domain.model.Currency;
-import com.wallet.wallet.domain.model.EIncome;
+import com.wallet.wallet.domain.enums.EIncome;
 import lombok.Data;
 
 import java.time.LocalDate;

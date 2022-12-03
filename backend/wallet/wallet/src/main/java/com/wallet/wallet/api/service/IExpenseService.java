@@ -21,8 +21,6 @@ public interface IExpenseService extends GenericServiceAPI<Expense, ExpenseRespo
 
     Double getBalanceMonthlyByUserId(List<Expense> expenses);
 
-    Double getBalanceSpecificByUserId(Long userId, LocalDate start, LocalDate end);
-
     Map<String, Double> groupByCategoryByUserId(String token);
 
     HomeResponseDto getForHome(String token);
@@ -33,7 +31,7 @@ public interface IExpenseService extends GenericServiceAPI<Expense, ExpenseRespo
 
     void delete(Long id, String token);
 
-    ExpenseResponseDto getById(Long Id);
+    ExpenseResponseDto getById(Long id, String token);
 
     ExpenseResponseDto update(ExpenseUpdateDto expenseUpdateDto, Long id, String token);
 }

@@ -1,7 +1,6 @@
 package com.wallet.wallet.api.controller;
 
 import com.wallet.wallet.api.service.IExpenseService;
-import com.wallet.wallet.domain.dto.request.CategoryUpdateDto;
 import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
 import com.wallet.wallet.domain.dto.request.ExpenseUpdateDto;
 import io.swagger.annotations.Api;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
@@ -42,7 +40,7 @@ public record ExpenseController(IExpenseService service) {
     @ApiOperation(value = "Find expenses by User", hidden = true)
     @GetMapping("/user")
     //@PreAuthorize("hasAuthority('USER')")
-    public  ResponseEntity<?> getByUserId(@RequestHeader("Authorization") String token){
+    public  ResponseEntity<?> getAllByUserId(@RequestHeader("Authorization") String token){
         return responseBuilder(OK, service.getAllByUserId(token));
     }
 
@@ -75,14 +73,14 @@ public record ExpenseController(IExpenseService service) {
         return responseBuilder(OK, service.filter(token, categoriesId, amountMin, amountMax, start, end, orderBy, order));
     }
 
-    @ApiOperation(value = "Delete a expense by id")
+    @ApiOperation(value = "Get information by statistics")
     @GetMapping("/statistics")
     //@PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> getStatistics(@RequestHeader("Authorization") String token){
         return responseBuilder(OK, service.getStatistics(token));
     }
 
-    @ApiOperation(value = "Delete a expense by id")
+    @ApiOperation(value = "Delete a expense by Id")
     @DeleteMapping("/delete/{id}")
     //@PreAuthorize("hasAuthority('USER')")
     public  ResponseEntity<Void> delete(@PathVariable Long id, @RequestHeader("Authorization") String token){

@@ -22,7 +22,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,7 +29,6 @@ import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.wallet.wallet.domain.enums.EMessageCode.INVALID_TOKEN;
 import static com.wallet.wallet.domain.enums.EMessageCode.USER_UNAUTHORIZED;
 
 @AllArgsConstructor
@@ -99,7 +97,6 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         return expenseMapper.listEntityToListResponseDto(convertExpense(expenseRepository.getAllByUserId(userId), user.getCurrency().getCodeCurrency(), user.getCurrency().getValueDollar()));
     }
 
-    @Override
     public Double getBalanceMonthlyByUserId(List<Expense> expenses) {
 
         Double balance = 0.0;

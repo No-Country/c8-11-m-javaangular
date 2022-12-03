@@ -2,8 +2,10 @@ package com.wallet.wallet.api.controller;
 
 import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
 import com.wallet.wallet.api.service.IIncomeService;
+import com.wallet.wallet.domain.dto.request.ExpenseUpdateDto;
 import com.wallet.wallet.domain.dto.request.IncomeRequestDto;
 
+import com.wallet.wallet.domain.dto.request.IncomeUpdateDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -16,10 +18,19 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "Income", description = " " )
 public record IncomeController(IIncomeService service) {
 
-    @ApiOperation(value = "Save a new income")
+    @ApiOperation(value = "Register a new income")
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody IncomeRequestDto dto){
-        return responseBuilder(CREATED, service.save(dto));
+    public ResponseEntity<?> save(@RequestBody IncomeRequestDto dto, @RequestHeader("Authorization") String token){
+        return responseBuilder(CREATED, service.save(dto, token));
+    }
+
+    @ApiOperation(value = "Update a expense by Id")
+    // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@RequestBody IncomeUpdateDto incomeUpdateDto,
+                                    @PathVariable Long id,
+                                    @RequestHeader("Authorization") String token) {
+        return responseBuilder(OK, service.update(incomeUpdateDto, id, token));
     }
 
     @ApiOperation(value = "Find an income by id")

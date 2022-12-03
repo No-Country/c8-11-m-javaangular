@@ -10,19 +10,19 @@ public class IncomeRequestDto {
 
     private Long id;
 
-    private Double amount;
+    private Double importe;
 
-    private String description;
+    private String descripcion;
 
-    private Long currencyId;
+    private Long monedaId;
 
     private Long userId;
 
-    private LocalDate date;
+    private LocalDate fecha;
 
-    private Boolean isIncluded;
+    private Boolean esIncluida;
 
-    private EIncome type;
+    private EIncome tipo;
 
     private Boolean deleted = Boolean.FALSE;
 }

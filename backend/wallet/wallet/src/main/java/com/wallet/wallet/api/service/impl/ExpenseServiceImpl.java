@@ -50,6 +50,7 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
 
     private final MessageSource messenger;
 
+    @Override
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto, String token) {
         Long userId = jwtUtil.extractUserId(token);
         expenseRequestDto.setUserId(userId);

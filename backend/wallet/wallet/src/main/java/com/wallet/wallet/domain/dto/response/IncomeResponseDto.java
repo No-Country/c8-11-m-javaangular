@@ -1,6 +1,5 @@
 package com.wallet.wallet.domain.dto.response;
 
-import com.wallet.wallet.domain.enums.EIncome;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -10,23 +9,18 @@ public class IncomeResponseDto {
 
     private Long id;
 
-    private Double amount;
+    private Double importe;
 
-    private String description;
+    private String descripcion;
 
-    private static String categoryName = "Ingreso";
+    private String categoria;
 
-    private static String categoryIcon = "income";
+    private String monedaCodigo;
 
-    private static String categoryColorCode = "#F239J3";
+    private LocalDate fecha;
 
-    private String codeCurrency;
-
-    private LocalDate date;
-
-    private Boolean isIncluded;
-
-    private EIncome type;
+    private Boolean esIncluida;
 
     private Boolean deleted;
+
 }

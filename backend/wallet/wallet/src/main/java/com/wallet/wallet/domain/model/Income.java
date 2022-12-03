@@ -38,7 +38,7 @@ public class Income {
     private EIncome type;
 
     @ManyToOne()
-    @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false, updatable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull(message = "")
     private Currency currency;
@@ -46,7 +46,7 @@ public class Income {
     private Boolean deleted = Boolean.FALSE;
 
     @ManyToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull(message = "")
     private User user;

@@ -276,6 +276,15 @@ export class GastosComponent implements OnInit {
 
   recargar:number=0;
 
+  httpOptions : any    = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'PUT',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
+
   constructor(private fechaService: FechaService,
               private gastoService:GastosService,
               private formBuilder:FormBuilder, 
@@ -411,7 +420,7 @@ export class GastosComponent implements OnInit {
 
   // Boton Actualizar Experiencia
 
-  headers = 'Access-Control-Allow-Origin';
+  
 
   actualizarGasto(): void{
     const nuevoGasto = this.editGastoForm.value;
@@ -428,7 +437,7 @@ export class GastosComponent implements OnInit {
     console.log(quantum);
 
 
-    this.gastoService.actualizarGasto(editId,quantum,this.headers).subscribe(
+    this.gastoService.actualizarGasto(editId,quantum,this.httpOptions).subscribe(
       data=>{},
       (error) => {
         alert("Algo ha fallado: " + error);

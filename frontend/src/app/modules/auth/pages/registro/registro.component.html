@@ -18,7 +18,7 @@
                     <!----Ingrese su nombre--->
                     <div class="form-outline mb-3">
                       <label class="form-label" for="nombre">Nombre</label>
-                      <input type="nombre" id="nombre"  formControlName="nombre" class="form-control" aria-describedby="nombreHelp" placeholder="Maria" [ngClass]="{'is-valid':!Nombre?.errors&& Nombre?.touched}"/> 
+                      <input type="nombre" id="nombre"  formControlName="firstName" class="form-control" aria-describedby="nombreHelp" placeholder="Maria" [ngClass]="{'is-valid':!Nombre?.errors&& Nombre?.touched}"/> 
                       <div *ngIf="Nombre?.errors && Nombre?.touched">
                         <p *ngIf="Nombre?.hasError('required')" class="text-danger">
                           Debe ingresar un nombre
@@ -28,7 +28,7 @@
                     <!----Ingrese su apellido--->
                     <div class="form-outline mb-3">
                       <label class="form-label" for="apellido">Apellido</label>
-                      <input type="apellido" id="apellido"  formControlName="apellido" class="form-control" aria-describedby="apellidoHelp" placeholder="Gutierrez" [ngClass]="{'is-valid':!Apellido?.errors&& Apellido?.touched}"/> 
+                      <input type="apellido" id="apellido"  formControlName="lastName" class="form-control" aria-describedby="apellidoHelp" placeholder="Gutierrez" [ngClass]="{'is-valid':!Apellido?.errors&& Apellido?.touched}"/> 
                       <div *ngIf="Apellido?.errors && Apellido?.touched">
                         <p *ngIf="Apellido?.hasError('required')" class="text-danger">
                           Debe ingresar su apellido

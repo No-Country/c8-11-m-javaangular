@@ -13,6 +13,15 @@ export class GastosService {
   constructor(private http:HttpClient) { }
 
   URL = environment.baseUrl + "expenses/";
+
+  httpOptions : any    = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'PUT',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
   
   //OBTENER GASTOS
   public obtenerGastos():Observable<any>{
@@ -34,7 +43,7 @@ export class GastosService {
 
    //TODO:Buscar metodo
   //ACTUALIZAR
-  public actualizarGasto(id:number,gasto:any,headers:string):Observable<any>{    
+  public actualizarGasto(id:number,gasto:any,headers:HttpHeaders):Observable<any>{    
   return this.http.put<any>(this.URL + `update/${id}`,gasto,{})
   }
 

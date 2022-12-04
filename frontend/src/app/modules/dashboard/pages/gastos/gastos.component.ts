@@ -15,6 +15,8 @@ import { GastosService } from '../../services/gastos.service';
 })
 export class GastosComponent implements OnInit {
 
+  hardcodeo:boolean=false;
+
   fechaActual:any;
   // Vistas Tabla/Tarjeta
   active:boolean=true;
@@ -315,7 +317,9 @@ export class GastosComponent implements OnInit {
     const token = sessionStorage.getItem("AuthToken");
     if (token == "Usuario Harcodeado"){
       this.lista = this.lista2Gastos;
+      this.hardcodeo=true;
     } else {
+      this.hardcodeo=false;
       this.obtenerDatos();
     }         
   }
@@ -507,4 +511,12 @@ export class GastosComponent implements OnInit {
   filtrar(){
     console.log("se esta filtrando")
   }
+
+  // Funciones Auxiliares
+  invertir(miFecha:string){
+    const parte = miFecha.split("-", 3);
+    const nuevaFecha = parte[2]+"-"+parte[1]+"-"+parte[0]
+    return nuevaFecha
+  }
+
 }

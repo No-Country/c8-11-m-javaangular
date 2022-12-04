@@ -12,6 +12,8 @@ import { IngresosService } from '../../services/ingresos.service';
 })
 export class IngresosComponent implements OnInit {
 
+  hardcodeo:boolean=false;
+
   fecha:any;
   active:boolean=true;
 
@@ -179,9 +181,11 @@ export class IngresosComponent implements OnInit {
   ngOnInit(): void {
     const token = sessionStorage.getItem("AuthToken");
     if (token == "Usuario Harcodeado"){
+      this.hardcodeo=true;
       this.lista2Ingresos = this.listilla;
     } else {
       this.obtenerDatos();
+      this.hardcodeo=false;
     }         
   }
 
@@ -289,10 +293,10 @@ export class IngresosComponent implements OnInit {
 
   // BOTONES DE PAGINACION
   nextPage(){
-    this.page = this.page +5;
+    this.page = this.page +10;
   }
   previusPage(){
-    this.page = this.page -5;
+    this.page = this.page -10;
   }
 
   /*============================================================*/

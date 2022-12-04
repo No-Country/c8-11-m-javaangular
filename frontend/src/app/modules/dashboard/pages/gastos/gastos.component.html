@@ -107,194 +107,270 @@
             </ul>
         </nav>
         <!----Elección de páginas---->
-        <nav class="vistas" aria-label="Page navigation example">
-            <ul class="pagination">
-            <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
-            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>lista2Gastos.length"><i class="bi bi-arrow-right"></i></button></li>
-            </ul>
-        </nav>
-    </div>  
-
-    <!----VISTA EN TABLA---->
-
-    <!-----VISTAS TABLA EN PC----->
-    <div *ngIf="active" class="tabla-gastos">        
-        <div  class="table-responsive">
-            <table class="table table-sm">
-                <thead>
-                    <tr class="p-3">
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Importe</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of lista | paginacion:page:orden">
-                    <tr class="p-2">
-                        <td>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</td>
-                        <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
-                        <td>{{item.descripcion}}</td>
-                        <td>${{item.importe}}</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar></td>
-                    </tr>                                      
-                </tbody>
-            </table>
-        </div>        
-    </div>
-    <!-----VISTAS TABLA EN MOVIL----->
-    <div *ngIf="active" class="tabla-gastos-movil">        
-        <div  class="table-responsive">
-            <table class="table table-sm">
-                <thead>
-                    <tr class="p-3">
-                        <th scope="col">Categoria/<br>Fecha</th>
-                        <th scope="col">Importe/<br>Descripción</th>                    
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of lista | paginacion:page:orden">
-                    <tr class="p-2">
-                        <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}})</span></td>
-                        <td>${{item.importe}}<br>{{item.descripcion}}</td>
-                        <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar></td>
-                    </tr>                                      
-                </tbody>
-            </table>
-        </div>        
-    </div>
-
-    <!----VISTA EN TARJETAS------>
-    
-    <!----VISTA TARJETAS EN PC----->
-    <div *ngIf="!active" class="tabla-gastos">        
-        <div class="tarjeta-titulo">
-            <div class="fecha-tar">
-                <p>Fecha</p>
-            </div>
-            <div class="cate-tar">
-                <p>Categoría</p>
-            </div>
-            <div class="descri-tar">
-                <p>Descripción</p>
-            </div>
-            <div class="importe-tar">
-                <p>Importe</p>
-            </div>
-            <div class="botones-tar">
-                <p>Editar/Eliminar</p>
-            </div>
+        <div *ngIf="hardcodeo">
+            <nav class="vistas" aria-label="Page navigation example">
+                <ul class="pagination">
+                <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
+                <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>lista.length"><i class="bi bi-arrow-right"></i></button></li>
+                </ul>
+            </nav>
         </div>
-        <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page:orden">
-            <div class="tarjeta">
+        <div *ngIf="!hardcodeo">
+            <nav class="vistas" aria-label="Page navigation example">
+                <ul class="pagination">
+                <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
+                <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>listaGastos.length"><i class="bi bi-arrow-right"></i></button></li>
+                </ul>
+            </nav>
+        </div>        
+    </div>
+    
+    <!----------HARDCODEADO------------->
+
+    <div *ngIf="hardcodeo" class="">
+
+        <!-----VISTAS TABLA EN PC----->
+        <div *ngIf="active" class="tabla-gastos">        
+            <div  class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr class="p-3">
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Importe</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of lista | paginacion:page:orden">
+                        <tr class="p-2">
+                            <td>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</td>
+                            <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
+                            <td>{{item.descripcion}}</td>
+                            <td>${{item.importe}}</td>
+                            <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar></td>
+                        </tr>                                      
+                    </tbody>
+                </table>
+            </div>        
+        </div>
+
+        <!-----VISTAS TABLA EN MOVIL----->
+        <div *ngIf="active" class="tabla-gastos-movil">        
+            <div  class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr class="p-3">
+                            <th scope="col">Categoria/<br>Fecha</th>
+                            <th scope="col">Importe/<br>Descripción</th>                    
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of lista | paginacion:page:orden">
+                        <tr class="p-2">
+                            <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}})</span></td>
+                            <td>${{item.importe}}<br>{{item.descripcion}}</td>
+                            <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar></td>
+                        </tr>                                      
+                    </tbody>
+                </table>
+            </div>        
+        </div>
+
+        <!----VISTA TARJETAS EN PC----->
+        <div *ngIf="!active" class="tabla-gastos">        
+            <div class="tarjeta-titulo">
                 <div class="fecha-tar">
-                    <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
+                    <p>Fecha</p>
                 </div>
                 <div class="cate-tar">
-                    <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span>
+                    <p>Categoría</p>
                 </div>
                 <div class="descri-tar">
-                    <p>{{item.descripcion}}</p>
+                    <p>Descripción</p>
                 </div>
                 <div class="importe-tar">
-                    <span>${{item.importe}}</span>
+                    <p>Importe</p>
                 </div>
                 <div class="botones-tar">
-                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"  (click)="trashId(item.importe)"></app-borrar>
+                    <p>Editar/Eliminar</p>
+                </div>
+            </div>
+            <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page:orden">
+                <div class="tarjeta">
+                    <div class="fecha-tar">
+                        <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
+                    </div>
+                    <div class="cate-tar">
+                        <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span>
+                    </div>
+                    <div class="descri-tar">
+                        <p>{{item.descripcion}}</p>
+                    </div>
+                    <div class="importe-tar">
+                        <span>${{item.importe}}</span>
+                    </div>
+                    <div class="botones-tar">
+                        <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"  (click)="trashId(item.importe)"></app-borrar>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!----VISTA TARJETAS EN MOVIL----->    
+        <div *ngIf="!active" class="tabla-gastos-movil">        
+            <div class="tarjeta-titulo-movil">
+                <div class="indica-tar-movil">
+                    <p>Categoria/<br>Fecha</p>
+                </div>
+                <div class="indica-tar-movil">
+                    <p>Importe/<br>Descripción</p>
+                </div>
+                <div class="indica-tar-movil">
+                    <p>Modificar</p>
+                </div>
+            </div>
+            <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page:orden">
+                <div class="tarjeta">
+                    <div class="fecha-tar">
+                        <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br>
+                        <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
+                    </div>
+                    <div class="descri-tar">
+                        <span>${{item.importe}}</span><br>
+                        <p>{{item.descripcion}}</p>
+                    </div>
+                    <div class="botones-tar-movil">
+                        <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!----VISTA TARJETAS EN MOVIL----->
     
-    <div *ngIf="!active" class="tabla-gastos-movil">        
-        <div class="tarjeta-titulo-movil">
-            <div class="indica-tar-movil">
-                <p>Categoria/<br>Fecha</p>
+    <!----------Desde el BACK------------------>
+
+    <div *ngIf="!hardcodeo">
+        <div *appRecarga="recargar">
+            <!-----VISTAS TABLA EN PC----->
+            <div *ngIf="active" class="tabla-gastos">        
+                <div  class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="p-3">
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Importe</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of listaGastos | gasto:page:orden">
+                            <tr class="p-2">
+                                <td>{{invertir(item.fecha)}}</td>
+                                <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
+                                <td>{{item.descripcion}}</td>
+                                <td>${{item.importe}}</td>
+                                <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.id)"></app-borrar></td>
+                            </tr>                                      
+                        </tbody>
+                    </table>
+                </div>        
             </div>
-            <div class="indica-tar-movil">
-                <p>Importe/<br>Descripción</p>
+
+            <!-----VISTAS TABLA EN MOVIL----->
+            <div *ngIf="active" class="tabla-gastos-movil">        
+                <div  class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="p-3">
+                                <th scope="col">Categoria/<br>Fecha</th>
+                                <th scope="col">Importe/<br>Descripción</th>                    
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of listaGastos | gasto:page:orden">
+                            <tr class="p-2">
+                                <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br><span id="fechoso">({{invertir(item.fecha)}})</span></td>
+                                <td>${{item.importe}}<br>{{item.descripcion}}</td>
+                                <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.id)"></app-borrar></td>
+                            </tr>                                      
+                        </tbody>
+                    </table>
+                </div>        
             </div>
-            <div class="indica-tar-movil">
-                <p>Modificar</p>
+
+            <!----VISTA TARJETAS EN PC----->
+            <div *ngIf="!active" class="tabla-gastos">        
+                <div class="tarjeta-titulo">
+                    <div class="fecha-tar">
+                        <p>Fecha</p>
+                    </div>
+                    <div class="cate-tar">
+                        <p>Categoría</p>
+                    </div>
+                    <div class="descri-tar">
+                        <p>Descripción</p>
+                    </div>
+                    <div class="importe-tar">
+                        <p>Importe</p>
+                    </div>
+                    <div class="botones-tar">
+                        <p>Editar/Eliminar</p>
+                    </div>
+                </div>
+                <div class="tarjetas" *ngFor="let item of listaGastos | gasto:page:orden">
+                    <div class="tarjeta">
+                        <div class="fecha-tar">
+                            <p>{{invertir(item.fecha)}}</p>
+                        </div>
+                        <div class="cate-tar">
+                            <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span>
+                        </div>
+                        <div class="descri-tar">
+                            <p>{{item.descripcion}}</p>
+                        </div>
+                        <div class="importe-tar">
+                            <span>${{item.importe}}</span>
+                        </div>
+                        <div class="botones-tar">
+                            <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto"  (click)="trashId(item.id)"></app-borrar>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!----VISTA TARJETAS EN MOVIL----->    
+            <div *ngIf="!active" class="tabla-gastos-movil">        
+                <div class="tarjeta-titulo-movil">
+                    <div class="indica-tar-movil">
+                        <p>Categoria/<br>Fecha</p>
+                    </div>
+                    <div class="indica-tar-movil">
+                        <p>Importe/<br>Descripción</p>
+                    </div>
+                    <div class="indica-tar-movil">
+                        <p>Modificar</p>
+                    </div>
+                </div>
+                <div class="tarjetas" *ngFor="let item of listaGastos | gasto:page:orden">
+                    <div class="tarjeta">
+                        <div class="fecha-tar">
+                            <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br>
+                            <p>{{invertir(item.fecha)}}</p>
+                        </div>
+                        <div class="descri-tar">
+                            <span>${{item.importe}}</span><br>
+                            <p>{{item.descripcion}}</p>
+                        </div>
+                        <div class="botones-tar-movil">
+                            <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.id)"></app-borrar>
+                        </div>
+                    </div>
+                </div>
+            </div>    
         </div>
-        <div class="tarjetas" *ngFor="let item of lista2Gastos | paginacion:page:orden">
-            <div class="tarjeta">
-                <div class="fecha-tar">
-                    <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br>
-                    <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
-                </div>
-                <div class="descri-tar">
-                    <span>${{item.importe}}</span><br>
-                    <p>{{item.descripcion}}</p>
-                </div>
-                <div class="botones-tar-movil">
-                    <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(1,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar>
-                </div>
-            </div>
-        </div>
     </div>
-
-    <hr>
-<hr>
-<!------------------------------------------------------------>
-
-<h3 style="color:red">Recibiendo los datos del back</h3>
-<hr>
-<a routerLink="/dashboard/prueba">prueba</a>
-
-<div *appRecarga="recargar">
-    <div *ngIf="active" class="tabla-gastos">        
-        <div  class="table-responsive">
-            <table class="table table-sm">
-                <thead>
-                    <tr class="p-3">
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Importe</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of listaGastos">
-                    <tr class="p-2">
-                        <td>{{item.fecha}}</td>
-                        <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
-                        <td>{{item.descripcion}}</td>
-                        <td>${{item.importe}}</td>
-                        <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.id)"></app-borrar></td>
-                    </tr>                                      
-                </tbody>
-            </table>
-        </div>        
-    </div>
-    <!-----VISTAS TABLA EN MOVIL----->
-    <div *ngIf="active" class="tabla-gastos-movil">        
-        <div  class="table-responsive">
-            <table class="table table-sm">
-                <thead>
-                    <tr class="p-3">
-                        <th scope="col">Categoria/<br>Fecha</th>
-                        <th scope="col">Importe/<br>Descripción</th>                    
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let item of listaGastos">
-                    <tr class="p-2">
-                        <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha}})</span></td>
-                        <td>${{item.importe}}<br>{{item.descripcion}}</td>
-                        <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.id)"></app-borrar></td>
-                    </tr>                                      
-                </tbody>
-            </table>
-        </div>        
-    </div>
-
-</div>
-
-
-
 </section>
 
 <!--------------------------------------------------------->

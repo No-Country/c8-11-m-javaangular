@@ -29,6 +29,8 @@ import { PruebaComponent } from './pages/prueba/prueba.component';
 import { GastosService } from './services/gastos.service';
 import { PruebaService } from './services/prueba.service';
 import { RecargaDirective } from './directives/recarga.directive';
+import { GastoPipe } from './pipes/gasto.pipe';
+import { IngresoPipe } from './pipes/ingreso.pipe';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { RecargaDirective } from './directives/recarga.directive';
     PaginacionPipe,
     PaginacionIngresoPipe,
     PruebaComponent,
-    RecargaDirective
+    RecargaDirective,
+    GastoPipe,
+    IngresoPipe
   ],
   imports: [
     DashboardRoutingModule,

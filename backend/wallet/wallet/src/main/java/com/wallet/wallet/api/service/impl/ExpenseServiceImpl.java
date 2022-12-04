@@ -231,9 +231,9 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         }
 
         if(amountMin != null && amountMax != null){
-            for(Expense expense : expenses){
-                if(expense.getAmount() < amountMin || expense.getAmount() > expense.getAmount()){
-                    expenses.remove(expense);
+            for(int i = 0; i < expenses.size(); i++){
+                if(expenses.get(i).getAmount() < amountMin || expenses.get(i).getAmount() > amountMax){
+                    expenses.remove(i);
                 }
             }
         }

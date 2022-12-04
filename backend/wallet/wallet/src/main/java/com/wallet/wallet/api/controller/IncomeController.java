@@ -26,7 +26,7 @@ public record IncomeController(IIncomeService service) {
 
     @ApiOperation(value = "Update a expense by Id")
     // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody IncomeUpdateDto incomeUpdateDto,
                                     @PathVariable Long id,
                                     @RequestHeader("Authorization") String token) {

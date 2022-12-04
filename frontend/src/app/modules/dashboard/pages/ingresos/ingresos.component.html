@@ -5,7 +5,7 @@
     <div class="seleccion">
         <!-----BOTÓN NUEVO INGRESO------>
         <div class="selector-left">
-            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidators()">+ Nuevo Ingreso</button>            
+            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidatorsAdd()">+ Nuevo Ingreso</button>            
         </div>   
         <!-----SELECTORES Y FILTROS---->      
         <div class="selector-right">
@@ -121,7 +121,7 @@
         <nav class="vistas" aria-label="Page navigation example">
             <ul class="pagination">
             <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
-            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+5>lista2Ingresos.length"><i class="bi bi-arrow-right"></i></button></li>
+            <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+5>listilla.length"><i class="bi bi-arrow-right"></i></button></li>
             </ul>
         </nav>
     </div>
@@ -462,7 +462,7 @@
 
 <h3 style="color:red">Recibiendo los datos del back</h3>
 
-<div *ngIf="active" class="tabla-gastos">        
+<div *ngIf="active" id="tiburon" class="tabla-gastos">        
     <div  class="table-responsive">
         <table class="table table-sm">
             <thead>
@@ -476,10 +476,10 @@
             </thead>
             <tbody *ngFor="let item of listaIngreso">
                 <tr class="p-2">
-                    <td>{{item.date}}</td>
-                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.type=='MONTHLY'),'text-bg-success':(item.type=='YEARLY'),'text-bg-danger':(item.type=='YEARLY')}">{{item.type}}</span></td>
-                    <td>{{item.description}}</td>
-                    <td>${{item.id}}</td>
+                    <td>{{item.fecha}}</td>
+                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span></td>
+                    <td>{{item.descripcion}}</td>
+                    <td>${{item.importe}}</td>
                     <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar></td>
                 </tr>                                      
             </tbody>
@@ -499,8 +499,8 @@
             </thead>
             <tbody *ngFor="let item of listaIngreso">
                 <tr class="p-2">
-                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.type=='MONTHLY'),'text-bg-success':(item.type=='YEARLY'),'text-bg-danger':(item.type=='YEARLY')}">{{item.categoryName}}</span><br><span id="fechoso">({{item.date}})</span></td>
-                    <td>${{item.amount}}<br>{{item.description}}</td>
+                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha}})</span></td>
+                    <td>${{item.importe}}<br>{{item.descripcion}}</td>
                     <td class=""><app-editar ata-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar></td>
                 </tr>                                      
             </tbody>
@@ -518,61 +518,61 @@
       <div class="modal-content modal-agregar">
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">NUEVO INGRESO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidatorsAdd()"></button>
         </div>
         <!------Formulario------->
-        <form [formGroup]="gastoForm" id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off" required>
+        <form [formGroup]="addIngresoForm" id="agregarEducacion" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off" required>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
-                    <div *ngIf="Fecha?.errors && Fecha?.touched">
-                        <p *ngIf="Fecha?.hasError('required')" class="text-danger">
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!FechaAdd?.errors&& FechaAdd?.touched}">
+                    <div *ngIf="FechaAdd?.errors && FechaAdd?.touched">
+                        <p *ngIf="FechaAdd?.hasError('required')" class="text-danger">
                           Ingrese una fecha
                         </p>  
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
-                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                    <select type="text" id="categoria"  formControlName="tipo" class="form-control" [ngClass]="{'is-valid':!CategoriaAdd?.errors&& CategoriaAdd?.touched}"> 
                         <option value="Anual">Anual</option>
                         <option value="Mensual">Mensual</option>
                         <option value="Semanal">Semanal</option>
                         <option value="Diario">Diario</option>                   
                     </select>
-                    <div *ngIf="Categoria?.errors && Categoria?.touched">
-                        <p *ngIf="Categoria?.hasError('required')" class="text-danger">
+                    <div *ngIf="CategoriaAdd?.errors && CategoriaAdd?.touched">
+                        <p *ngIf="CategoriaAdd?.hasError('required')" class="text-danger">
                           Ingrese una categoria
                         </p>  
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
-                    <div *ngIf="Importe?.errors && Importe?.touched">
-                        <p *ngIf="Importe?.hasError('required')" class="text-danger">
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!ImporteAdd?.errors&& ImporteAdd?.touched}">
+                    <div *ngIf="ImporteAdd?.errors && ImporteAdd?.touched">
+                        <p *ngIf="ImporteAdd?.hasError('required')" class="text-danger">
                           Ingrese un importe
                         </p>
-                        <p *ngIf="Importe?.hasError('min')" class="text-danger">
+                        <p *ngIf="ImporteAdd?.hasError('min')" class="text-danger">
                             El importe debe ser mayor a cero
                         </p>  
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
-                    <div *ngIf="Descripcion?.errors && Descripcion?.touched">
-                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" [ngClass]="{'is-valid':!DescripcionAdd?.errors&& DescripcionAdd?.touched}">
+                    <div *ngIf="DescripcionAdd?.errors && DescripcionAdd?.touched">
+                        <p *ngIf="DescripcionAdd?.hasError('required')" class="text-danger">
                             Ingrese una descripción
                         </p>
-                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                        <p *ngIf="DescripcionAdd?.hasError('maxlength')" class="text-danger">
                             Menos de 20 caracteres
                         </p>
                     </div>
                 </div>
                 <div class="modal-footer botones">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidators()">Cancelar</button> 
-                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal"  [disabled]="!gastoForm.valid">Aceptar</button>                               
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidatorsAdd()">Cancelar</button> 
+                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal"  [disabled]="!addIngresoForm.valid">Aceptar</button>                               
                 </div>
             </div>    
         </form>
@@ -586,7 +586,7 @@
       <div class="modal-content modal-agregar">
         <div class="modal-header text-center">
           <h5 class="modal-title" id="staticBackdropLabel">EDITAR INGRESO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidators()"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidatorsEdit()"></button>
         </div>
         <!------Formulario------->
         <!---
@@ -619,58 +619,58 @@
                 <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
             </div>
         </form>--->
-        <form [formGroup]="gastoForm" id="agregarEducacion" (ngSubmit)="actualizarIngreso()" autocomplete="off">
+        <form [formGroup]="editIngresoForm" id="agregarEducacion" (ngSubmit)="actualizarIngreso()" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!Fecha?.errors&& Fecha?.touched}">
-                    <div *ngIf="Fecha?.errors && Fecha?.touched">
-                        <p *ngIf="Fecha?.hasError('required')" class="text-danger">
+                    <input type="date" id="fecha"  formControlName="fecha" class="form-control" min="2000-01-01" max="2030-12-31" [ngClass]="{'is-valid':!FechaEdit?.errors&& FechaEdit?.touched}">
+                    <div *ngIf="FechaEdit?.errors && FechaEdit?.touched">
+                        <p *ngIf="FechaEdit?.hasError('required')" class="text-danger">
                           Ingrese una fecha
                         </p>  
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="categoria" class="form-label">Tipo</label><br>
-                    <select type="text" id="categoria"  formControlName="categoria" class="form-control" [ngClass]="{'is-valid':!Categoria?.errors&& Categoria?.touched}"> 
+                    <select type="text" id="categoria"  formControlName="tipo" class="form-control" [ngClass]="{'is-valid':!CategoriaEdit?.errors&& CategoriaEdit?.touched}"> 
                         <option value="Anual">Anual</option>
                         <option value="Mensual">Mensual</option>
                         <option value="Semanal">Semanal</option>
                         <option value="Diario">Diario</option>                   
                     </select>
-                    <div *ngIf="Categoria?.errors && Categoria?.touched">
-                        <p *ngIf="Categoria?.hasError('required')" class="text-danger">
+                    <div *ngIf="CategoriaEdit?.errors && CategoriaEdit?.touched">
+                        <p *ngIf="CategoriaEdit?.hasError('required')" class="text-danger">
                           Ingrese una categoria
                         </p>  
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="importe" class="form-label">Importe</label>
-                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!Importe?.errors&& Importe?.touched}">
-                    <div *ngIf="Importe?.errors && Importe?.touched">
-                        <p *ngIf="Importe?.hasError('required')" class="text-danger">
+                    <input type="number" id="importe"  formControlName="importe" class="form-control" [ngClass]="{'is-valid':!ImporteEdit?.errors&& ImporteEdit?.touched}">
+                    <div *ngIf="ImporteEdit?.errors && ImporteEdit?.touched">
+                        <p *ngIf="ImporteEdit?.hasError('required')" class="text-danger">
                           Ingrese un importe
                         </p>
-                        <p *ngIf="Importe?.hasError('min')" class="text-danger">
+                        <p *ngIf="ImporteEdit?.hasError('min')" class="text-danger">
                             El importe debe ser mayor a cero
                         </p>  
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" [ngClass]="{'is-valid':!Descripcion?.errors&& Descripcion?.touched}">
-                    <div *ngIf="Descripcion?.errors && Descripcion?.touched">
-                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                    <input type="text" id="descripcion"  formControlName="descripcion" class="form-control" [ngClass]="{'is-valid':!DescripcionEdit?.errors&& DescripcionEdit?.touched}">
+                    <div *ngIf="DescripcionEdit?.errors && DescripcionEdit?.touched">
+                        <p *ngIf="DescripcionEdit?.hasError('required')" class="text-danger">
                             Ingrese una descripción
                         </p>
-                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                        <p *ngIf="DescripcionEdit?.hasError('maxlength')" class="text-danger">
                             Menos de 20 caracteres
                         </p>
                     </div>
                 </div>
                 <div class="modal-footer botones">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidators()">Cancelar</button> 
-                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" [disabled]="!gastoForm.valid">Aceptar</button>                               
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearValidatorsEdit()">Cancelar</button> 
+                    <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" [disabled]="!editIngresoForm.valid">Aceptar</button>                               
                 </div>
             </div>    
         </form>

@@ -28,11 +28,10 @@ export class GastosService {
     return this.http.get<any>(this.URL + "user")    
   }
 
-  //TODO:Buscar metodo
   //BUSCAR POR ID
-  public buscarGasto(id:number):Observable<Gasto>{
+  /*public buscarGasto(id:number):Observable<Gasto>{
     return this.http.get<Gasto>(this.URL + `buscar/${id}`)
-  }
+  }*/
 
   //CREAR
   public guardarGasto(gasto:any):Observable<any>{
@@ -41,13 +40,12 @@ export class GastosService {
     return this.http.post<any>(this.URL + "save",gasto)
   }
 
-   //TODO:Buscar metodo
   //ACTUALIZAR
   public actualizarGasto(id:number,gasto:any,headers:HttpHeaders):Observable<any>{    
-  return this.http.put<any>(this.URL + `update/${id}`,gasto,{})
+  return this.http.post<any>(this.URL + `update/${id}`,gasto,{})
   }
 
-  //BORRAR
+  //ELIMINAR
   public borrarGasto(id:number):Observable<any>{
     console.log("El servicio de eliminado esta corriendo");
     console.log(this.URL + `delete/${id}`)

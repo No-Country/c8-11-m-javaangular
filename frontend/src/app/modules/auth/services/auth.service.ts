@@ -31,7 +31,7 @@ export class AuthService {
 
   public login(loginUsuario: LoginUsuario,httpHeaders:HttpHeaders): Observable<any>{
     console.log("El servicio login esta corriendo en la URL");
-    console.log(this.URL+'login');
+    console.log(this.URL+'/login');
     return this.httpClient.post<any>(this.URL + '/login',loginUsuario,this.httpOptions.headers)    
   }
     

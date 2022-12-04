@@ -15,7 +15,8 @@ export class IngresosComponent implements OnInit {
   fecha:any;
   active:boolean=true;
 
-  gastoForm:FormGroup;
+  addIngresoForm:FormGroup;
+  editIngresoForm:FormGroup;
 
   listaIngreso:any[]=[];
 
@@ -31,7 +32,7 @@ export class IngresosComponent implements OnInit {
   page:number=0;
   orden:string="";
 
-  lista2Ingresos = [
+  listilla = [
     {
         fecha:new Date('2022-3-17'),
         categoria:'Anual',
@@ -141,35 +142,63 @@ export class IngresosComponent implements OnInit {
       importe:50000
   }
   ];
+  lista2Ingresos:Ingreso[]=[];
 
-  quantum = {
-    "amount": 1289.444444,
-    "date": "2022-12-31",
-    "type": "MONTHLY",
-    "currencyId": 1
-  } 
+  httpOptions : any    = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'PUT',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
  
   
   constructor(private fechaService: FechaService,private formBuilder:FormBuilder, private ingresoService:IngresosService) {
-    this.gastoForm = this.formBuilder.group(
+    this.addIngresoForm = this.formBuilder.group(
       {      
         fecha: ['', [Validators.required]],
-        categoria: ['',[Validators.required]],
+        tipo: ['',[Validators.required]],
         importe:['',[Validators.required,Validators.min(0)]],
-        descripcion:['',[Validators.required,Validators.maxLength(20)]]
+        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
+    this.editIngresoForm = this.formBuilder.group(
+      {      
+        fecha: ['', [Validators.required]],
+        tipo: ['',[Validators.required]],
+        importe:['',[Validators.required,Validators.min(0)]],
+        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        esIncluida:true
       }
     )
   }
 
   ngOnInit(): void {
-    this.obtenerIngresos()
+    const token = sessionStorage.getItem("AuthToken");
+    if (token == "Usuario Harcodeado"){
+      this.lista2Ingresos = this.listilla;
+    } else {
+      this.obtenerDatos();
+    }         
   }
 
-  obtenerIngresos(){
-    this.ingresoService.obtenerIngresos().subscribe(data =>{
-    this.listaIngreso=data.response;
-    console.log(this.listaIngreso)
-    });
+  obtenerDatos(){
+    this.ingresoService.obtenerIngresos().subscribe(
+      (data) =>{
+        this.listaIngreso=data.response;
+        console.log(this.listaIngreso)
+      },
+      (error)=>{
+        console.log("La data no llega");
+        console.error(error);
+      },
+      ()=>{
+        console.log("Datos cargados");
+        console.log(this.listaIngreso);
+      });
   }
 
   /*============================================================*/
@@ -179,42 +208,64 @@ export class IngresosComponent implements OnInit {
   /*-------GUARDAR NUEVO INGRESO----------------*/
 
   guardarIngreso(){    
-    const nuevoGasto = this.gastoForm.value;
-    console.log(nuevoGasto);
-    this.gastoForm.reset();
-    console.log(this.quantum)
-
-    this.ingresoService.guardarIngreso(this.quantum).subscribe(
-      data=>{},
+    const nuevoIngreso = this.addIngresoForm.value;
+    console.log("NUEVO INGRESO:")
+    console.log(nuevoIngreso);
+    // Reseteando el Formulario
+    this.addIngresoForm = this.formBuilder.group(
+      {      
+        fecha: [''],
+        tipo: [''],
+        importe:[''],
+        descripcion:[''],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
+    // Servicio Ingreso Service 
+    this.ingresoService.guardarIngreso(nuevoIngreso).subscribe(
+      (data)=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerIngresos()}
+      ()=>{
+        this.obtenerDatos();
+        console.log("Ingreso creado");
+      }
     ) 
   }
 
   /*-------EDITAR INGRESO-----------------------*/
 
-  editableId(id:number,ingreso:any){
-    const editableGasto = ingreso;
+  editableId(id:number,incomes:any){
+    const editableIngreso = incomes;
     this.editId = id;
     console.log(id);
-    console.log(ingreso);
+    console.log(incomes);
+  
+  // Cargar datos en el modal
+  this.editIngresoForm = this.formBuilder.group(
+    {     
+      fecha: [editableIngreso.fecha],
+      tipo: [editableIngreso.categoria],
+      importe:[editableIngreso.importe],
+      descripcion:[editableIngreso.descripcion],
+      monedaId:1,
+      esIncluida:true
+    }
+  )
   }
-  headers = new HttpHeaders({
-    'Content-Type': 'application/json'
-  });
   actualizarIngreso(){
-    const nuevoIngreso = this.gastoForm.value;
+    const nuevoIngreso = this.editIngresoForm.value;
     console.log(nuevoIngreso);
-    this.gastoForm.reset();
+    this.editIngresoForm.reset();
     const editId = this.editId;
-    this.ingresoService.actualizarIngreso(editId,nuevoIngreso,this.headers).subscribe(
+    this.ingresoService.actualizarIngreso(editId,nuevoIngreso,this.httpOptions).subscribe(
       data=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerIngresos()}
+      ()=>{this.obtenerDatos()}
     )
   }
 
@@ -230,7 +281,7 @@ export class IngresosComponent implements OnInit {
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerIngresos()}
+      ()=>{this.obtenerDatos()}
     )
   }
 
@@ -257,20 +308,40 @@ export class IngresosComponent implements OnInit {
   // VALIDATORS
 
   // Propiedades para los validadores
-  get Fecha() { 
-    return this.gastoForm.get('fecha'); 
+  // Propiedades Guardar Ingreso
+  get FechaAdd() { 
+    return this.addIngresoForm.get('fecha'); 
   }
-  get Categoria() {
-    return this.gastoForm.get('categoria')
+  get CategoriaAdd() {
+    return this.addIngresoForm.get('tipo')
   }
-  get Importe() { 
-    return this.gastoForm.get('importe'); 
+  get ImporteAdd() { 
+    return this.addIngresoForm.get('importe'); 
   }
-  get Descripcion() {
-    return this.gastoForm.get('descripcion')
+  get DescripcionAdd() {
+    return this.addIngresoForm.get('descripcion')
   }
-  clearValidators() {
-    this.gastoForm.reset(this.gastoForm.value);
+  clearValidatorsAdd() {
+    this.addIngresoForm.reset(this.addIngresoForm.value);
+  }
+  get FechaEdit() { 
+    return this.addIngresoForm.get('fecha'); 
+  }
+  get CategoriaEdit() {
+    return this.addIngresoForm.get('tipo')
+  }
+  get ImporteEdit() { 
+    return this.addIngresoForm.get('importe'); 
+  }
+  get DescripcionEdit() {
+    return this.addIngresoForm.get('descripcion')
+  }
+  clearValidatorsEdit() {
+    this.addIngresoForm.reset(this.addIngresoForm.value);
   }
 
+  scrollTo() {
+    window.location.hash = '';
+    window.location.hash = "tiburon";   
+  }
 }

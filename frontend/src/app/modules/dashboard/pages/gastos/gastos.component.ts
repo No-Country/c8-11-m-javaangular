@@ -280,7 +280,7 @@ export class GastosComponent implements OnInit {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
       'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'PUT',
+      'Access-Control-Allow-Methods': 'POST',
       'Access-Control-Allow-Origin': '*'
     })
   };
@@ -311,10 +311,13 @@ export class GastosComponent implements OnInit {
     )
   }
   
-  ngOnInit(): void {
-    this.obtenerDatos();
-    this.lista = this.lista2Gastos;
-         
+  ngOnInit(): void {    
+    const token = sessionStorage.getItem("AuthToken");
+    if (token == "Usuario Harcodeado"){
+      this.lista = this.lista2Gastos;
+    } else {
+      this.obtenerDatos();
+    }         
   }
 
   recargate(){
@@ -396,15 +399,9 @@ export class GastosComponent implements OnInit {
         break;
       default:
         break;
-    }
+    }   
     
-    
-    /* Mostrar datos en el modal *//*
-    this.newFecha = editableGasto.fecha;
-    this.newCategoria = editableGasto.categoriaId;
-    this.newDescripcion = editableGasto.descripcion;
-    this.newImporte = editableGasto.importe;*/
-
+    /* Mostrar datos en el modal */
     this.editGastoForm = this.formBuilder.group(
       {      
         fecha: [editableGasto.fecha],
@@ -414,30 +411,17 @@ export class GastosComponent implements OnInit {
         monedaId:1,
         esIncluida:true
       }
-    )
-    console.log(this.editGastoForm.value)
+    );
+    console.log(this.editGastoForm.value);
   }
 
-  // Boton Actualizar Experiencia
-
-  
-
+  // Boton Actualizar Gasto
   actualizarGasto(): void{
     const nuevoGasto = this.editGastoForm.value;
     console.log(nuevoGasto);
     this.editGastoForm.reset();
     const editId = this.editId;
-
-    const quantum = { "amount": 123.5,
-    "description": "Hola",
-    "categoryId": 3,
-    "currencyId": 2,
-    "date": "2022-12-30",
-    "isIncluded": true}
-    console.log(quantum);
-
-
-    this.gastoService.actualizarGasto(editId,quantum,this.httpOptions).subscribe(
+    this.gastoService.actualizarGasto(editId,nuevoGasto,this.httpOptions).subscribe(
       data=>{},
       (error) => {
         alert("Algo ha fallado: " + error);
@@ -487,21 +471,35 @@ export class GastosComponent implements OnInit {
   // VALIDATORS
   
   // Propiedades para los validadores
-  get Fecha() { 
+  // Propiedades Guardar Ingreso
+  get FechaAdd() { 
     return this.addGastoForm.get('fecha'); 
   }
-  get Categoria() {
-    return this.addGastoForm.get('categoria')
+  get CategoriaAdd() {
+    return this.addGastoForm.get('categoriaId')
   }
-  get Importe() { 
+  get ImporteAdd() { 
     return this.addGastoForm.get('importe'); 
   }
-  get Descripcion() {
+  get DescripcionAdd() {
     return this.addGastoForm.get('descripcion')
   }
   clearValidatorsAdd() {
     this.addGastoForm.reset(this.addGastoForm.value);
   }
+  // Propiedades Editar Ingreso
+  get FechaEdit() { 
+    return this.editGastoForm.get('fecha'); 
+  }
+  get CategoriaEdit() {
+    return this.editGastoForm.get('categoriaId')
+  }
+  get ImporteEdit() { 
+    return this.editGastoForm.get('importe'); 
+  }
+  get DescripcionEdit() {
+    return this.editGastoForm.get('descripcion')
+  }  
   clearValidatorsEdit() {
     this.editGastoForm.reset(this.editGastoForm.value);
   }

@@ -38,7 +38,10 @@ export class LoginComponent implements OnInit {
 
   onLogin(event:any) {
     this.loginUsuario = this.loginForm.value;
-    if (this.loginUsuario.email=="usuario@email.com" && this.loginUsuario.password=="123456"){
+    if (this.loginUsuario.email=="usuario@email.com" && this.loginUsuario.password=="123456"){      
+      this.isLogged = true;     
+      this.tokenService.setToken("Usuario Harcodeado");
+      this.tokenService.setUserName("Usuario Harcodeado");
       this.router.navigate(['/dashboard'])
     } else {
     console.log("El usuario tiene estos datos:");
@@ -49,18 +52,15 @@ export class LoginComponent implements OnInit {
     });
     this.authService.login(this.loginUsuario,headers).subscribe(      
       data => {
-        console.log(data)
+        console.log(data);
         this.isLogged = true;     
         this.tokenService.setToken(data.response.jwt);
         this.tokenService.setUserName(data.response.firstName);
         this.router.navigate(['/dashboard']);
       },
       err => {
-        this.isLogged = false;/*
-        this.errMsj = err.error.message;
-        alert("Algo ha fallado");
-        this.router.navigate(['/']);*/
-        console.error("JO JO JO")
+        this.isLogged = false;
+        console.error("JO JO JO");
         this.usuarioIncorrecto();
       }
     );}

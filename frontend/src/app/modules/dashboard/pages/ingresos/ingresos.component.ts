@@ -13,20 +13,24 @@ import { IngresosService } from '../../services/ingresos.service';
 export class IngresosComponent implements OnInit {
 
   hardcodeo:boolean=false;
-
-  fecha:any;
   active:boolean=true;
+
+  // (Variable que forma parte de la directiva Recargar
+  recargar:number=0;
+
+  //fecha:any;  
 
   addIngresoForm:FormGroup;
   editIngresoForm:FormGroup;
 
   listaIngreso:any[]=[];
+  lista2Ingresos:Ingreso[]=[];
 
-  nuevoIngreso:Ingreso[]=[];
+  nuevoIngreso:Ingreso[]=[];/*
   newFecha:Date=new Date();
   newCategoria:string="";
   newDescripcion:string="";
-  newImporte?:number;
+  newImporte?:number;*/
   editId:number=0;
   borrarId:number=0;
 
@@ -34,6 +38,7 @@ export class IngresosComponent implements OnInit {
   page:number=0;
   orden:string="";
 
+  // Lista hardcodeada
   listilla = [
     {
         fecha:new Date('2022-3-17'),
@@ -144,8 +149,7 @@ export class IngresosComponent implements OnInit {
       importe:50000
   }
   ];
-  lista2Ingresos:Ingreso[]=[];
-
+  
   httpOptions : any    = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -153,8 +157,7 @@ export class IngresosComponent implements OnInit {
       'Access-Control-Allow-Methods': 'PUT',
       'Access-Control-Allow-Origin': '*'
     })
-  };
- 
+  }; 
   
   constructor(private fechaService: FechaService,private formBuilder:FormBuilder, private ingresoService:IngresosService) {
     this.addIngresoForm = this.formBuilder.group(
@@ -193,7 +196,8 @@ export class IngresosComponent implements OnInit {
     this.ingresoService.obtenerIngresos().subscribe(
       (data) =>{
         this.listaIngreso=data.response;
-        console.log(this.listaIngreso)
+        console.log(this.listaIngreso);
+        setTimeout(this.recargate,2000)
       },
       (error)=>{
         console.log("La data no llega");
@@ -202,6 +206,7 @@ export class IngresosComponent implements OnInit {
       ()=>{
         console.log("Datos cargados");
         console.log(this.listaIngreso);
+        this.recargar=this.recargar+1;
       });
   }
 
@@ -312,6 +317,7 @@ export class IngresosComponent implements OnInit {
   // VALIDATORS
 
   // Propiedades para los validadores
+
   // Propiedades Guardar Ingreso
   get FechaAdd() { 
     return this.addIngresoForm.get('fecha'); 
@@ -326,8 +332,19 @@ export class IngresosComponent implements OnInit {
     return this.addIngresoForm.get('descripcion')
   }
   clearValidatorsAdd() {
-    this.addIngresoForm.reset(this.addIngresoForm.value);
+    const hoy = this.fechaService.actual();
+    this.addIngresoForm = this.formBuilder.group(
+      {      
+        fecha: [hoy],
+        tipo: [''],
+        importe:[''],
+        descripcion:[''],
+        monedaId:1,
+        esIncluida:true
+      }
+    );
   }
+  // Propiedades Editar Ingreso
   get FechaEdit() { 
     return this.addIngresoForm.get('fecha'); 
   }
@@ -344,8 +361,22 @@ export class IngresosComponent implements OnInit {
     this.addIngresoForm.reset(this.addIngresoForm.value);
   }
 
+  // Navegacion
   scrollTo() {
     window.location.hash = '';
     window.location.hash = "tiburon";   
+  }
+
+  /*----------Funciones Auxiliares----------*/
+  
+  // Invertir Fecha
+  invertir(miFecha:string){
+    const parte = miFecha.split("-", 3);
+    const nuevaFecha = parte[2]+"-"+parte[1]+"-"+parte[0]
+    return nuevaFecha
+  }
+  // Recargar
+  recargate(){
+    this.recargar=this.recargar+1;
   }
 }

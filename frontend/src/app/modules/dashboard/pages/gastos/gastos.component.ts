@@ -2,9 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HojaService } from 'src/app/services/hoja.service';
 import { Gasto } from '../../model/gasto';
-import { ResGastos } from '../../model/res-gastos';
 import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
 
@@ -489,7 +487,17 @@ export class GastosComponent implements OnInit {
     return this.addGastoForm.get('descripcion')
   }
   clearValidatorsAdd() {
-    this.addGastoForm.reset(this.addGastoForm.value);
+    const hoy = this.fechaService.actual();
+    this.addGastoForm = this.formBuilder.group(
+      {      
+        fecha: [hoy],
+        categoriaId: [''],
+        importe:[''],
+        descripcion:[''],
+        monedaId:1,
+        esIncluida:true
+      }
+    );
   }
   // Propiedades Editar Ingreso
   get FechaEdit() { 

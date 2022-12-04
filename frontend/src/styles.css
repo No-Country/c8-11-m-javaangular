@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 
 /*========ESTILOS COMUNES GASTOS E INGRESOS===========*/
 /* SECTION */
-#seccion {
+.seccion {
   text-align: center;
   padding:15px
 }

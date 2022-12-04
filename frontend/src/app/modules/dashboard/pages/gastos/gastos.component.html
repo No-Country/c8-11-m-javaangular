@@ -1,4 +1,4 @@
-<section id="seccion">
+<section class="seccion">
     <div class="titular">
         <h2>Mis Gastos</h2>
     </div>
@@ -107,6 +107,7 @@
             </ul>
         </nav>
         <!----Elección de páginas---->
+        <!----paginación de Hardcodeado---->
         <div *ngIf="hardcodeo">
             <nav class="vistas" aria-label="Page navigation example">
                 <ul class="pagination">
@@ -115,6 +116,7 @@
                 </ul>
             </nav>
         </div>
+        <!----paginación de Back---->
         <div *ngIf="!hardcodeo">
             <nav class="vistas" aria-label="Page navigation example">
                 <ul class="pagination">
@@ -128,7 +130,6 @@
     <!----------HARDCODEADO------------->
 
     <div *ngIf="hardcodeo" class="">
-
         <!-----VISTAS TABLA EN PC----->
         <div *ngIf="active" class="tabla-gastos">        
             <div  class="table-responsive">

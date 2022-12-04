@@ -18,14 +18,14 @@ export class GastosService {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
       'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'PUT',
+      'Access-Control-Allow-Methods': 'POST',
       'Access-Control-Allow-Origin': '*'
     })
   };
   
   //OBTENER GASTOS
   public obtenerGastos():Observable<any>{
-    return this.http.get<any>(this.URL + "user")    
+    return this.http.get<any>(this.URL + "user/findAll")    
   }
 
   //BUSCAR POR ID

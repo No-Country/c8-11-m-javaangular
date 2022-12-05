@@ -273,4 +273,14 @@ app-ordenar {
     padding:0
   }
 }
+.spinner {
+  display:flex;
+  justify-content:center;
+}
+#spinner {
+  width:100px;
+  height:100px;
+  margin:0 auto;
+  color:#5D21D2
+}
 

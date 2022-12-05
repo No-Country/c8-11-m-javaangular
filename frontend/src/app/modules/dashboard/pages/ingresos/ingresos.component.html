@@ -1,268 +1,121 @@
-<section class="seccion">
-    <div class="titular">
-        <h2>Mis Ingresos</h2>
+<div *ngIf="listaIngreso.length==0; else contiene" class="spinner">
+    <div id="spinner" class="spinner-border m-5" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
-    <div class="seleccion">
-        <!-----BOTÓN NUEVO INGRESO------>
-        <div class="selector-left">
-            <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidatorsAdd()">+ Nuevo Ingreso</button>            
-        </div>   
-        <!-----SELECTORES Y FILTROS---->      
-        <div class="selector-right">
-            <!-----
-            <select class="btn btn-light" name="select">
-                <option value="value1">Mas recientes</option>
-                <option value="value2">Mas antiguos</option>
-                <option value="value3">Mayor precio</option>
-                <option value="value3">Menor precio</option>
-            </select>--->
-            <!------
-            <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-text-left"></i> Filtrar</button>---->
-            <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
-            <!----
-            <app-filtrar-ingreso></app-filtrar-ingreso> ---->
-            <div class="dropdown show  d-inline-block">
-                <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-text-left"></i> Filtrar
-                </a>              
-                <div id="tobiron" class="dropdown-menu bg-light" aria-labelledby="dropdownMenuLink">
-                    <div class="text-center titulo-filtro">
-                        <p>Filtros</p>
-                    </div>
-                    <hr>
-                    <div class="item-filtro">
-                        <div class="en-linea text-center">
-                            <div class="sub-item mb-1">
-                                <label for="">Desde</label><br>
-                                <input type="date">
-                            </div>
-                            <div class="sub-item mb-2">
-                                <label for="">Hasta</label><br>
-                                <input type="date">
-                            </div>                
-                        </div>
-                    </div>
-                    <div class="item-filtro">
-                        <div class="en-linea">
-                            <div class="sub-item mb-1">
-                                <label for="">Mínimo</label>
-                                <input type="number">
-                            </div>
-                            <div class="sub-item mb-2">
-                                <label for="">Máximo</label>
-                                <input type="number">
-                            </div>                
-                        </div>
-                    </div>
-                    <div class="item-filtro">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Servicios
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Alimentos
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Movilidad
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Varios
-                            </label>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="boton-aplicar text-center">
-                        <button class="btn btn-aceptar">Aplicar</button>
-                    </div>
-                </div>
-            </div>
-            <!---- 
-            <button (click)="compararFechas()">Comparar fechas</button>           ---->                                   
-        </div>                                     
-    </div>
-    <!-----
-    <div class="collapse" id="collapseExample">
-        <div class="filtros card card-body">
-            <div>
-                <button class="btn btn-warning">Anual</button>
-            </div>
-            <div>
-                <button class="btn btn-primary">Mensual</button>
-            </div>
-            <div>
-                <button class="btn btn-success">Semanal</button>
-            </div>
-            <div>
-                <button class="btn btn-danger">Diario</button>
-            </div>         
+</div>
+<ng-template #contiene>
+    <section class="seccion">
+        <div class="titular">
+            <h2>Mis Ingresos</h2>
         </div>
-    </div>--->
-
-    <!-----ELECCION DE VISTAS Y PAGINACION----->
-    <div class="vistas-paginas">
-        <!-----Elección de vistas----->
-        <nav class="vistas" aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
-              <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
-            </ul>
-        </nav>
-        <!----Elección de páginas---->
-        <div *ngIf="hardcodeo">
-            <nav class="vistas" aria-label="Page navigation example">
-                <ul class="pagination">
-                <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
-                <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>listilla.length"><i class="bi bi-arrow-right"></i></button></li>
-                </ul>
-            </nav>
+        <div class="seleccion">
+            <!-----BOTÓN NUEVO INGRESO------>
+            <div class="selector-left">
+                <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidatorsAdd()">+ Nuevo Ingreso</button>            
+            </div>   
+            <!-----SELECTORES Y FILTROS---->      
+            <div class="selector-right">
+                <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
+                
+                <div class="dropdown show  d-inline-block">
+                    <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-text-left"></i> Filtrar
+                    </a>              
+                    <div id="tobiron" class="dropdown-menu bg-light" aria-labelledby="dropdownMenuLink">
+                        <div class="text-center titulo-filtro">
+                            <p>Filtros</p>
+                        </div>
+                        <hr>
+                        <div class="item-filtro">
+                            <div class="en-linea text-center">
+                                <div class="sub-item mb-1">
+                                    <label for="">Desde</label><br>
+                                    <input type="date">
+                                </div>
+                                <div class="sub-item mb-2">
+                                    <label for="">Hasta</label><br>
+                                    <input type="date">
+                                </div>                
+                            </div>
+                        </div>
+                        <div class="item-filtro">
+                            <div class="en-linea">
+                                <div class="sub-item mb-1">
+                                    <label for="">Mínimo</label>
+                                    <input type="number">
+                                </div>
+                                <div class="sub-item mb-2">
+                                    <label for="">Máximo</label>
+                                    <input type="number">
+                                </div>                
+                            </div>
+                        </div>
+                        <div class="item-filtro">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Servicios
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Alimentos
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Movilidad
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Varios
+                                </label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="boton-aplicar text-center">
+                            <button class="btn btn-aceptar">Aplicar</button>
+                        </div>
+                    </div>
+                </div>                                  
+            </div>                                     
         </div>
-        <div *ngIf="!hardcodeo">
-            <nav class="vistas" aria-label="Page navigation example">
-                <ul class="pagination">
-                <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
-                <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>listaIngreso.length"><i class="bi bi-arrow-right"></i></button></li>
-                </ul>
-            </nav>
-        </div>        
-    </div>
     
-    <!----HARCODEADO---->
-    <div *ngIf="hardcodeo">
-        <!-----VISTA TABLA EN PC-->    
-        <div *ngIf="active" class="tabla-gastos">        
-            <div  class="table-responsive">
-                <table class="table table-sm">
-                    <thead>
-                        <tr class="p-3">
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Categoria</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Importe</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
-                        <tr class="p-2">
-                            <td>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</td>
-                            <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span></td>
-                            <td>{{item.descripcion}}</td>
-                            <td>${{item.importe}}</td>
-                            <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.importe)"></app-borrar></td>
-                        </tr>                                      
-                    </tbody>
-                </table>
+        <!-----ELECCION DE VISTAS Y PAGINACION----->
+        <div class="vistas-paginas">
+            <!-----Elección de vistas----->
+            <nav class="vistas" aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><button class="btn btn-light"  [ngStyle]="{'background-color':active==true?'#5D21D2':''}" (click)="active=true"><i class="bi bi-list-ul"></i></button></li>
+                  <li class="page-item"><button  class="btn btn-light" [ngStyle]="{'background-color':active==false?'#5D21D2':''}" (click)="active=false"><i class="bi bi-view-list"></i></button></li>
+                </ul>
+            </nav>
+            <!----Elección de páginas---->
+            <div *ngIf="hardcodeo">
+                <nav class="vistas" aria-label="Page navigation example">
+                    <ul class="pagination">
+                    <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
+                    <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>listilla.length"><i class="bi bi-arrow-right"></i></button></li>
+                    </ul>
+                </nav>
+            </div>
+            <div *ngIf="!hardcodeo">
+                <nav class="vistas" aria-label="Page navigation example">
+                    <ul class="pagination">
+                    <li class="page-item"><button class="btn btn-light" (click)="previusPage()" [disabled]="page===0"><i class="bi bi-arrow-left"></i></button></li>
+                    <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>listaIngreso.length"><i class="bi bi-arrow-right"></i></button></li>
+                    </ul>
+                </nav>
             </div>        
         </div>
-
-        <!-----VISTA TABLA EN MOVIL---->    
-        <div *ngIf="active" class="tabla-gastos-movil">        
-            <div  class="table-responsive">
-                <table class="table table-sm">
-                    <thead>
-                        <tr class="p-3">
-                            <th scope="col">Categoria/<br>Fecha</th>
-                            <th scope="col">Importe/<br>Descripción</th>                    
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
-                        <tr class="p-2">
-                            <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}})</span></td>
-                            <td>${{item.importe}}<br>{{item.descripcion}}</td>
-                            <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.importe)"></app-borrar></td>
-                        </tr>                                      
-                    </tbody>
-                </table>
-            </div>        
-        </div>
-
-        <!-----VISTA TARJETA EN PC------->    
-        <div *ngIf="!active" class="tabla-gastos">        
-            <div class="tarjeta-titulo">
-                <div class="fecha-tar">
-                    <p>Fecha</p>
-                </div>
-                <div class="cate-tar">
-                    <p>Categoría</p>
-                </div>
-                <div class="descri-tar">
-                    <p>Descripción</p>
-                </div>
-                <div class="importe-tar">
-                    <p>Importe</p>
-                </div>
-                <div class="botones-tar">
-                    <p>Editar/Eliminar</p>
-                </div>
-            </div>
-            <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
-                <div class="tarjeta">
-                    <div class="fecha-tar">
-                        <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
-                    </div>
-                    <div class="cate-tar">
-                        <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span>
-                    </div>
-                    <div class="descri-tar">
-                        <p>{{item.descripcion}}</p>
-                    </div>
-                    <div class="importe-tar">
-                        <span>${{item.importe}}</span>
-                    </div>
-                    <div class="botones-tar">
-                        <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar>
-                    </div>
-                </div>
-            </div>
-            
-            
-        </div>
-
-        <!----VISTA TARJETAS EN MOVIL----->    
-        <div *ngIf="!active" class="tabla-gastos-movil">        
-            <div class="tarjeta-titulo-movil">
-                <div class="indica-tar-movil">
-                    <p>Categoria/<br>Fecha</p>
-                </div>
-                <div class="indica-tar-movil">
-                    <p>Importe/<br>Descripción</p>
-                </div>
-                <div class="indica-tar-movil">
-                    <p>Modificar</p>
-                </div>
-            </div>
-            <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
-                <div class="tarjeta">
-                    <div class="fecha-tar">
-                        <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span><br>
-                        <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
-                    </div>
-                    <div class="descri-tar">
-                        <span>${{item.importe}}</span><br>
-                        <p>{{item.descripcion}}</p>
-                    </div>
-                    <div class="botones-tar-movil">
-                        <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>    
-
-    <!-----DESDE EL BACK------>
-    <div *ngIf="!hardcodeo && listaIngreso.length>0">
-        <div *appRecarga="recargar">
-            <!-----VISTAS TABLA EN PC----->
+        
+        <!----HARCODEADO---->
+        <div *ngIf="hardcodeo">
+            <!-----VISTA TABLA EN PC-->    
             <div *ngIf="active" class="tabla-gastos">        
                 <div  class="table-responsive">
                     <table class="table table-sm">
@@ -270,25 +123,25 @@
                             <tr class="p-3">
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Categoria</th>
-                                <th scope="col">Descripción</th>
+                                <th scope="col">Nombre</th>
                                 <th scope="col">Importe</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let item of listaIngreso | ingreso:page:orden">
+                        <tbody *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
                             <tr class="p-2">
-                                <td>{{invertir(item.fecha)}}</td>
-                                <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span></td>
+                                <td>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</td>
+                                <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span></td>
                                 <td>{{item.descripcion}}</td>
                                 <td>${{item.importe}}</td>
-                                <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar></td>
+                                <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.importe)"></app-borrar></td>
                             </tr>                                      
                         </tbody>
                     </table>
                 </div>        
             </div>
-        
-            <!-----VISTAS TABLA EN MOVIL----->
+    
+            <!-----VISTA TABLA EN MOVIL---->    
             <div *ngIf="active" class="tabla-gastos-movil">        
                 <div  class="table-responsive">
                     <table class="table table-sm">
@@ -299,17 +152,17 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let item of listaIngreso | ingreso:page:orden">
+                        <tbody *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
                             <tr class="p-2">
-                                <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span><br><span id="fechoso">({{invertir(item.fecha)}})</span></td>
+                                <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span><br><span id="fechoso">({{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}})</span></td>
                                 <td>${{item.importe}}<br>{{item.descripcion}}</td>
-                                <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar></td>
+                                <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.importe)"></app-borrar></td>
                             </tr>                                      
                         </tbody>
                     </table>
                 </div>        
             </div>
-        
+    
             <!-----VISTA TARJETA EN PC------->    
             <div *ngIf="!active" class="tabla-gastos">        
                 <div class="tarjeta-titulo">
@@ -329,13 +182,13 @@
                         <p>Editar/Eliminar</p>
                     </div>
                 </div>
-                <div class="tarjetas" *ngFor="let item of listaIngreso | ingreso:page:orden">
+                <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
                     <div class="tarjeta">
                         <div class="fecha-tar">
-                            <p>{{invertir(item.fecha)}}</p>
+                            <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
                         </div>
                         <div class="cate-tar">
-                            <span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span>
+                            <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span>
                         </div>
                         <div class="descri-tar">
                             <p>{{item.descripcion}}</p>
@@ -344,12 +197,14 @@
                             <span>${{item.importe}}</span>
                         </div>
                         <div class="botones-tar">
-                            <app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar>
+                            <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar>
                         </div>
                     </div>
-                </div>       
+                </div>
+                
+                
             </div>
-        
+    
             <!----VISTA TARJETAS EN MOVIL----->    
             <div *ngIf="!active" class="tabla-gastos-movil">        
                 <div class="tarjeta-titulo-movil">
@@ -363,26 +218,153 @@
                         <p>Modificar</p>
                     </div>
                 </div>
-                <div class="tarjetas" *ngFor="let item of listaIngreso | ingreso:page:orden">
+                <div class="tarjetas" *ngFor="let item of lista2Ingresos | paginacionIngreso:page:orden">
                     <div class="tarjeta">
                         <div class="fecha-tar">
-                            <span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span><br>
-                            <p>{{invertir(item.fecha)}}</p>
+                            <span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Anual'),'text-bg-success':(item.categoria=='Mensual'),'text-bg-danger':(item.categoria=='Semanal'),'text-bg-primary':(item.categoria=='Diario')}">{{item.categoria}}</span><br>
+                            <p>{{item.fecha.getDate()}}/{{item.fecha.getMonth()+1}}/{{item.fecha.getFullYear()}}</p>
                         </div>
                         <div class="descri-tar">
                             <span>${{item.importe}}</span><br>
                             <p>{{item.descripcion}}</p>
                         </div>
                         <div class="botones-tar-movil">
-                            <app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar>
+                            <app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.importe,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.importe)"></app-borrar>
                         </div>
                     </div>
                 </div>
-            </div>    
-        </div>     
-    </div>
-    <p style="display:none">{{listaIngreso[0].importe}}</p>    
-</section>
+            </div>
+        </div>    
+    
+        <!-----DESDE EL BACK------>
+        <div *ngIf="!hardcodeo && listaIngreso.length>0">
+            <div *appRecarga="recargar">
+                <!-----VISTAS TABLA EN PC----->
+                <div *ngIf="active" class="tabla-gastos">        
+                    <div  class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr class="p-3">
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Importe</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of listaIngreso | ingreso:page:orden">
+                                <tr class="p-2">
+                                    <td>{{invertir(item.fecha)}}</td>
+                                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span></td>
+                                    <td>{{item.descripcion}}</td>
+                                    <td>${{item.importe}}</td>
+                                    <td><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar></td>
+                                </tr>                                      
+                            </tbody>
+                        </table>
+                    </div>        
+                </div>
+            
+                <!-----VISTAS TABLA EN MOVIL----->
+                <div *ngIf="active" class="tabla-gastos-movil">        
+                    <div  class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr class="p-3">
+                                    <th scope="col">Categoria/<br>Fecha</th>
+                                    <th scope="col">Importe/<br>Descripción</th>                    
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of listaIngreso | ingreso:page:orden">
+                                <tr class="p-2">
+                                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span><br><span id="fechoso">({{invertir(item.fecha)}})</span></td>
+                                    <td>${{item.importe}}<br>{{item.descripcion}}</td>
+                                    <td class=""><app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar></td>
+                                </tr>                                      
+                            </tbody>
+                        </table>
+                    </div>        
+                </div>
+            
+                <!-----VISTA TARJETA EN PC------->    
+                <div *ngIf="!active" class="tabla-gastos">        
+                    <div class="tarjeta-titulo">
+                        <div class="fecha-tar">
+                            <p>Fecha</p>
+                        </div>
+                        <div class="cate-tar">
+                            <p>Categoría</p>
+                        </div>
+                        <div class="descri-tar">
+                            <p>Descripción</p>
+                        </div>
+                        <div class="importe-tar">
+                            <p>Importe</p>
+                        </div>
+                        <div class="botones-tar">
+                            <p>Editar/Eliminar</p>
+                        </div>
+                    </div>
+                    <div class="tarjetas" *ngFor="let item of listaIngreso | ingreso:page:orden">
+                        <div class="tarjeta">
+                            <div class="fecha-tar">
+                                <p>{{invertir(item.fecha)}}</p>
+                            </div>
+                            <div class="cate-tar">
+                                <span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span>
+                            </div>
+                            <div class="descri-tar">
+                                <p>{{item.descripcion}}</p>
+                            </div>
+                            <div class="importe-tar">
+                                <span>${{item.importe}}</span>
+                            </div>
+                            <div class="botones-tar">
+                                <app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar>
+                            </div>
+                        </div>
+                    </div>       
+                </div>
+            
+                <!----VISTA TARJETAS EN MOVIL----->    
+                <div *ngIf="!active" class="tabla-gastos-movil">        
+                    <div class="tarjeta-titulo-movil">
+                        <div class="indica-tar-movil">
+                            <p>Categoria/<br>Fecha</p>
+                        </div>
+                        <div class="indica-tar-movil">
+                            <p>Importe/<br>Descripción</p>
+                        </div>
+                        <div class="indica-tar-movil">
+                            <p>Modificar</p>
+                        </div>
+                    </div>
+                    <div class="tarjetas" *ngFor="let item of listaIngreso | ingreso:page:orden">
+                        <div class="tarjeta">
+                            <div class="fecha-tar">
+                                <span id="categorizador" class="p-2 badge" [class]="{'text-bg-primary':(item.categoria=='Mensual'),'text-bg-warning':(item.categoria=='Diario'),'text-bg-success':(item.categoria=='Semanal'),'text-bg-danger':(item.categoria=='Anual')}">{{item.categoria}}</span><br>
+                                <p>{{invertir(item.fecha)}}</p>
+                            </div>
+                            <div class="descri-tar">
+                                <span>${{item.importe}}</span><br>
+                                <p>{{item.descripcion}}</p>
+                            </div>
+                            <div class="botones-tar-movil">
+                                <app-editar data-bs-toggle="modal" data-bs-target="#editarIngreso" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarIngreso" (click)="trashId(item.id)"></app-borrar>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>     
+        </div>
+    </section>
+
+</ng-template>
+
+
+
+<p style="display:none">{{listaIngreso[0].importe}}</p>    
 
 
 <!------------------MODALES---------------------->

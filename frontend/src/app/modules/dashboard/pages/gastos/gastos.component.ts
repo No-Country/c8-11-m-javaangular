@@ -6,7 +6,7 @@ import { Gasto } from '../../model/gasto';
 import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
 import { Location } from '@angular/common'
-import { Observable, subscribeOn } from 'rxjs';
+import { Observable, Subject, subscribeOn } from 'rxjs';
 
 @Component({
   selector: 'app-gastos',

@@ -58,15 +58,15 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 |   Nombre  |    Rol   |      Contacto      |
 | :-------- | :------- | :------------------------- |
 | Lucas López Delgado | Desarrollador Java | [LinkedIn](https://www.linkedin.com/in/lucas-l%C3%B3pez-delgado/) |
-| Damián Sformo | Desarrollador Java | [LinkedIn]() |
+| Damián Sformo | Desarrollador Java | [LinkedIn](https://www.linkedin.com/in/dami%C3%A1n-sformo-219341120/) |
 | Cristian Aguirre | Desarrollador Java | [LinkedIn]() |
 | Lucas Martín González | Desarrollador Java | [LinkedIn]() |
-| Ivana Gisel Azcona | QA Tester | [LinkedIn]() |
-| Carolina Villa | Diseñadora UI-UX | [linkedin]() |
-| Laureana Bróccolli | DevOps | [linkedin]() |
+| Ivana Gisel Azcona | QA Tester | [LinkedIn](https://www.linkedin.com/in/ivana-gisel-azcona-67a331229) |
+| Carolina Villa | Diseñadora UI-UX | [linkedin](https://www.linkedin.com/in/carolina--villa), [Behance](https://www.behance.net/carolinavilla2?tracking_source=search_users%7CCarolina%20villa) |
+| Laureana Bróccolli | DevOps | [linkedin](https://www.linkedin.com/in/laureana-broccolli-828460187/) |
 | Alexis Estrada | Desarrollador Angular | [linkedin]() |
-| Santiago Castellani | Desarrollador Angular | [linkedin]() |
-| Leonel Pérez | Desarrollador Angular | [linkedin]() |
+| Santiago Castellani | Desarrollador Angular | [linkedin](https://www.linkedin.com/in/santiagocastellani/) |
+| Leonel Pérez | Desarrollador Angular | [linkedin](https://www.linkedin.com/in/leonelpb/) |
 
 ## Agradecimientos 🎁
 

@@ -10,7 +10,7 @@ import { PruebaService } from 'src/app/modules/dashboard/services/prueba.service
 })
 export class HojaComponent implements OnInit {
 
-  listaDatos:ResGastos[]=[];
+  listaDatos:any;
 
   constructor(private pruebaService:PruebaService, private router:Router) {    
    }

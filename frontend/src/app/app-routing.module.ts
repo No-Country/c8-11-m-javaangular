@@ -17,8 +17,8 @@ const routes: Routes = [
   {path:'landing', component:LandingComponent},
   {path:'hoja', component:HojaComponent},
   {path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)},
-  { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [GuardGuard]},
-  /*
+  /*{ path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [GuardGuard]},
+  */
   {
     path: 'dashboard',
     component: TemplateDashboardComponent,
@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'prueba', component: PruebaComponent },
       { path: '**', redirectTo: 'general'}
     ]
-  },*/
+  },
   { path: '**', redirectTo: 'landing'}
 ];
 

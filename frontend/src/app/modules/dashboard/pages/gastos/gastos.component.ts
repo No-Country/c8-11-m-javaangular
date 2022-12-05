@@ -275,6 +275,7 @@ export class GastosComponent implements OnInit {
       importe:2500
     }
   ];
+  gato:Gasto[]=[];
 
   // Recargar Page
   recargar:number=0;
@@ -344,7 +345,7 @@ export class GastosComponent implements OnInit {
     this.gastoService.obtenerGastos().subscribe(
       (data) =>{
         this.listaGastos = data.response;      
-        console.log(this.listaGastos);        
+        console.log(this.listaGastos);          
       },
       (error) => {
         console.error("Los datos del servidor no llegan");

@@ -14,6 +14,6 @@ export class HojaService {
   
   //OBTENER GASTOS
   public obtenerGastos():Observable<any>{
-    return this.http.get<any>(this.gastoURL + "user")    
+    return this.http.get<any>(this.gastoURL + "user/findAll")    
   }
 }

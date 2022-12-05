@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Gasto } from '../../model/gasto';
+import { Prueba } from '../../model/prueba';
 import { ResGastos } from '../../model/res-gastos';
+import { ResPrueba } from '../../model/resPrueba';
 import { PruebaService } from '../../services/prueba.service';
 
 @Component({
@@ -11,9 +14,11 @@ import { PruebaService } from '../../services/prueba.service';
 })
 export class PruebaComponent implements OnInit {
 
-  listaGastos:any;
+  listaGastos:Gasto[]=[];
   id:number=0;
   dato:any;
+  respuesta:any;
+  listaGastos$:any;
 
   constructor(private pruebaService:PruebaService, private router:Router) {    
    }
@@ -21,7 +26,9 @@ export class PruebaComponent implements OnInit {
   ngOnInit(): void {
     this.pruebaService.obtenerGastos().subscribe(
       data => {
-        this.listaGastos = data.response;     
+        this.respuesta = data;     
+        console.log(this.respuesta);
+        this.listaGastos=this.respuesta.response;
         console.log(this.listaGastos)
       },
       err => {

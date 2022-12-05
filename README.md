@@ -32,10 +32,20 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 * Envío de Correos Electrónicos -> [SendGrid](https://sendgrid.com/)
 * API externa (Rapid API) -> [ApiFixer](https://rapidapi.com/fixer/api/fixer-currency)
 
-### Frontend:
+#### Frontend:
 
 * Lenguaje -> Angular 8
 *
+*
+*
+
+#### Diseño UI-UX:
+
+*
+*
+
+#### Tests:
+
 *
 *
 
@@ -54,8 +64,8 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 
 ## Agradecimientos 🎁
 
-* Comenta a otros sobre este proyecto 📢 
-* Dar gracias públicamente 🤓
-* etc.
+#### Comenta a otros sobre este proyecto 📢 
+#### Cohorte 8 - Grupo 11 - Java/Angular 🤓
+#### Muchas Gracias.
 
 ---

@@ -38,7 +38,6 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
     private final MessageSource messenger;
 
     @Override
-
     public CategoryResponseDto save(CategoryRequestDto dto, String token) {
         if(tokenNotValid(token)){
             throw new BadCredentialsException(messenger.getMessage(INVALID_TOKEN.name(), null, Locale.getDefault()));

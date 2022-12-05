@@ -438,7 +438,11 @@ export class GastosComponent implements OnInit {
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerDatos()})
+      ()=>{
+        this.obtenerDatos();
+        this.recargar=this.recargar+1;
+        location.reload();
+      })
   }
 
   /*------BORRAR GASTO-------------------*/
@@ -456,8 +460,11 @@ export class GastosComponent implements OnInit {
       (error) => {
         alert("Algo ha fallado: " + error);
       },
-      ()=>{this.obtenerDatos()}
-    )
+      ()=>{
+        this.obtenerDatos();
+        this.recargar=this.recargar+1;
+        location.reload();
+      })
   }
 
   /*==================================================== */

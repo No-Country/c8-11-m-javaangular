@@ -2,7 +2,6 @@ package com.wallet.wallet.api.controller;
 
 import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
 import com.wallet.wallet.api.service.IIncomeService;
-import com.wallet.wallet.domain.dto.request.ExpenseUpdateDto;
 import com.wallet.wallet.domain.dto.request.IncomeRequestDto;
 
 import com.wallet.wallet.domain.dto.request.IncomeUpdateDto;
@@ -39,8 +38,14 @@ public record IncomeController(IIncomeService service) {
         return responseBuilder(OK, service.findById(id));
     }
 
-    @ApiOperation(value = "Find all incomes")
+    @ApiOperation(value = "Find incomes by User", hidden = true)
     @GetMapping("/findAll")
+    public  ResponseEntity<?> findAllByUserId(@RequestHeader("Authorization") String token){
+        return responseBuilder(OK, service.getAllByUserId(token));
+    }
+
+    @ApiOperation(value = "Find all incomes")
+    @GetMapping("/getAll")
     public ResponseEntity<?> findAll() {
         return responseBuilder(OK, service.findAll());
     }

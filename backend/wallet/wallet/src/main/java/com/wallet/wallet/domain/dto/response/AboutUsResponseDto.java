@@ -18,6 +18,8 @@ public class AboutUsResponseDto {
 
     private String linkedIn;
 
+    private String behance;
+
     private String github;
 
     private String email;

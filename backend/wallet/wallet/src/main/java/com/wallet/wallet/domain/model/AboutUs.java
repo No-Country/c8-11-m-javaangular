@@ -28,12 +28,15 @@ public class AboutUs {
     private String description;
 
     @NotNull
+    @Lob
     private String image;
 
     @NotNull
     private String email;
 
     private String linkedIn;
+
+    private String behance;
 
     private String github;
 

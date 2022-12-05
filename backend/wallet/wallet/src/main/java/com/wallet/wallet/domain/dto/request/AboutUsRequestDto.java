@@ -19,6 +19,8 @@ public class AboutUsRequestDto {
 
     private String linkedIn;
 
+    private String behance;
+
     private String github;
 
     private String email;

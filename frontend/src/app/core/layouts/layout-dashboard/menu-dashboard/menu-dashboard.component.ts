@@ -1,4 +1,4 @@
-import {  Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {  ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwitchService } from '../../../services/switch.service';
 import Swal from 'sweetalert2';
@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'dashboard-layout',
   templateUrl: './menu-dashboard.component.html',
   styleUrls: ['./menu-dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuDashboardComponent implements OnInit {
   modalSwith: boolean = false;

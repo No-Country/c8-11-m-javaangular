@@ -260,7 +260,7 @@
     </div>    
 
     <!-----DESDE EL BACK------>
-    <div *ngIf="!hardcodeo">
+    <div *ngIf="!hardcodeo && listaIngreso.length>0">
         <div *appRecarga="recargar">
             <!-----VISTAS TABLA EN PC----->
             <div *ngIf="active" class="tabla-gastos">        

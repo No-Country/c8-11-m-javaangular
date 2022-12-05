@@ -91,6 +91,9 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 app-editar, app-borrar {
   margin:0 7px;
 }
+.dataFecha {
+  font-size:0.8rem
+}
 /*------------------------*/
 
 /*----Estilos en Filtros--*/
@@ -241,6 +244,15 @@ app-ordenar {
 .tabla-gastos-movil {
   display:none
 }
+
+@media only screen and (max-width: 463px) {
+  .selector-right{
+    margin-top:10px
+  }
+}
+
+
+
 @media only screen and (max-width: 530px) {
   .tabla-gastos {
     display:none

@@ -23,8 +23,7 @@
                     <div class="text-center titulo-filtro">
                         <p>Filtros</p>
                     </div>
-                    <hr>
-                    <!----
+                    <hr>                   
                     <form (ngSubmit)="filtrar()">
                         <div class="form-group text-center">
                             <label for="">Desde</label><br>
@@ -34,6 +33,7 @@
                             <label for="">Hasta</label><br>
                             <input type="date" style="width:150px">
                         </div>
+                        <hr>
                         <div class="form-group text-center">
                             <label for="">Importe mínimo</label><br>
                             <input type="number" style="width:150px">
@@ -42,8 +42,11 @@
                             <label for="">Importe máximo</label><br>
                             <input type="number" style="width:150px">
                         </div>
-                        <div class="from-group text-center categorias">
+                        <hr>
+                        <div class="text-center">
                             <label for="">Categorias</label><br>
+                        </div>                       
+                        <div class="from-group text-center categorias">                            
                             <div class="item-cate">                                
                                 <input type="checkbox" class="btn-check m-2" name="options-servicios" id="options-servicios" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="options-servicios">Servicios</label>
@@ -60,11 +63,16 @@
                                 <input type="checkbox" class="btn-check m-2" name="options-varios" id="options-varios" autocomplete="off">
                                 <label class="btn btn-outline-success" for="options-varios">Varios</label>
                             </div>                           
-                        </div>            
-                        <div class="boton-aplicar text-center">
-                            <button type="submit" data-toggle="dropdown" class="btn btn-orange">Aplicar</button>
                         </div>
-                    </form>  --->                 
+                        <hr>            
+                        <div class="boton-aplicar text-center">
+                            <button type="submit" data-toggle="dropdown" class="btn btn-orange">Aplicar</button>                                                    
+                        </div>
+                        <hr>
+                        <div class="restablecer text-center">
+                            <a (click)="restablecer()" data-toggle="dropdown">Restablecer valores</a>
+                        </div>                        
+                    </form>                
                 </div>
             </div>
 
@@ -252,7 +260,7 @@
     <!----------Desde el BACK------------------>
 
     <div *ngIf="!hardcodeo">
-        <div *appRecarga="recargar">
+        <div >
             <!-----VISTAS TABLA EN PC----->
             <div *ngIf="active" class="tabla-gastos">        
                 <div  class="table-responsive">
@@ -268,7 +276,7 @@
                         </thead>
                         <tbody *ngFor="let item of listaGastos | gasto:page:orden">
                             <tr class="p-2">
-                                <td>{{invertir(item.fecha)}}</td>
+                                <td class="dataFecha">{{invertir(item.fecha)}} </td>
                                 <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
                                 <td>{{item.descripcion}}</td>
                                 <td>${{item.importe}}</td>
@@ -373,6 +381,7 @@
         </div>
     </div>
 </section>
+
 
 <!--------------------------------------------------------->
 

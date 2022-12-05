@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ingreso } from '../../model/ingreso';
 import { FechaService } from '../../services/fecha.service';
@@ -8,10 +8,12 @@ import { IngresosService } from '../../services/ingresos.service';
 @Component({
   selector: 'app-ingresos',
   templateUrl: './ingresos.component.html',
-  styleUrls: ['./ingresos.component.css']
+  styleUrls: ['./ingresos.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IngresosComponent implements OnInit {
 
+  @Input()listaIngreso:any[]=[];
   hardcodeo:boolean=false;
   active:boolean=true;
 
@@ -23,14 +25,10 @@ export class IngresosComponent implements OnInit {
   addIngresoForm:FormGroup;
   editIngresoForm:FormGroup;
 
-  listaIngreso:any[]=[];
+  
   lista2Ingresos:Ingreso[]=[];
 
-  nuevoIngreso:Ingreso[]=[];/*
-  newFecha:Date=new Date();
-  newCategoria:string="";
-  newDescripcion:string="";
-  newImporte?:number;*/
+  nuevoIngreso:Ingreso[]=[];
   editId:number=0;
   borrarId:number=0;
 
@@ -159,7 +157,10 @@ export class IngresosComponent implements OnInit {
     })
   }; 
   
-  constructor(private fechaService: FechaService,private formBuilder:FormBuilder, private ingresoService:IngresosService) {
+  constructor(private fechaService: FechaService,
+              private formBuilder:FormBuilder, 
+              private ingresoService:IngresosService) {
+    // Formulario Nuevo Ingreso
     this.addIngresoForm = this.formBuilder.group(
       {      
         fecha: ['', [Validators.required]],
@@ -170,6 +171,7 @@ export class IngresosComponent implements OnInit {
         esIncluida:true
       }
     )
+    // Formulario Editar Ingreso
     this.editIngresoForm = this.formBuilder.group(
       {      
         fecha: ['', [Validators.required]],
@@ -197,7 +199,7 @@ export class IngresosComponent implements OnInit {
       (data) =>{
         this.listaIngreso=data.response;
         console.log(this.listaIngreso);
-        setTimeout(this.recargate,2000)
+        setTimeout(this.recargate,4000)
       },
       (error)=>{
         console.log("La data no llega");

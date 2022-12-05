@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl:"http://localhost:8081/"
+  baseUrl:"https://c8-11-m-javaangular-production.up.railway.app/"
+  /*baseUrl:"http://localhost:8081/"*/
 };
 
 /*

@@ -52,4 +52,9 @@ export class GastosService {
     return this.http.delete<any>(this.URL + `delete/${id}`)
   }
 
+  //FILTRAR
+  public filtrarGastos():Observable<any>{
+    console.log("Servicio de Filtrado corriendo");
+    return this.http.get<any>(this.URL + "user/findAll")
+  }
 }

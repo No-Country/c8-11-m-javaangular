@@ -5,7 +5,6 @@ import lombok.Data;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -25,35 +24,35 @@ public class Expense {
     private Long id;
 
     @Column(nullable = false)
-    @NotNull(message = "")
-    @Min(value = 0, message = "")
+    @NotNull
+    @Min(value = 0)
     private Double amount;
 
     private String description;
 
-    @ManyToOne()
-    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @NotNull(message = "")
-    private Category category;
-
-    @ManyToOne()
-    @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @NotNull(message = "")
-    private Currency currency;
-
     @Column(nullable = false)
-    @NotNull(message = "")
+    @NotNull
     private LocalDate date;
 
-    private Boolean isIncluded;
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @NotNull
+    private Category category;
 
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @NotNull
+    private Currency currency;
+
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @NotNull(message = "")
+    @NotNull
     private User user;
+
+    private Boolean isIncluded;
 
     private Boolean deleted = Boolean.FALSE;
 }

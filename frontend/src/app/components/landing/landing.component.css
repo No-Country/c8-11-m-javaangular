@@ -67,6 +67,9 @@ header{
     color: #fff;
     background-color: var(--secondary-color);
 }
+.nav-pills li a {
+    cursor:pointer
+}
 /*
 Color boton hero
 */

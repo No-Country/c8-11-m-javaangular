@@ -1,11 +1,11 @@
 export class NuevoUsuario {
-    nombre: string;
-    apellido: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
-    constructor(nombre: string, apellido: string, email: string, password: string) {
-        this.nombre = nombre;
-        this.apellido = apellido;
+    constructor(firstName: string, lastName: string, email: string, password: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }

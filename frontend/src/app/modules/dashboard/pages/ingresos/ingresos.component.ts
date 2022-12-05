@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ingreso } from '../../model/ingreso';
@@ -11,18 +12,25 @@ import { IngresosService } from '../../services/ingresos.service';
 })
 export class IngresosComponent implements OnInit {
 
-  fecha:any;
+  hardcodeo:boolean=false;
   active:boolean=true;
 
-  gastoForm:FormGroup;
+  // (Variable que forma parte de la directiva Recargar
+  recargar:number=0;
+
+  //fecha:any;  
+
+  addIngresoForm:FormGroup;
+  editIngresoForm:FormGroup;
 
   listaIngreso:any[]=[];
+  lista2Ingresos:Ingreso[]=[];
 
-  nuevoIngreso:Ingreso[]=[];
+  nuevoIngreso:Ingreso[]=[];/*
   newFecha:Date=new Date();
   newCategoria:string="";
   newDescripcion:string="";
-  newImporte?:number;
+  newImporte?:number;*/
   editId:number=0;
   borrarId:number=0;
 
@@ -30,7 +38,8 @@ export class IngresosComponent implements OnInit {
   page:number=0;
   orden:string="";
 
-  lista2Ingresos = [
+  // Lista hardcodeada
+  listilla = [
     {
         fecha:new Date('2022-3-17'),
         categoria:'Anual',
@@ -141,29 +150,64 @@ export class IngresosComponent implements OnInit {
   }
   ];
   
- 
+  httpOptions : any    = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'PUT',
+      'Access-Control-Allow-Origin': '*'
+    })
+  }; 
   
   constructor(private fechaService: FechaService,private formBuilder:FormBuilder, private ingresoService:IngresosService) {
-    this.gastoForm = this.formBuilder.group(
+    this.addIngresoForm = this.formBuilder.group(
       {      
         fecha: ['', [Validators.required]],
-        categoria: ['',[Validators.required]],
+        tipo: ['',[Validators.required]],
         importe:['',[Validators.required,Validators.min(0)]],
-        descripcion:['',[Validators.required,Validators.maxLength(20)]]
+        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
+    this.editIngresoForm = this.formBuilder.group(
+      {      
+        fecha: ['', [Validators.required]],
+        tipo: ['',[Validators.required]],
+        importe:['',[Validators.required,Validators.min(0)]],
+        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        esIncluida:true
       }
     )
   }
 
-  ngOnInit(): void {/*
-    this.fecha = this.fechaService.actual();*/
-    this.obtenerIngresos()
+  ngOnInit(): void {
+    const token = sessionStorage.getItem("AuthToken");
+    if (token == "Usuario Harcodeado"){
+      this.hardcodeo=true;
+      this.lista2Ingresos = this.listilla;
+    } else {
+      this.obtenerDatos();
+      this.hardcodeo=false;
+    }         
   }
 
-  obtenerIngresos(){
-    this.ingresoService.obtenerIngresos().subscribe(data =>{
-    this.listaIngreso=data;
-    console.log(this.listaIngreso)
-    });
+  obtenerDatos(){
+    this.ingresoService.obtenerIngresos().subscribe(
+      (data) =>{
+        this.listaIngreso=data.response;
+        console.log(this.listaIngreso);
+        setTimeout(this.recargate,2000)
+      },
+      (error)=>{
+        console.log("La data no llega");
+        console.error(error);
+      },
+      ()=>{
+        console.log("Datos cargados");
+        console.log(this.listaIngreso);
+        this.recargar=this.recargar+1;
+      });
   }
 
   /*============================================================*/
@@ -173,42 +217,91 @@ export class IngresosComponent implements OnInit {
   /*-------GUARDAR NUEVO INGRESO----------------*/
 
   guardarIngreso(){    
-    const nuevoGasto = this.gastoForm.value;
-    console.log(nuevoGasto);
-    this.gastoForm.reset(); 
+    const nuevoIngreso = this.addIngresoForm.value;
+    console.log("NUEVO INGRESO:")
+    console.log(nuevoIngreso);
+    // Reseteando el Formulario
+    this.addIngresoForm = this.formBuilder.group(
+      {      
+        fecha: [''],
+        tipo: [''],
+        importe:[''],
+        descripcion:[''],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
+    // Servicio Ingreso Service 
+    this.ingresoService.guardarIngreso(nuevoIngreso).subscribe(
+      (data)=>{},
+      (error) => {
+        alert("Algo ha fallado: " + error);
+      },
+      ()=>{
+        this.obtenerDatos();
+        console.log("Ingreso creado");
+      }
+    ) 
   }
 
   /*-------EDITAR INGRESO-----------------------*/
 
-  editableId(id:number,ingreso:Ingreso){
-    const editableGasto = ingreso;
+  editableId(id:number,incomes:any){
+    const editableIngreso = incomes;
     this.editId = id;
     console.log(id);
-    console.log(ingreso);
+    console.log(incomes);
+  
+  // Cargar datos en el modal
+  this.editIngresoForm = this.formBuilder.group(
+    {     
+      fecha: [editableIngreso.fecha],
+      tipo: [editableIngreso.categoria],
+      importe:[editableIngreso.importe],
+      descripcion:[editableIngreso.descripcion],
+      monedaId:1,
+      esIncluida:true
+    }
+  )
   }
-
   actualizarIngreso(){
-    const nuevoGasto = this.gastoForm.value;
-    console.log(nuevoGasto);
-    this.gastoForm.reset();
+    const nuevoIngreso = this.editIngresoForm.value;
+    console.log(nuevoIngreso);
+    this.editIngresoForm.reset();
     const editId = this.editId;
+    this.ingresoService.actualizarIngreso(editId,nuevoIngreso,this.httpOptions).subscribe(
+      data=>{},
+      (error) => {
+        alert("Algo ha fallado: " + error);
+      },
+      ()=>{this.obtenerDatos()}
+    )
   }
 
-  /*-------EDITAR INGRESO-----------------------*/
+  /*-------ELIMINAR INGRESO-----------------------*/
 
   trashId(id:number):void{
     this.borrarId = id;   
     console.log(this.borrarId);
+  }
+  eliminarIngreso(): void{
+    this.ingresoService.borrarIngreso(this.borrarId).subscribe(
+      data=>{},
+      (error) => {
+        alert("Algo ha fallado: " + error);
+      },
+      ()=>{this.obtenerDatos()}
+    )
   }
 
   /*============================================================*/
 
   // BOTONES DE PAGINACION
   nextPage(){
-    this.page = this.page +5;
+    this.page = this.page +10;
   }
   previusPage(){
-    this.page = this.page -5;
+    this.page = this.page -10;
   }
 
   /*============================================================*/
@@ -224,20 +317,66 @@ export class IngresosComponent implements OnInit {
   // VALIDATORS
 
   // Propiedades para los validadores
-  get Fecha() { 
-    return this.gastoForm.get('fecha'); 
+
+  // Propiedades Guardar Ingreso
+  get FechaAdd() { 
+    return this.addIngresoForm.get('fecha'); 
   }
-  get Categoria() {
-    return this.gastoForm.get('categoria')
+  get CategoriaAdd() {
+    return this.addIngresoForm.get('tipo')
   }
-  get Importe() { 
-    return this.gastoForm.get('importe'); 
+  get ImporteAdd() { 
+    return this.addIngresoForm.get('importe'); 
   }
-  get Descripcion() {
-    return this.gastoForm.get('descripcion')
+  get DescripcionAdd() {
+    return this.addIngresoForm.get('descripcion')
   }
-  clearValidators() {
-    this.gastoForm.reset(this.gastoForm.value);
+  clearValidatorsAdd() {
+    const hoy = this.fechaService.actual();
+    this.addIngresoForm = this.formBuilder.group(
+      {      
+        fecha: [hoy],
+        tipo: [''],
+        importe:[''],
+        descripcion:[''],
+        monedaId:1,
+        esIncluida:true
+      }
+    );
+  }
+  // Propiedades Editar Ingreso
+  get FechaEdit() { 
+    return this.addIngresoForm.get('fecha'); 
+  }
+  get CategoriaEdit() {
+    return this.addIngresoForm.get('tipo')
+  }
+  get ImporteEdit() { 
+    return this.addIngresoForm.get('importe'); 
+  }
+  get DescripcionEdit() {
+    return this.addIngresoForm.get('descripcion')
+  }
+  clearValidatorsEdit() {
+    this.addIngresoForm.reset(this.addIngresoForm.value);
   }
 
+  // Navegacion
+  scrollTo() {
+    window.location.hash = '';
+    window.location.hash = "tiburon";   
+  }
+
+  /*----------Funciones Auxiliares----------*/
+  
+  // Invertir Fecha
+  invertir(miFecha:string){
+    const parte = miFecha.split("-", 3);
+    const nuevaFecha = parte[2]+"-"+parte[1]+"-"+parte[0]
+    return nuevaFecha
+  }
+  // Recargar
+  recargate(){
+    this.recargar=this.recargar+1;
+  }
 }

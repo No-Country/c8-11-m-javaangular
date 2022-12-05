@@ -37,6 +37,12 @@
         <div class="icon-aside"><i class="bi bi-graph-up" style="font-size: 1.5rem;"></i></div>
         <p class="fw-bold fs-6 text-center m-0">Estadisticas</p>
       </li>   
+      <!--Prueba--->
+      <li [ngClass]="{'li-button-style d-flex align-items-center w-100 justify-content-start gap-4' : true,
+                      'active-link' : router.url === '/dashboard/estadisticas'}" routerLink="/dashboard/prueba">
+        <div class="icon-aside"><i class="bi bi-graph-up" style="font-size: 1.5rem;"></i></div>
+        <p class="fw-bold fs-6 text-center m-0">Prueba</p>
+      </li>
     </div>
 
     <div class="pb-4">

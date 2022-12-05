@@ -19,22 +19,22 @@ spring:
 #      ddl-auto: 'update'
 
 #SUPABASE
-#  datasource:
-#    url: jdbc:postgresql://db.niocqzxypzutwctzuyfj.supabase.co:5432/postgres?user=postgres&password=c8-11-m-javaangular
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
-
-#LOCAL
   datasource:
-    username: root
-    url: jdbc:mysql://localhost:3306/dbcharta
-    password: 43824382
+    url: jdbc:postgresql://db.niocqzxypzutwctzuyfj.supabase.co:5432/postgres?user=postgres&password=c8-11-m-javaangular
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+#LOCAL
+#  datasource:
+#    username: root
+#    url: jdbc:mysql://localhost:3306/dbcharta
+#    password: 43824382
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
 
   mvc:
     pathmatch:
@@ -42,6 +42,12 @@ spring:
 
 server:
   port: 8081
+
+#Springdoc
+#springdoc:
+#  api-docs:
+#    path: /wallet-openapi
+
 
 # Api-Fixer KEY:
 api.key.fixer: QNqvHM1Rf3JjtimxQtMsqj0SXIqlXy7G

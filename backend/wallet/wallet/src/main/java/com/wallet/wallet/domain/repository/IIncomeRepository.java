@@ -1,5 +1,6 @@
 package com.wallet.wallet.domain.repository;
 
+import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.Income;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,9 @@ import java.util.List;
 
 @Repository
 public interface IIncomeRepository extends JpaRepository<Income, Long> {
+
+    @Query("SELECT e FROM Income e WHERE user.id = ?1 ORDER BY date DESC")
+    List<Income> getAllByUserId(Long userId);
 
     @Query(nativeQuery = true, value = "SELECT * FROM incomes WHERE user_id = ?1 ORDER BY date DESC LIMIT 3")
     List<Income> getThreeByUserId(Long userId);

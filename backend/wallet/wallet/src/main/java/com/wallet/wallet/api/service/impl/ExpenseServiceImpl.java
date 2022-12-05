@@ -17,7 +17,7 @@ import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IExpenseRepository;
 
 import com.wallet.wallet.domain.repository.IIncomeRepository;
-import com.wallet.wallet.handler.exeption.UserUnauthorizedException;
+import com.wallet.wallet.handler.exception.UserUnauthorizedException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;

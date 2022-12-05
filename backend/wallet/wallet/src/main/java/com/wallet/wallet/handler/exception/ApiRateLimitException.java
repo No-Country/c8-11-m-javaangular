@@ -1,4 +1,4 @@
-package com.wallet.wallet.handler.exeption;
+package com.wallet.wallet.handler.exception;
 
 public class ApiRateLimitException extends RuntimeException{
     

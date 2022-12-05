@@ -10,7 +10,7 @@ import com.wallet.wallet.domain.enums.ERole;
 import com.wallet.wallet.domain.mapper.UserMapper;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IUserRepository;
-import com.wallet.wallet.handler.exeption.ResourceNotFoundException;
+import com.wallet.wallet.handler.exception.ResourceNotFoundException;
 
 import lombok.AllArgsConstructor;
 

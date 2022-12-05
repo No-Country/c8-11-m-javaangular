@@ -14,7 +14,7 @@ import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.model.Category;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.ICategoryRepository;
-import com.wallet.wallet.handler.exeption.UserUnauthorizedException;
+import com.wallet.wallet.handler.exception.UserUnauthorizedException;
 
 import lombok.AllArgsConstructor;
 

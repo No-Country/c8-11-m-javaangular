@@ -16,8 +16,8 @@ import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 import com.wallet.wallet.handler.ErrorDetails;
-import com.wallet.wallet.handler.exeption.ResourceNotFoundException;
-import com.wallet.wallet.handler.exeption.UserUnauthorizedException;
+import com.wallet.wallet.handler.exception.ResourceNotFoundException;
+import com.wallet.wallet.handler.exception.UserUnauthorizedException;
 
 import static com.wallet.wallet.handler.ResponseBuilder.responseBuilder;
 

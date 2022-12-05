@@ -11,7 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import static com.wallet.wallet.domain.enums.EMessageCode.*;
-import com.wallet.wallet.handler.exeption.ApiRateLimitException;
+import com.wallet.wallet.handler.exception.ApiRateLimitException;
 
 import lombok.RequiredArgsConstructor;
 

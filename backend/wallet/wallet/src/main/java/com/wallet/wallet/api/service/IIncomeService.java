@@ -7,8 +7,10 @@ import com.wallet.wallet.domain.dto.request.IncomeRequestDto;
 import com.wallet.wallet.domain.dto.request.IncomeUpdateDto;
 import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
 import com.wallet.wallet.domain.dto.response.IncomeResponseDto;
+import com.wallet.wallet.domain.enums.EIncome;
 import com.wallet.wallet.domain.model.Income;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IIncomeService extends GenericServiceAPI<Income, IncomeResponseDto, IncomeRequestDto, Long> {
@@ -21,6 +23,8 @@ public interface IIncomeService extends GenericServiceAPI<Income, IncomeResponse
 
     List<IncomeResponseDto> findAll();
 
+    List<IncomeResponseDto> filter(String token, EIncome type, Double amountMax, Double amountMin, LocalDate start, LocalDate end, String orderBy, String order);
+
     List<IncomeResponseDto> getAllByUserId(String token);
 
     Double getBalanceMonthlyByUserId(List<Income> incomes);
@@ -28,4 +32,6 @@ public interface IIncomeService extends GenericServiceAPI<Income, IncomeResponse
     Double getBalanceYearlyByUserId(Long userId, Integer year);
 
     List<Income> convertIncome(List<Income> incomes, String userCodeCurrency, Double userValueDollar);
+
+    void delete(Long id, String token);
 }

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.sendgrid.Method;
 import com.sendgrid.Request;
-import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import com.sendgrid.helpers.mail.objects.Personalization;
 import com.wallet.wallet.api.service.IEmailService;
 import com.wallet.wallet.domain.enums.EMessageCode;
 
@@ -43,27 +43,28 @@ public class EmailServiceImpl implements IEmailService {
     private String CONTENT_MESSAGE;
 
     @Override
-    public Response sendEmail(String toEmail) {
+    public void sendEmail(String toEmail, String username) {
         try {
             Request request = new Request();
             request.setMethod(Method.POST);
             request.setEndpoint(ENDPOINT);
-            request.setBody(setTemplate(toEmail, TEMPLATE_ID).build());
+            request.setBody(setTemplate(toEmail, TEMPLATE_ID, username).build());
 
-            Response response = sendGrid.api(request);
-            return response;
-
+            sendGrid.api(request);
         } catch (Exception e) {
             throw new RuntimeException(messenger.getMessage(EMessageCode.ERROR_SENDING_EMAIL.name(),
                     new Object[] { toEmail }, Locale.getDefault()));
         }
     }
 
-    private Mail setTemplate(String toEmail, String templateId) {
+    private Mail setTemplate(String toEmail, String templateId, String username) {
         Mail mail = new Mail(new Email(APP_EMAIL),
                 SUBJECT,
                 new Email(toEmail),
                 new Content(TYPE, CONTENT_MESSAGE));
+
+        Personalization personalization = new Personalization();
+                personalization.addDynamicTemplateData("username", username);
 
         mail.setTemplateId(TEMPLATE_ID);
 

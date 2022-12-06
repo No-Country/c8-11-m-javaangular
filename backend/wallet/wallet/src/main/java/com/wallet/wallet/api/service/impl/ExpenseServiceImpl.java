@@ -52,6 +52,7 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto, String token) {
         Long userId = jwtUtil.extractUserId(token);
         expenseRequestDto.setUserId(userId);
+
         return super.save(expenseRequestDto);
     }
 

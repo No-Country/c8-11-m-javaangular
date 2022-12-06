@@ -8,10 +8,13 @@ import com.wallet.wallet.domain.dto.request.CategoryRequestDto;
 import com.wallet.wallet.domain.dto.request.CategoryUpdateDto;
 import com.wallet.wallet.domain.dto.response.CategoryResponseDto;
 import static com.wallet.wallet.domain.enums.EMessageCode.*;
+
+import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
 import com.wallet.wallet.domain.enums.ERole;
 import com.wallet.wallet.domain.mapper.CategoryMapper;
 import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.model.Category;
+import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.ICategoryRepository;
 import com.wallet.wallet.handler.exception.UserUnauthorizedException;
@@ -25,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -38,58 +42,71 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
     private final MessageSource messenger;
 
     @Override
-    public CategoryResponseDto save(CategoryRequestDto dto, String token) {
-        if(tokenNotValid(token)){
-            throw new BadCredentialsException(messenger.getMessage(INVALID_TOKEN.name(), null, Locale.getDefault()));
-        }
-
+    public CategoryResponseDto save(CategoryRequestDto categoryRequestDto, String token) {
         Long id = jwtUtil.extractUserId(token);
         User user = userService.getById(id);
+        categoryRequestDto.setUserIdCreate(id);
+        categoryRequestDto.setIsDefault(user.getRole().equals(ERole.ADMIN) ? true : false);
 
-        dto.setUserIdCreate(id);
-        dto.setIsDefault(user.getRole().equals(ERole.ADMIN) ? true : false);
-
-        return super.save(dto);
+        return super.save(categoryRequestDto);
     }
 
-    // agregar lógica usuario
     @Override
     public CategoryResponseDto update(CategoryUpdateDto dto, Long id, String token) {
-        if(tokenNotValid(token)){
-            throw new BadCredentialsException(messenger.getMessage(INVALID_TOKEN.name(), null, Locale.getDefault()));
-        }
 
         Long userId = jwtUtil.extractUserId(token);
         User user = userService.getById(userId);
 
-        Category category = repository.findById(id).get();
+        Optional<Category> category = repository.findById(id);
 
-        if (user.getRole().equals(ERole.ADMIN) || userId.equals(category.getUserIdCreate())) {
+        if (user.getRole().equals(ERole.ADMIN) || userId.equals(category.get().getUserIdCreate())) {
             dto.setId(id);
             repository.save(categoryMapper.updateToEntity(dto));
         } else {
             throw new UserUnauthorizedException(messenger.getMessage(USER_UNAUTHORIZED.name(),
-                    new Object[] {userId, category.getUserIdCreate()}, Locale.getDefault()));
+                    new Object[] {userId, category.get().getUserIdCreate()}, Locale.getDefault()));
         }
         return getById(id);
     }
 
+    @Override
+    public CategoryResponseDto getById(Long id, String token) {
 
+        Long userId = jwtUtil.extractUserId(token);
+
+        Optional<Category> category = repository.findById(id);
+
+        if (userId.equals(category.get().getUserIdCreate())) {
+            return super.getById(id);
+        } else {
+            throw new UserUnauthorizedException(messenger.getMessage(USER_UNAUTHORIZED.name(),
+                    new Object[] {userId, category.get().getUserIdCreate()}, Locale.getDefault()));
+        }
+    }
 
     @Override
     public List<CategoryResponseDto> getAll() {
         return categoryMapper.listEntityToListResponseDto(repository.findAll());
     }
 
-    // agregar lógica usuario en el controller
     @Override
-    public List<CategoryResponseDto> getAllByUserId(Long userId) {
+    public List<CategoryResponseDto> getAllByUserId(String token) {
+        Long userId = jwtUtil.extractUserId(token);
         return categoryMapper.listEntityToListResponseDto(repository.getAllByUserId(userId));
     }
 
-    // agregar excepción en el generic
-    public void delete(Long id) {
-        super.delete(id);
+    public void delete(Long id, String token) {
+
+        Long userId = jwtUtil.extractUserId(token);
+
+        Optional<Category> category = repository.findById(id);
+
+        if (userId.equals(category.get().getUserIdCreate())) {
+            super.delete(id);
+        } else {
+            throw new UserUnauthorizedException(messenger.getMessage(USER_UNAUTHORIZED.name(),
+                    new Object[]{userId, category.get().getUserIdCreate()}, Locale.getDefault()));
+        }
     }
 
     @Override
@@ -104,6 +121,6 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, CategoryRe
 
     @Override
     public MessageSource getMessenger() {
-        return null;
+        return messenger;
     }
 }

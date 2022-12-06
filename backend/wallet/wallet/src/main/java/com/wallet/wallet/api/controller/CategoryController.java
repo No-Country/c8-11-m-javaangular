@@ -36,26 +36,27 @@ public record CategoryController(ICategoryService service) {
         return responseBuilder(OK, service.update(dto, id, token));
     }
 
-    @ApiOperation(value = "Find a category by Id")
-    // @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("/getById/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Long id) {
-        return responseBuilder(OK, service.getById(id));
+    @ApiOperation(value = "Find Category by Id by User", hidden = true)
+    @GetMapping("/user/findById/{id}")
+    //@PreAuthorize("hasAuthority('USER')")
+    public  ResponseEntity<?> getById(@PathVariable Long id, @RequestHeader("Authorization") String token){
+        return responseBuilder(OK, service.getById(id, token));
+    }
+
+    @ApiOperation(value = "Find all categories by User id")
+    @GetMapping("/user/findAll")
+    //@PreAuthorize("hasAuthority('USER')")
+    public  ResponseEntity<?> getAllByUserId(@RequestHeader("Authorization") String token){
+        return responseBuilder(OK, service.getAllByUserId(token));
     }
 
     @ApiOperation(value = "Find all categories")
     // @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("/getAll")
+    @GetMapping("/findAll")
     public ResponseEntity<?> getAll() {
         return responseBuilder(OK, service.getAll());
     }
 
-    @ApiOperation(value = "Find all categories by User id")
-    // @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("/getAllByUserId")
-    public ResponseEntity<?> getAllByUserId(Long id) {
-        return responseBuilder(OK, service.getAllByUserId(id));
-    }
 
     @ApiOperation(value = "Delete a category by Id")
     // @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")

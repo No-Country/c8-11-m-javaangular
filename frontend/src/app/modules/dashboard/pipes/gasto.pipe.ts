@@ -1,12 +1,13 @@
-import { DatePipe } from '@angular/common';
+
 import { Pipe, PipeTransform } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Pipe({
   name: 'gasto'
 })
 export class GastoPipe implements PipeTransform {
 
-  transform(listaGastos: any, page:number=0,orden:string=""): any {
+  transform(listaGastos:any= Subscription, page:number=0,orden:string=""): any {
     
     if (orden==""){
       return listaGastos.slice(page,page+10)       

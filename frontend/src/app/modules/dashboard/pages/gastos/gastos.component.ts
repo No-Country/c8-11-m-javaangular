@@ -6,7 +6,8 @@ import { Gasto } from '../../model/gasto';
 import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
 import { Location } from '@angular/common'
-import { Observable, Subject, subscribeOn } from 'rxjs';
+import { Observable, Subject, subscribeOn, Subscription } from 'rxjs';
+import { HojaService } from 'src/app/services/hoja.service';
 
 @Component({
   selector: 'app-gastos',
@@ -16,14 +17,20 @@ import { Observable, Subject, subscribeOn } from 'rxjs';
 })
 export class GastosComponent implements OnInit {
 
-  listaGastos:Gasto[]=[];
+  listaGastos:any;
+  respuesta:object={};
+  spinner:boolean=true;
+  mostrarLista:boolean=false;
 
   // Harcodeo - Back
   hardcodeo:boolean=false;
 
   fechaActual:any;
   // Vistas Tabla/Tarjeta
-  active:boolean=true;  
+  active:boolean=true; 
+  
+  mensaje:string="";
+  mostrarMensaje:boolean=false;
 
   // CRUD
   nuevoGasto:Gasto[]=[];
@@ -43,8 +50,8 @@ export class GastosComponent implements OnInit {
   lista:Gasto[]=[];
   datos:any;  
   listaG:Gasto[]|any;
-  listaGastos$:Observable<any>=new Observable<any>();
-
+  
+  datosos:any;
   lista2Gastos = [
     {
         fecha:new Date("2022-1-4"),
@@ -276,6 +283,10 @@ export class GastosComponent implements OnInit {
     }
   ];
   gato:Gasto[]=[];
+  
+  tieneGastos:any;
+
+  listaGastos$:Subscription;
 
   // Recargar Page
   recargar:number=0;
@@ -316,45 +327,39 @@ export class GastosComponent implements OnInit {
         esIncluida:true
       }
     )
+    this.listaGastos$ = this.gastoService.obtenerGastos().subscribe(
+      (data) => this.listaGastos = data.response
+    )
+    this.spinner=true;
   }
   
-  ngOnInit(): void {    
-    const token = sessionStorage.getItem("AuthToken");
-    if (token == "Usuario Harcodeado"){
-      this.lista = this.lista2Gastos;
-      this.hardcodeo=true;
-    } else {
-      this.hardcodeo=false;
+  ngOnInit(): void {
       this.obtenerDatos();
-    }         
-  }
-
-
-  recargate(){
-    this.recargar=this.recargar+1;
-    this.active=true;
-  }
-  scrollTo() {
-    window.location.hash = '';
-    window.location.hash = "tuix";   
   }
 
 
   // Obtener Gastos
   obtenerDatos(){
-    this.gastoService.obtenerGastos().subscribe(
-      (data) =>{
-        this.listaGastos = data.response;      
-        console.log(this.listaGastos);          
-      },
-      (error) => {
+    this.gastoService.obtenerGastos().subscribe({
+      next: (data)=>{       
+        this.listaGastos$ =  data.response;
+        this.listaGastos = data.response;
+      },    
+      error: (error)=> {
         console.error("Los datos del servidor no llegan");
         console.log(error);
+        this.mensaje = "Por algún motivo no se pueden cargar los datos";
+        this.mostrarMensaje=true;        
       },
-      ()=>{
-        
-    })    
+      complete: ()=>{
+        console.log("Complete")
+      }
+  });  
+
   }
+
+
+  
   
   /*==================================================== */
   /*--------------Modales Metodos CRUD-------------------*/
@@ -384,7 +389,8 @@ export class GastosComponent implements OnInit {
       },
       ()=>{
         this.obtenerDatos();
-        console.log("Gasto creado")
+        this.recargar=this.recargar+1;
+        location.reload();
       }
     )
   }

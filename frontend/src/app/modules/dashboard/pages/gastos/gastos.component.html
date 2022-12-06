@@ -1,20 +1,18 @@
-<div *ngIf="listaGastos.length==0; else contiene" class="spinner">
-    <div id="spinner" class="spinner-border m-5" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-<ng-template #contiene>
-    <section class="seccion">
+
+
+
+<section class="seccion">
         <div class="titular">
             <h2>Mis Gastos</h2>
         </div>
-        <div class="seleccion">
+        <div  class="seleccion">
             <!----NUEVO GASTO Botón---->
             <div class="selector-left">
                 <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidatorsAdd()">+ Nuevo Gasto</button>            
             </div> 
-            <!----Selectores y filtros----->       
-            <div class="selector-right">
+            <!----Selectores y filtros-----> 
+                 
+            <div *ngIf="listaGastos" class="selector-right">
                 <!----ORDENAMIENTO---->
                 <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
                 <!-----
@@ -27,7 +25,7 @@
                     </a>              
                     <div id="tobiron" class="dropdown-menu bg-light" aria-labelledby="dropdownMenuLink">
                         <div class="text-center titulo-filtro">
-                            <p>Filtros</p>
+                            <p class="mt-2"><b>FILTROS</b></p>
                         </div>
                         <hr>                   
                         <form (ngSubmit)="filtrar()">
@@ -117,8 +115,9 @@
                     <li class="page-item"><button class="btn btn-light" (click)="nextPage()" [disabled]="page+10>listaGastos.length"><i class="bi bi-arrow-right"></i></button></li>
                     </ul>
                 </nav>
-            </div>        
-        </div>
+            </div> 
+        </div>        
+        
         
         <!----------HARDCODEADO------------->
     
@@ -243,9 +242,9 @@
         </div>
         
         <!----------Desde el BACK------------------>
-    
+           
         <div *ngIf="!hardcodeo">
-            <div >
+            <div *ngIf="listaGastos">
                 <!-----VISTAS TABLA EN PC----->
                 <div *ngIf="active" class="tabla-gastos">        
                     <div  class="table-responsive">
@@ -262,12 +261,13 @@
                             <tbody *ngFor="let item of listaGastos | gasto:page:orden">
                                 <tr class="p-2">
                                     <td class="dataFecha">{{invertir(item.fecha)}} </td>
-                                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item.categoria=='Servicios'),'text-bg-danger':(item.categoria=='Movilidad'),'text-bg-primary':(item.categoria=='Varios')}">{{item.categoria}}</span></td>
+                                    <td><span id="categorizador" class="p-2 badge" [class]="{'text-bg-warning':(item.categoria=='Alimentos'),'text-bg-success':(item?.categoria=='Servicios'),'text-bg-danger':(item?.categoria=='Movilidad'),'text-bg-primary':(item?.categoria=='Varios')}">{{item.categoria}}</span></td>
                                     <td>{{item.descripcion}}</td>
                                     <td>${{item.importe}}</td>
                                     <td><app-editar data-bs-toggle="modal" data-bs-target="#editarGasto" (click)="editableId(item.id,item)"></app-editar><app-borrar data-bs-toggle="modal" data-bs-target="#eliminarGasto" (click)="trashId(item.id)"></app-borrar></td>
                                 </tr>                                      
                             </tbody>
+                        
                         </table>
                     </div>        
                 </div>
@@ -364,16 +364,22 @@
                     </div>
                 </div>    
             </div>
-        </div>
-        
-    </section>
-</ng-template>
-<p style="display:none">{{listaGastos[0].importe}}</p>
-<p style="display:none">{{recargar}}</p>
-
-
-
+        </div>      
     
+</section>
+
+<div *ngIf="!listaGastos">
+    <div class="text-center">
+        <div id="spinner" class="spinner-border" role="status">
+          <span  class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+
+
+
+
+
     
 
 

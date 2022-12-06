@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Ingreso } from '../../model/ingreso';
 import { FechaService } from '../../services/fecha.service';
 import { IngresosService } from '../../services/ingresos.service';
@@ -13,7 +14,7 @@ import { IngresosService } from '../../services/ingresos.service';
 })
 export class IngresosComponent implements OnInit {
 
-  @Input()listaIngreso:any[]=[];
+  listaIngreso:any;
   hardcodeo:boolean=false;
   active:boolean=true;
 
@@ -24,6 +25,8 @@ export class IngresosComponent implements OnInit {
 
   addIngresoForm:FormGroup;
   editIngresoForm:FormGroup;
+
+  listaIngreso$:Subscription;
 
   
   lista2Ingresos:Ingreso[]=[];
@@ -181,35 +184,32 @@ export class IngresosComponent implements OnInit {
         esIncluida:true
       }
     )
+    this.listaIngreso$ = this.ingresoService.obtenerIngresos().subscribe(
+      (data) => this.listaIngreso = data.response
+    )
   }
 
   ngOnInit(): void {
-    const token = sessionStorage.getItem("AuthToken");
-    if (token == "Usuario Harcodeado"){
-      this.hardcodeo=true;
-      this.lista2Ingresos = this.listilla;
-    } else {
-      this.obtenerDatos();
-      this.hardcodeo=false;
-    }         
-  }
+    this.obtenerDatos()
+  }         
+  
 
   obtenerDatos(){
-    this.ingresoService.obtenerIngresos().subscribe(
-      (data) =>{
-        this.listaIngreso=data.response;
-        console.log(this.listaIngreso);
-        setTimeout(this.recargate,4000)
+    this.ingresoService.obtenerIngresos().subscribe({
+      next: (data)=>{       
+        this.listaIngreso$ =  data.response;
+        this.listaIngreso = data.response;
+      },    
+      error: (error)=> {
+        console.error("Los datos del servidor no llegan");
+        console.log(error);     
       },
-      (error)=>{
-        console.log("La data no llega");
-        console.error(error);
-      },
-      ()=>{
-        console.log("Datos cargados");
-        console.log(this.listaIngreso);
-        this.recargar=this.recargar+1;
-      });
+      complete: ()=>{
+        console.log("Complete")
+      }
+  }); 
+
+  
   }
 
   /*============================================================*/
@@ -242,6 +242,7 @@ export class IngresosComponent implements OnInit {
       ()=>{
         this.obtenerDatos();
         console.log("Ingreso creado");
+        location.reload();
       }
     ) 
   }
@@ -388,5 +389,12 @@ export class IngresosComponent implements OnInit {
   // Recargar
   recargate(){
     this.recargar=this.recargar+1;
+  }
+
+  filtrar(){
+    console.log("Filtro ejecutado")
+  }
+  restablecer(){
+    console.log("Restableciendo valores")
   }
 }

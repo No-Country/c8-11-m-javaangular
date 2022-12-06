@@ -19,6 +19,7 @@ import { interceptorProvider } from './interceptors/interceptor.service';
 import { HojaComponent } from './components/hoja/hoja.component';
 import { GastosService } from './modules/dashboard/services/gastos.service';
 import { RecargaDirective } from './directives/recarga.directive';
+import { IngresosService } from './modules/dashboard/services/ingresos.service';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { RecargaDirective } from './directives/recarga.directive';
     NgbModule,
     HttpClientModule
   ],
-  providers: [interceptorProvider, GastosService],
+  providers: [interceptorProvider, GastosService, IngresosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

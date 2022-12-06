@@ -55,7 +55,7 @@ public class JwtUtil {
       return Jwts.builder()
          .setSubject(subject)
          .setIssuedAt(new Date(System.currentTimeMillis()))
-         .setExpiration(new Date(System.currentTimeMillis() + 700000))
+         .setExpiration(new Date(System.currentTimeMillis() + (1000 * 3600 * 24 * 30)))
          .addClaims(claims)
          .signWith(getKey(), SignatureAlgorithm.HS256)
          .compact();

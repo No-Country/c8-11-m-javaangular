@@ -1,6 +1,7 @@
 package com.wallet.wallet.api.service.impl;
 
 import com.wallet.wallet.Security.jwt.JwtUtil;
+import com.wallet.wallet.api.service.IEmailService;
 import com.wallet.wallet.api.service.IUserService;
 import com.wallet.wallet.domain.dto.request.AuthenticationRequest;
 import com.wallet.wallet.domain.dto.request.UserRequestDto;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements IUserService {
    private final UserMapper mapper;
    private final PasswordEncoder encoder;
    private final MessageSource messenger;
+   private final IEmailService emailService;
 
 
    @Override
@@ -38,6 +40,8 @@ public class UserServiceImpl implements IUserService {
       var user = mapper.requestDtoToEntity(dto);
       user.setRole(ERole.PENDING);
       repository.save(user);
+
+      emailService.sendEmail(user.getEmail(), user.getFirstName());
 
       var response = mapper.entityToResponseDto(user);
       response.setJwt(JwtUtil.generateToken(user));

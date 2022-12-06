@@ -131,24 +131,26 @@ public class IncomeServiceImpl extends GenericServiceImpl<Income, IncomeResponse
         String userCodeCurrency = user.getCurrency().getCodeCurrency();
         Double userValueCurrency = user.getCurrency().getValueDollar();
 
-        List<Income> incomes = new ArrayList<>();
+        List<Income> incomes;
 
-        if(type != null && start != null && end != null && amountMin != null && amountMax != null){
-            incomes = convertIncome(repository.filterByCategoriesAndDateAndAmount(userId, type, start, end, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
-        } else if(type != null && start != null && end != null){
+        if(type != null && start != null && end != null ){
             incomes = convertIncome(repository.filterByCategoriesAndDate(userId, type, start, end, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
-        } else if(type != null && amountMin != null && amountMax != null){
-            incomes = convertIncome(repository.filterByCategoriesAndAmount(userId, type, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
-        } else if(start != null && end != null && amountMin != null && amountMax != null){
-            incomes = convertIncome(repository.filterByDateAndAmount(userId, start, end, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
         } else if(type != null){
             incomes = convertIncome(repository.filterByCategories(userId, type, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
-        } else if(start != null && end != null){
+        } else if(start != null && end != null) {
             incomes = convertIncome(repository.filterByDate(userId, start, end, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
-        } else if(amountMin != null && amountMax != null) {
-            incomes = convertIncome(repository.filterByAmount(userId, amountMin, amountMax, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
+        }else{
+            incomes = convertIncome(repository.getAllByUserId(userId, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
         }
 
+        if(amountMin != null && amountMax != null){
+            for(int i = 0; i < incomes.size(); i++){
+                if(incomes.get(i).getAmount() < amountMin || incomes.get(i).getAmount() > amountMax){
+                    incomes.remove(incomes.get(i));
+                    i--;
+                }
+            }
+        }
         return incomes.stream().map(mapper::entityToResponseDto).toList();
     }
 

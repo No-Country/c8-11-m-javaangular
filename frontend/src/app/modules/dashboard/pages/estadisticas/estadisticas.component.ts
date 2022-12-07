@@ -22,9 +22,7 @@ export class EstadisticasComponent implements OnInit {
   listaIngresoImporte:any[]=[];
   listaGastoImporte:any[]=[];
 
-  labelCategoria:any[]=[];
-
-  
+  labelCategoria:any[]=[];  
 
   constructor(
     private gasto: GastosService,

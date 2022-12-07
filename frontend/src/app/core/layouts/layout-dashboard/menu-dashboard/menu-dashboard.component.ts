@@ -8,8 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'dashboard-layout',
   templateUrl: './menu-dashboard.component.html',
-  styleUrls: ['./menu-dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./menu-dashboard.component.scss']
 })
 export class MenuDashboardComponent implements OnInit {
   modalSwith: boolean = false;

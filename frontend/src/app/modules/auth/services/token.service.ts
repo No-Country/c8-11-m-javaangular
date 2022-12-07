@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'AuthToken';
-const USER_EMAIL_KEY = 'AuthUserName';
+const USER_EMAIL_KEY = 'UserEmail';
 const AUTHORITIES_KEY = 'AuthAuthorities';
-const USERNAME_KEY = 'UserName';
+const USERNAME_KEY = 'FirstName';
+const LASTNAME_KEY = 'LastName';
 
 @Injectable({
   providedIn: 'root'
@@ -14,37 +15,41 @@ roles: Array<string> = [];
 
   constructor() { }
 
+  // Token
   public setToken(token: string): void{
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
-
   public getToken(): string{
     return sessionStorage.getItem(TOKEN_KEY)!;
   }
-
+  // userName / FirstName
   public setUserName(userName:string):void{
     return sessionStorage.setItem(USERNAME_KEY,userName);
   }
-
   public getUserName(): string{
     return sessionStorage.getItem(USERNAME_KEY)!;
   }
-
-  public setUserEmail(userName: string): void{
-    window.sessionStorage.removeItem(USER_EMAIL_KEY);
-    window.sessionStorage.setItem(USER_EMAIL_KEY, userName);
+  // LastName
+  public setLastName(lastName:string):void{
+    return sessionStorage.setItem(LASTNAME_KEY,lastName);
   }
-
+  public getLastName(): string{
+    return sessionStorage.getItem(LASTNAME_KEY)!;
+  }
+  // Email
+  public setUserEmail(userEmail: string): void{
+    window.sessionStorage.removeItem(USER_EMAIL_KEY);
+    window.sessionStorage.setItem(USER_EMAIL_KEY, userEmail);
+  }
   public getUserEmail(): string{
     return sessionStorage.getItem(USER_EMAIL_KEY)!;
   }
-
+  // Authorithies
   public setAuthorities(authorities: string[]): void{
     window.sessionStorage.removeItem(AUTHORITIES_KEY);
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
-
   public getAuthorities(): string[] {
     this.roles = [];
     if (sessionStorage.getItem(AUTHORITIES_KEY)) {
@@ -55,6 +60,7 @@ roles: Array<string> = [];
     return this.roles;
   }
 
+  // Logout
   public logOut(): void{
     window.sessionStorage.clear();
   }

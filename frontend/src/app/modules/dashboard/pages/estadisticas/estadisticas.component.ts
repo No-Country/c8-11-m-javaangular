@@ -11,6 +11,8 @@ import { Ingreso } from '../../model/ingreso';
   styleUrls: ['./estadisticas.component.css']
 })
 export class EstadisticasComponent implements OnInit {
+   
+  
   listaIngreso:Ingreso[]=[];
   listaGasto:Gasto[]=[];
 
@@ -31,28 +33,35 @@ export class EstadisticasComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.obtenerGastos();
+  this.gasto.obtenerGastos().subscribe(
+    data =>{
+     this.listaGasto = data; 
+     if(this.listaGasto!=null){
+        this.gastoTotal = this.listaGasto.reduce((sum:number, total:Gasto) => sum + total.importe,0)
+      console.log(this.gastoTotal)
+     }     
+    console.log(this.listaGasto)
+  })
+    
+    console.log(this.listaGasto)
+    /*
     this.obtenerIngresos();
 
     this.obtenerGastoTotal();
     this.obtenerIngresoTotal();
 
-    this.obtenerLabelsRadar();
+    this.obtenerLabelsRadar();*/
 
     /*RENDER DE LAS ESTADISTICAS*/
+
+
     this.renderPieChart(this.gastoTotal,this.ingresoTotal,'pieChartGeneral');
     this.renderRadarChart(this.listaGastoImporte ,this.labelCategoria,'radarChartIncomesExpenses');
     this.renderLineChart(this.listaGastoImporte, this.listaIngresoImporte, 'barChartIncomesExpensesMonths')
   }
   
 /* GET DATOS */
-  obtenerGastos(){
-    this.gasto.obtenerGastos().subscribe(
-      data =>{
-        this.listaGasto = data;      
-        console.log(this.listaGasto)})
-  }
-  
+  /*
   obtenerIngresos(){
     this.ingreso.obtenerIngresos().subscribe(
       data =>{
@@ -62,19 +71,20 @@ export class EstadisticasComponent implements OnInit {
 
   /*FILTRADO DE DATA PARA LAS ESTADISTICAS*/
   
-
+/** 
 obtenerGastoTotal(){
- this.gastoTotal = this.listaGasto.reduce((sum, total) => sum + total.importe, 0);
+ this.gastoTotal = this.listaGasto.reduce((sum:number, total:Gasto) => sum + total.importe,0);
+ console.log(this.gastoTotal);
 }
 
 obtenerIngresoTotal(){
-  this.ingresoTotal = this.listaIngreso.reduce((sum, total) => sum + total.importe, 0);
+  this.ingresoTotal = this.listaIngreso.reduce((sum:number, total:Ingreso) => sum + total.importe, 0);
 }
 
 obtenerLabelsRadar(){
   this.labelCategoria = [...new Set(this.listaGasto.map(g => g.categoria))] 
 }
-
+*/
   /* RENDER CHARTS*/ 
   renderPieChart(gastoTotal:number, ingresoTotal:number ,id:any){
     const chart  = new Chart(id,{

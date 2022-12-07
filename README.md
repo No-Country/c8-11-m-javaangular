@@ -38,10 +38,12 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 
 #### Frontend:
 
-* Lenguaje -> Angular 8
-*
-*
-*
+* Lenguaje -> Typescript
+* Angular 13
+* Bootstrap 5
+* Libreria de gráficas -> [Charts.js](https://www.chartjs.org/)
+* Libreria de alertas -> [SweetAlerts2](https://sweetalert2.github.io/)
+* Fonts -> [Google Fonts](https://fonts.google.com/)
 
 #### Diseño UI-UX:
 

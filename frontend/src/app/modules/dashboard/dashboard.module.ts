@@ -25,9 +25,6 @@ import { FiltrarComponent } from './componentes/filtrar/filtrar.component';
 import { FiltrarIngresoComponent } from './componentes/filtrar-ingreso/filtrar-ingreso.component';
 import { PaginacionPipe } from './pipes/paginacion.pipe';
 import { PaginacionIngresoPipe } from './pipes/paginacion-ingreso.pipe';
-import { PruebaComponent } from './pages/prueba/prueba.component';
-import { GastosService } from './services/gastos.service';
-import { PruebaService } from './services/prueba.service';
 import { RecargaDirective } from './directives/recarga.directive';
 import { GastoPipe } from './pipes/gasto.pipe';
 import { IngresoPipe } from './pipes/ingreso.pipe';
@@ -48,7 +45,6 @@ import { IngresoPipe } from './pipes/ingreso.pipe';
     FiltrarIngresoComponent,
     PaginacionPipe,
     PaginacionIngresoPipe,
-    PruebaComponent,
     RecargaDirective,
     GastoPipe,
     IngresoPipe
@@ -63,7 +59,7 @@ import { IngresoPipe } from './pipes/ingreso.pipe';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [interceptorProvider,GastosService, PruebaService],
+providers: [interceptorProvider],
   exports: [
   ]
 })

@@ -284,3 +284,26 @@ app-ordenar {
   color:#5D21D2
 }
 
+
+.categorias {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: space-around;
+}
+.item-cate{
+  margin:10px;
+}
+.item-cate label {
+  width:100px
+}
+.restablecer{
+  padding-bottom:10px
+}
+.restablecer a {
+  font-size:1rem;
+  cursor:pointer
+}
+.restablecer a:hover {
+  color: #5D21D2
+}
+

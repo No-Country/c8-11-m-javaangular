@@ -8,8 +8,8 @@ import { ConfiguracionComponent } from './pages/configuracion/configuracion.comp
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { GastosComponent } from './pages/gastos/gastos.component';
 import { GeneralComponent } from './pages/general/general.component';
-import { IngresosComponent } from './pages/ingresos/ingresos.component';
-import { PruebaComponent } from './pages/prueba/prueba.component';
+import { IngresosComponent } from './pages/ingresos/ingresos.component';/*
+import { PruebaComponent } from './pages/prueba/prueba.component';*/
 
 const routes: Routes = [
   {
@@ -20,8 +20,8 @@ const routes: Routes = [
       { path: 'general', component: GeneralComponent },
       { path: 'ingresos', component: IngresosComponent },
       { path: 'estadisticas', component: EstadisticasComponent },
-      { path: 'configuracion', component: ConfiguracionComponent },
-      { path: 'prueba', component: PruebaComponent },
+      { path: 'configuracion', component: ConfiguracionComponent },/*
+      { path: 'prueba', component: PruebaComponent },*/
       { path: '**', redirectTo: 'general'}
     ]
   }

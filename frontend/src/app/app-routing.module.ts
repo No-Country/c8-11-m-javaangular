@@ -10,15 +10,15 @@ import { GeneralComponent } from './modules/dashboard/pages/general/general.comp
 import { IngresosComponent } from './modules/dashboard/pages/ingresos/ingresos.component';
 import { EstadisticasComponent } from './modules/dashboard/pages/estadisticas/estadisticas.component';
 import { ConfiguracionComponent } from './modules/dashboard/pages/configuracion/configuracion.component';
-import { PruebaComponent } from './modules/dashboard/pages/prueba/prueba.component';
+/*import { PruebaComponent } from './modules/dashboard/pages/prueba/prueba.component';*/
 import { GuardGuard } from './guards/guard.guard';
 
 const routes: Routes = [
   {path:'landing', component:LandingComponent},
   {path:'hoja', component:HojaComponent},
   {path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)},
-  /*{ path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [GuardGuard]},
-  */
+  { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [GuardGuard]},
+  /*
   {
     path: 'dashboard',
     component: TemplateDashboardComponent,
@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'prueba', component: PruebaComponent },
       { path: '**', redirectTo: 'general'}
     ]
-  },
+  },*/
   { path: '**', redirectTo: 'landing'}
 ];
 

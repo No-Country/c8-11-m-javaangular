@@ -6,24 +6,30 @@ import { Gasto } from '../../model/gasto';
 import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
 import { Location } from '@angular/common'
-import { Observable, Subject, subscribeOn } from 'rxjs';
+import { Observable, Subject, subscribeOn, Subscription } from 'rxjs';
+import { HojaService } from 'src/app/services/hoja.service';
 
 @Component({
   selector: 'app-gastos',
   templateUrl: './gastos.component.html',
-  styleUrls: ['./gastos.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./gastos.component.css']
 })
 export class GastosComponent implements OnInit {
 
-  listaGastos:Gasto[]=[];
+  listaGastos:any;
+  respuesta:object={};
+  spinner:boolean=true;
+  mostrarLista:boolean=false;
 
   // Harcodeo - Back
   hardcodeo:boolean=false;
 
   fechaActual:any;
   // Vistas Tabla/Tarjeta
-  active:boolean=true;  
+  active:boolean=true; 
+  
+  mensaje:string="";
+  mostrarMensaje:boolean=false;
 
   // CRUD
   nuevoGasto:Gasto[]=[];
@@ -37,14 +43,15 @@ export class GastosComponent implements OnInit {
   // Formularios
   addGastoForm:FormGroup;
   editGastoForm:FormGroup;
+  filtrarGastoForm:FormGroup;
 
   form:FormGroup | undefined;
 
   lista:Gasto[]=[];
   datos:any;  
   listaG:Gasto[]|any;
-  listaGastos$:Observable<any>=new Observable<any>();
-
+  
+  datosos:any;
   lista2Gastos = [
     {
         fecha:new Date("2022-1-4"),
@@ -276,6 +283,10 @@ export class GastosComponent implements OnInit {
     }
   ];
   gato:Gasto[]=[];
+  
+  tieneGastos:any;
+
+  listaGastos$:Subscription;
 
   // Recargar Page
   recargar:number=0;
@@ -316,45 +327,53 @@ export class GastosComponent implements OnInit {
         esIncluida:true
       }
     )
+    // Formulario Filtrar Gasto
+    this.filtrarGastoForm = this.formBuilder.group(
+      {      
+        fechaDesde: ['', [Validators.required]],
+        fechaHasta: ['',[Validators.required]],
+        importeMinimo:['',[Validators.required,Validators.min(0)]],
+        importeMaximo:['',[Validators.required,Validators.min(0)]],
+        selectServicios:0,
+        selectAlimentos:0,
+        selectMovilidad:0,
+        selectVarios:0,
+      }
+    )
+
+    this.listaGastos$ = this.gastoService.obtenerGastos().subscribe(
+      (data) => this.listaGastos = data.response
+    )
+    this.spinner=true;
   }
   
-  ngOnInit(): void {    
-    const token = sessionStorage.getItem("AuthToken");
-    if (token == "Usuario Harcodeado"){
-      this.lista = this.lista2Gastos;
-      this.hardcodeo=true;
-    } else {
-      this.hardcodeo=false;
+  ngOnInit(): void {
       this.obtenerDatos();
-    }         
-  }
-
-
-  recargate(){
-    this.recargar=this.recargar+1;
-    this.active=true;
-  }
-  scrollTo() {
-    window.location.hash = '';
-    window.location.hash = "tuix";   
   }
 
 
   // Obtener Gastos
   obtenerDatos(){
-    this.gastoService.obtenerGastos().subscribe(
-      (data) =>{
-        this.listaGastos = data.response;      
-        console.log(this.listaGastos);          
-      },
-      (error) => {
+    this.gastoService.obtenerGastos().subscribe({
+      next: (data)=>{       
+        this.listaGastos$ =  data.response;
+        this.listaGastos = data.response;
+      },    
+      error: (error)=> {
         console.error("Los datos del servidor no llegan");
         console.log(error);
+        this.mensaje = "Por algún motivo no se pueden cargar los datos";
+        this.mostrarMensaje=true;        
       },
-      ()=>{
-        
-    })    
+      complete: ()=>{
+        console.log("Complete")
+      }
+  });  
+
   }
+
+
+  
   
   /*==================================================== */
   /*--------------Modales Metodos CRUD-------------------*/
@@ -366,7 +385,7 @@ export class GastosComponent implements OnInit {
     console.log("NUEVO  GASTO:");
     console.log(nuevoGasto);
     // Reseteando el Formulario
-    this.addGastoForm = this.formBuilder.group(
+    /*this.addGastoForm = this.formBuilder.group(
       {      
         fecha: [''],
         categoriaId: [''],
@@ -375,7 +394,7 @@ export class GastosComponent implements OnInit {
         monedaId:1,
         esIncluida:true
       }
-    )
+    )*/
     // Servicio Gasto Service  
     this.gastoService.guardarGasto(nuevoGasto).subscribe(
       (data)=>{},
@@ -384,7 +403,8 @@ export class GastosComponent implements OnInit {
       },
       ()=>{
         this.obtenerDatos();
-        console.log("Gasto creado")
+        this.recargar=this.recargar+1;
+        location.reload();
       }
     )
   }
@@ -413,17 +433,11 @@ export class GastosComponent implements OnInit {
         break;
     }   
     
-    /* Mostrar datos en el modal */
-    this.editGastoForm = this.formBuilder.group(
-      {      
-        fecha: [editableGasto.fecha],
-        categoriaId: [categoriaId],
-        importe:[editableGasto.importe],
-        descripcion:[editableGasto.descripcion],
-        monedaId:1,
-        esIncluida:true
-      }
-    );
+    /* Mostrar datos en el modal */    
+    this.editGastoForm.controls['fecha'].setValue(editableGasto.fecha);
+    this.editGastoForm.controls['categoriaId'].setValue(categoriaId);
+    this.editGastoForm.controls['importe'].setValue(editableGasto.importe);
+    this.editGastoForm.controls['descripcion'].setValue(editableGasto.descripcion);
     console.log(this.editGastoForm.value);
   }
 
@@ -505,16 +519,7 @@ export class GastosComponent implements OnInit {
   }
   clearValidatorsAdd() {
     const hoy = this.fechaService.actual();
-    this.addGastoForm = this.formBuilder.group(
-      {      
-        fecha: [hoy],
-        categoriaId: [''],
-        importe:[''],
-        descripcion:[''],
-        monedaId:1,
-        esIncluida:true
-      }
-    );
+    this.addGastoForm.controls['fecha'].setValue(hoy);
   }
   // Propiedades Editar Ingreso
   get FechaEdit() { 
@@ -533,10 +538,7 @@ export class GastosComponent implements OnInit {
     this.editGastoForm.reset(this.editGastoForm.value);
   }
 
-  filtrar(){
-    console.log("se esta filtrando");
-    this.gastoService.filtrarGastos()
-  }
+  
 
   // Funciones Auxiliares
   invertir(miFecha:string){
@@ -557,4 +559,42 @@ export class GastosComponent implements OnInit {
     console.log("Restableciendo valores")
   }
 
+  filtrar(){
+    console.log("se esta filtrando");/*
+    this.gastoService.filtrarGastos()*/
+    const filtrarGasto = this.filtrarGastoForm.value;
+    console.log("NUEVO  GASTO:");
+    console.log(filtrarGasto);
+  }
+
+  /*
+guardarGasto(){
+    // Almacenando el Formulario
+    
+    // Reseteando el Formulario
+    this.addGastoForm = this.formBuilder.group(
+      {      
+        fecha: [''],
+        categoriaId: [''],
+        importe:[''],
+        descripcion:[''],
+        monedaId:1,
+        esIncluida:true
+      }
+    )
+    // Servicio Gasto Service  
+    this.gastoService.guardarGasto(nuevoGasto).subscribe(
+      (data)=>{},
+      (error) => {
+        alert("Algo ha fallado: " + error);
+      },
+      ()=>{
+        this.obtenerDatos();
+        this.recargar=this.recargar+1;
+        location.reload();
+      }
+    )
+  }
+
+*/
 }

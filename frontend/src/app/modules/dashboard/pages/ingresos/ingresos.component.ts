@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Ingreso } from '../../model/ingreso';
 import { FechaService } from '../../services/fecha.service';
 import { IngresosService } from '../../services/ingresos.service';
@@ -13,7 +14,7 @@ import { IngresosService } from '../../services/ingresos.service';
 })
 export class IngresosComponent implements OnInit {
 
-  @Input()listaIngreso:any[]=[];
+  listaIngreso:any;
   hardcodeo:boolean=false;
   active:boolean=true;
 
@@ -24,6 +25,8 @@ export class IngresosComponent implements OnInit {
 
   addIngresoForm:FormGroup;
   editIngresoForm:FormGroup;
+
+  listaIngreso$:Subscription;
 
   
   lista2Ingresos:Ingreso[]=[];
@@ -181,35 +184,32 @@ export class IngresosComponent implements OnInit {
         esIncluida:true
       }
     )
+    this.listaIngreso$ = this.ingresoService.obtenerIngresos().subscribe(
+      (data) => this.listaIngreso = data.response
+    )
   }
 
   ngOnInit(): void {
-    const token = sessionStorage.getItem("AuthToken");
-    if (token == "Usuario Harcodeado"){
-      this.hardcodeo=true;
-      this.lista2Ingresos = this.listilla;
-    } else {
-      this.obtenerDatos();
-      this.hardcodeo=false;
-    }         
-  }
+    this.obtenerDatos()
+  }         
+  
 
   obtenerDatos(){
-    this.ingresoService.obtenerIngresos().subscribe(
-      (data) =>{
-        this.listaIngreso=data.response;
-        console.log(this.listaIngreso);
-        setTimeout(this.recargate,4000)
+    this.ingresoService.obtenerIngresos().subscribe({
+      next: (data)=>{       
+        this.listaIngreso$ =  data.response;
+        this.listaIngreso = data.response;
+      },    
+      error: (error)=> {
+        console.error("Los datos del servidor no llegan");
+        console.log(error);     
       },
-      (error)=>{
-        console.log("La data no llega");
-        console.error(error);
-      },
-      ()=>{
-        console.log("Datos cargados");
-        console.log(this.listaIngreso);
-        this.recargar=this.recargar+1;
-      });
+      complete: ()=>{
+        console.log("Complete")
+      }
+  }); 
+
+  
   }
 
   /*============================================================*/
@@ -242,6 +242,7 @@ export class IngresosComponent implements OnInit {
       ()=>{
         this.obtenerDatos();
         console.log("Ingreso creado");
+        location.reload();
       }
     ) 
   }
@@ -255,16 +256,10 @@ export class IngresosComponent implements OnInit {
     console.log(incomes);
   
   // Cargar datos en el modal
-  this.editIngresoForm = this.formBuilder.group(
-    {     
-      fecha: [editableIngreso.fecha],
-      tipo: [editableIngreso.categoria],
-      importe:[editableIngreso.importe],
-      descripcion:[editableIngreso.descripcion],
-      monedaId:1,
-      esIncluida:true
-    }
-  )
+    this.editIngresoForm.controls['fecha'].setValue(editableIngreso.fecha);
+    this.editIngresoForm.controls['tipo'].setValue(editableIngreso.categoria);
+    this.editIngresoForm.controls['importe'].setValue(editableIngreso.importe);
+    this.editIngresoForm.controls['descripcion'].setValue(editableIngreso.descripcion);
   }
   actualizarIngreso(){
     const nuevoIngreso = this.editIngresoForm.value;
@@ -343,32 +338,23 @@ export class IngresosComponent implements OnInit {
   }
   clearValidatorsAdd() {
     const hoy = this.fechaService.actual();
-    this.addIngresoForm = this.formBuilder.group(
-      {      
-        fecha: [hoy],
-        tipo: [''],
-        importe:[''],
-        descripcion:[''],
-        monedaId:1,
-        esIncluida:true
-      }
-    );
+    this.addIngresoForm.controls['fecha'].setValue(hoy);
   }
   // Propiedades Editar Ingreso
   get FechaEdit() { 
-    return this.addIngresoForm.get('fecha'); 
+    return this.editIngresoForm.get('fecha'); 
   }
   get CategoriaEdit() {
-    return this.addIngresoForm.get('tipo')
+    return this.editIngresoForm.get('tipo')
   }
   get ImporteEdit() { 
-    return this.addIngresoForm.get('importe'); 
+    return this.editIngresoForm.get('importe'); 
   }
   get DescripcionEdit() {
-    return this.addIngresoForm.get('descripcion')
+    return this.editIngresoForm.get('descripcion')
   }
   clearValidatorsEdit() {
-    this.addIngresoForm.reset(this.addIngresoForm.value);
+    this.editIngresoForm.reset(this.editIngresoForm.value);
   }
 
   // Navegacion
@@ -388,5 +374,12 @@ export class IngresosComponent implements OnInit {
   // Recargar
   recargate(){
     this.recargar=this.recargar+1;
+  }
+
+  filtrar(){
+    console.log("Filtro ejecutado")
+  }
+  restablecer(){
+    console.log("Restableciendo valores")
   }
 }

@@ -36,18 +36,19 @@ export class RegistroComponent implements OnInit {
   }
 
   onRegister() {
-    // TODO: Use EventEmitter with form value
     this.nuevoUsuario=this.registroForm.value;
     console.log(this.nuevoUsuario);
-    this.authService.nuevo(this.nuevoUsuario).subscribe(      
-      data => {
+    this.authService.nuevo(this.nuevoUsuario).subscribe({      
+      next:(data) => {
         console.log(data);
         this.usuarioRegistrado();
       },
-      err => {
-        this.registroIncorrecto();        
-      }
-    )}
+      error:(error) => {
+        this.registroIncorrecto();
+        console.log(error)        
+      },
+      complete:()=>{}
+    })}
 
     usuarioRegistrado() {
       Swal.fire({

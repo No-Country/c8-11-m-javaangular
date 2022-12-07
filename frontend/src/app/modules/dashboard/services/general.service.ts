@@ -14,8 +14,8 @@ export class GeneralService {
   URL = environment.baseUrl + "expenses/";
   
   //OBTENER GASTOS
-  public obtenerDatos():Observable<Movimiento[]>{
-    return this.http.get<Movimiento[]>(this.URL + "user/home")    
+  public obtenerDatos():Observable<any>{
+    return this.http.get<any>(this.URL + "user/home")    
   }
 
   //TODO:Buscar metodo

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { Observable, Subscription } from 'rxjs';
+import { FechaService } from '../../services/fecha.service';
 import { GastosService } from '../../services/gastos.service';
 import { GeneralService } from '../../services/general.service';
 Chart.register(...registerables);
@@ -12,35 +14,74 @@ Chart.register(...registerables);
 export class GeneralComponent implements OnInit {
 
   nombreUsuario:string="Usuario";
+  
+  infoGeneral$:Subscription;
+  infoGeneral:any;
+  hoy:any;
+  balanceIngreso:any;
+  balanceGasto:any;/*
+  balanceGastos$:Subscription;*/
 
-  constructor(private generalService:GeneralService, private gastoService: GastosService) { }
+  constructor(private generalService:GeneralService, 
+              private gastoService: GastosService,
+              private fechaservice:FechaService) {
+        
+      this.infoGeneral$ = this.generalService.obtenerDatos().subscribe(
+        (data)=>{this.infoGeneral$=data.response.firstName;
+          console.log(this.infoGeneral$)
+        }        
+      )
+  }
+      
+  
 
   ngOnInit(): void {
     this.renderChart('myChart');
-    const nombreishon = sessionStorage.getItem('UserName');
-    if (nombreishon){
-      this.nombreUsuario=nombreishon
+    const userName = sessionStorage.getItem('UserName');
+    if (userName){
+      this.nombreUsuario=userName
     }
+    this.infoGeneral$ = this.generalService.obtenerDatos().subscribe(
+      (data)=>{this.infoGeneral$=data.response.firstName;
+        console.log(this.infoGeneral$)
+      }        
+    )
+    console.log(this.balanceIngreso);
     this.obtenerMovimientos();
-    this.obtenerGastos();
+    /*this.obtenerGastos();*/
+    this.hoy = this.fechaservice.fecha();
   }
 
-  obtenerMovimientos(){
-    this.generalService.obtenerDatos().subscribe(data =>{
-      console.log(data)
-    });
+  ngOnChanges(changes:SimpleChanges){
+    this.infoGeneral$ = this.generalService.obtenerDatos().subscribe(
+      (data)=>{this.infoGeneral$=data.response.firstName;
+        console.log(this.infoGeneral$)
+      }        
+    )
   }
+
+  obtenerMovimientos(){         
+      this.infoGeneral = this.generalService.obtenerDatos().subscribe({
+        next:(data) =>{this.infoGeneral=data.response},
+        error:(error)=>{console.error(error)}
+      });
+  }
+
+
   obtenerGastos(){
-    this.gastoService.obtenerGastos().subscribe(
-      data =>{
+    this.gastoService.obtenerGastos().subscribe({
+      next: (data)=>{       
         const listaGastos = JSON.stringify(data.response);
-        sessionStorage.setItem("listaGastos",listaGastos);        
-      },    
-      err => {
+        sessionStorage.setItem("listaGastos",listaGastos);
+      },   
+      error: (error)=> {
         console.error("Los datos del servidor no llegan");
-        console.log(err);
+        console.log(error);      
+      },
+      complete: ()=>{
+        console.log("Complete")
       }
-    );
+    });    
   }
 
 

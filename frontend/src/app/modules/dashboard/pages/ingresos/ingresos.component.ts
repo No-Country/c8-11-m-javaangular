@@ -256,16 +256,10 @@ export class IngresosComponent implements OnInit {
     console.log(incomes);
   
   // Cargar datos en el modal
-  this.editIngresoForm = this.formBuilder.group(
-    {     
-      fecha: [editableIngreso.fecha],
-      tipo: [editableIngreso.categoria],
-      importe:[editableIngreso.importe],
-      descripcion:[editableIngreso.descripcion],
-      monedaId:1,
-      esIncluida:true
-    }
-  )
+    this.editIngresoForm.controls['fecha'].setValue(editableIngreso.fecha);
+    this.editIngresoForm.controls['tipo'].setValue(editableIngreso.categoria);
+    this.editIngresoForm.controls['importe'].setValue(editableIngreso.importe);
+    this.editIngresoForm.controls['descripcion'].setValue(editableIngreso.descripcion);
   }
   actualizarIngreso(){
     const nuevoIngreso = this.editIngresoForm.value;
@@ -344,32 +338,23 @@ export class IngresosComponent implements OnInit {
   }
   clearValidatorsAdd() {
     const hoy = this.fechaService.actual();
-    this.addIngresoForm = this.formBuilder.group(
-      {      
-        fecha: [hoy],
-        tipo: [''],
-        importe:[''],
-        descripcion:[''],
-        monedaId:1,
-        esIncluida:true
-      }
-    );
+    this.addIngresoForm.controls['fecha'].setValue(hoy);
   }
   // Propiedades Editar Ingreso
   get FechaEdit() { 
-    return this.addIngresoForm.get('fecha'); 
+    return this.editIngresoForm.get('fecha'); 
   }
   get CategoriaEdit() {
-    return this.addIngresoForm.get('tipo')
+    return this.editIngresoForm.get('tipo')
   }
   get ImporteEdit() { 
-    return this.addIngresoForm.get('importe'); 
+    return this.editIngresoForm.get('importe'); 
   }
   get DescripcionEdit() {
-    return this.addIngresoForm.get('descripcion')
+    return this.editIngresoForm.get('descripcion')
   }
   clearValidatorsEdit() {
-    this.addIngresoForm.reset(this.addIngresoForm.value);
+    this.editIngresoForm.reset(this.editIngresoForm.value);
   }
 
   // Navegacion

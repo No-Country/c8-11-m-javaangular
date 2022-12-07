@@ -10,41 +10,41 @@
             <div class="selector-left">
                 <button  class="btn btn-orange" data-bs-toggle="modal" data-bs-target="#nuevoGasto" (click)="clearValidatorsAdd()">+ Nuevo Gasto</button>            
             </div> 
-            <!----Selectores y filtros-----> 
-                 
+            <!----ORDENAMIENTO y FILTRO----->                 
             <div *ngIf="listaGastos" class="selector-right">
+
                 <!----ORDENAMIENTO---->
                 <app-ordenar (mensaje)="recibirOrden($event)"></app-ordenar>
-                <!-----
-                <app-filtrar></app-filtrar>--->
+
                 <!-------FILTRO------->
-                
                 <div class="dropdown show  d-inline-block">
+                    <a class="btn btn-light"><i class="bi bi-text-left"></i> Filtrar</a>
+                    <!----                    
                     <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="bi bi-text-left"></i> Filtrar
-                    </a>              
+                    </a>                              
                     <div id="tobiron" class="dropdown-menu bg-light" aria-labelledby="dropdownMenuLink">
                         <div class="text-center titulo-filtro">
                             <p class="mt-2"><b>FILTROS</b></p>
                         </div>
                         <hr>                   
-                        <form (ngSubmit)="filtrar()">
+                        <form [formGroup]="filtrarGastoForm" (ngSubmit)="filtrar()">
                             <div class="form-group text-center">
                                 <label for="">Desde</label><br>
-                                <input type="date" style="width:150px">                
+                                <input type="date" formControlName="fechaDesde" style="width:150px">                
                             </div>
                             <div class="form-group text-center">
                                 <label for="">Hasta</label><br>
-                                <input type="date" style="width:150px">
+                                <input type="date" formControlName="fechaHasta" style="width:150px">
                             </div>
                             <hr>
                             <div class="form-group text-center">
                                 <label for="">Importe mínimo</label><br>
-                                <input type="number" style="width:150px">
+                                <input type="number" formControlName="importeMinimo" style="width:150px">
                             </div>
                             <div class="form-group text-center">
                                 <label for="">Importe máximo</label><br>
-                                <input type="number" style="width:150px">
+                                <input type="number" formControlName="importeMaximo" style="width:150px">
                             </div>
                             <hr>
                             <div class="text-center">
@@ -52,19 +52,19 @@
                             </div>                       
                             <div class="from-group text-center categorias">                            
                                 <div class="item-cate">                                
-                                    <input type="checkbox" class="btn-check m-2" name="options-servicios" id="options-servicios" autocomplete="off">
+                                    <input type="checkbox" class="btn-check m-2" formControlName="selectServicios" name="options-servicios" id="options-servicios" autocomplete="off">
                                     <label class="btn btn-outline-primary" for="options-servicios">Servicios</label>
                                 </div>
                                 <div class="item-cate">                                
-                                    <input type="checkbox" class="btn-check m-2" name="options-alimentos" id="options-alimentos" autocomplete="off">
+                                    <input type="checkbox" class="btn-check m-2" formControlName="selectAlimentos" name="options-alimentos" id="options-alimentos" autocomplete="off">
                                     <label class="btn btn-outline-warning" for="options-alimentos">Alimentos</label>
                                 </div>
                                 <div class="item-cate">                                
-                                    <input type="checkbox" class="btn-check m-2" name="options-movilidad" id="options-movilidad" autocomplete="off">
+                                    <input type="checkbox" class="btn-check m-2" formControlName="selectMovilidad" name="options-movilidad" id="options-movilidad" autocomplete="off">
                                     <label class="btn btn-outline-danger" for="options-movilidad">Movilidad</label>
                                 </div>
                                 <div class="item-cate">
-                                    <input type="checkbox" class="btn-check m-2" name="options-varios" id="options-varios" autocomplete="off">
+                                    <input type="checkbox" class="btn-check m-2" formControlName="selectVarios" name="options-varios" id="options-varios" autocomplete="off">
                                     <label class="btn btn-outline-success" for="options-varios">Varios</label>
                                 </div>                           
                             </div>
@@ -76,8 +76,8 @@
                             <div class="restablecer text-center">
                                 <a (click)="restablecer()" data-toggle="dropdown">Restablecer valores</a>
                             </div>                        
-                        </form>                
-                    </div>
+                        </form>               
+                    </div>--->
                 </div>
     
                 <!----

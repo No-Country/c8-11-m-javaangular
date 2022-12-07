@@ -44,26 +44,28 @@ export class LoginComponent implements OnInit {
       this.tokenService.setUserName("Usuario Harcodeado");
       this.router.navigate(['/dashboard'])
     } else {
-    console.log("El usuario tiene estos datos:");
-    console.log(this.loginUsuario);
-    console.log("Se llama al servicio");
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    this.authService.login(this.loginUsuario,headers).subscribe(      
-      data => {
-        console.log(data);
-        this.isLogged = true;     
-        this.tokenService.setToken(data.response.jwt);
-        this.tokenService.setUserName(data.response.firstName);
-        this.router.navigate(['/dashboard']);
-      },
-      err => {
-        this.isLogged = false;
-        console.error("JO JO JO");
-        this.usuarioIncorrecto();
-      }
-    );}
+      console.log("El usuario tiene estos datos:");
+      console.log(this.loginUsuario);
+      console.log("Se llama al servicio");
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+      this.authService.login(this.loginUsuario,headers).subscribe({      
+        next:(data) => {
+          console.log(data);
+          this.isLogged = true;     
+          this.tokenService.setToken(data.response.jwt);
+          this.tokenService.setUserName(data.response.firstName);
+          this.router.navigate(['/dashboard']);
+        },
+        error:(error) => {
+          this.isLogged = false;
+          console.error("JO JO JO");
+          this.usuarioIncorrecto();
+        },
+        complete:()=>{}
+      });
+    }
   }   
   
   

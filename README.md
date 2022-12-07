@@ -47,7 +47,7 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 
 #### Diseño UI-UX:
 
-* Editor/Generador de prototipos -> [Figma](https://www.figma.com/)
+* Diseño de interfaz de usuario y prototipado -> [Figma](https://www.figma.com/)
 
 #### Tests:
 

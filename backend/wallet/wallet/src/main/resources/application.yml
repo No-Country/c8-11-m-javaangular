@@ -58,6 +58,3 @@ api.header-field.fixer: apikey
 api.key.sendgrid: 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
 api.template.welcome.id: d-01cefce8cbfe4d5ebb58e8c0fec7fef3
 app.email: lucaslopezd@hotmail.com
-app.type.email: text/html
-app.subject.email: CHARTA te da la Bienvenida!!
-app.content.message.email: Email de Bienvenida

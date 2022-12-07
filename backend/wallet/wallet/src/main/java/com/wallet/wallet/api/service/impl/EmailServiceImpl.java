@@ -1,5 +1,6 @@
 package com.wallet.wallet.api.service.impl;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +11,6 @@ import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import com.wallet.wallet.api.service.IEmailService;
@@ -33,42 +33,30 @@ public class EmailServiceImpl implements IEmailService {
     @Value("${app.email}")
     private String APP_EMAIL;
 
-    @Value("${app.subject.email}")
-    private String SUBJECT;
-
-    @Value("${app.type.email}")
-    private String TYPE;
-
-    @Value("${app.content.message.email}")
-    private String CONTENT_MESSAGE;
-
     @Override
     public void sendEmail(String toEmail, String username) {
+
+        Email from = new Email(APP_EMAIL);
+        Email to = new Email(toEmail);
+        Mail mail = new Mail();
+        Personalization personalization = new Personalization();
+        personalization.addTo(to);
+        personalization.addDynamicTemplateData("username", username);
+        mail.setFrom(from);        
+        mail.addPersonalization(personalization);
+        mail.setTemplateId(TEMPLATE_ID);
+
+        Request request = new Request();
+
         try {
-            Request request = new Request();
             request.setMethod(Method.POST);
             request.setEndpoint(ENDPOINT);
-            request.setBody(setTemplate(toEmail, TEMPLATE_ID, username).build());
-
+            request.setBody(mail.build());
             sendGrid.api(request);
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             throw new RuntimeException(messenger.getMessage(EMessageCode.ERROR_SENDING_EMAIL.name(),
                     new Object[] { toEmail }, Locale.getDefault()));
         }
     }
-
-    private Mail setTemplate(String toEmail, String templateId, String username) {
-        Mail mail = new Mail(new Email(APP_EMAIL),
-                SUBJECT,
-                new Email(toEmail),
-                new Content(TYPE, CONTENT_MESSAGE));
-
-        Personalization personalization = new Personalization();
-                personalization.addDynamicTemplateData("username", username);
-
-        mail.setTemplateId(TEMPLATE_ID);
-
-        return mail;
-    }
-
 }

@@ -141,81 +141,42 @@
  <div class="container px-4 py-5" id="conocenos">
       <span>| Conócenos</span>
       <h2 class="pb-2 ">Conoce a nuestro equipo</h2>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#bootstrap" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
+      </div>
+  
+      <!--Tarjetas de los participantes-->
+    <div class="card-group container">
+      <div *ngFor="let participantes of listaParticipantes2" class="col-md-3 align-items-center" >
+        <div *ngIf="participantes.description != null">
+      <div class="card" >
+        <div style="height: 400px;">
+        <img class="card-img-top imagen" src="{{participantes.image}}" alt="Card image cap">
+      </div>
+        <div class="card-body">
+          <h5 class="card-title" style="color: black;">{{participantes.nameComplete}}</h5>
+          <p class="card-text">{{participantes.description}}</p>
+          <p>
+            
+            <a href="{{participantes.linkedIn}}" target="_blank" *ngIf="participantes.linkedIn != null">
+              <i class="bi bi-linkedin" style="margin-right: 10px; font-size: 2rem;" ></i></a>
+
+            <a href="{{participantes.github}}" target="_blank" *ngIf="participantes.github != null">
+              <i class="bi bi-github " style="font-size: 2rem;"></i></a>
+            
+            <a href="{{participantes.behance}}" target="_blank" *ngIf="participantes.behance != null">
+              <i class="bi bi-behance" style="font-size: 2rem; margin-left: 10px;"></i>
+            </a>
+          
+          </p>
         </div>
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#cpu-fill" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
-        </div>
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#calendar3" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
-        </div>
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#home" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
-        </div>
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#speedometer2" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
-        </div>
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#toggles2" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
-        </div>
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#geo-fill" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
-        </div>
-        <div class="col d-flex align-items-start">
-          <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em">
-            <use xlink:href="#tools" />
-          </svg>
-          <div>
-            <h3 class="fw-bold mb-0 fs-4">Featured title</h3>
-            <p>Paragraph of text beneath the heading to explain the heading.</p>
-          </div>
+        <div class="card-footer">
+          <small class="text-muted">{{participantes.role}}</small>
         </div>
       </div>
-</div>
+    </div>
+    </div>
+      
+      </div>
+    
 
 <div class="container">
   

@@ -56,6 +56,8 @@ export class LoginComponent implements OnInit {
           this.isLogged = true;     
           this.tokenService.setToken(data.response.jwt);
           this.tokenService.setUserName(data.response.firstName);
+          this.tokenService.setLastName(data.response.lastName);
+          this.tokenService.setUserEmail(data.response.email);
           this.router.navigate(['/dashboard']);
         },
         error:(error) => {

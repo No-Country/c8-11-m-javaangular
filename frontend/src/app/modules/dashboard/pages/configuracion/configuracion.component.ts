@@ -17,9 +17,9 @@ export class ConfiguracionComponent implements OnInit {
   constructor() { }
   
   ngOnInit(): void {
-    const nombre = sessionStorage.getItem("firstName");
-    const apellido = sessionStorage.getItem("lastName");
-    const email = sessionStorage.getItem("email");
+    const nombre = sessionStorage.getItem("FirstName");
+    const apellido = sessionStorage.getItem("LastName");
+    const email = sessionStorage.getItem("UserEmail");
     if (nombre !==null){
       this.firstName=nombre
     }

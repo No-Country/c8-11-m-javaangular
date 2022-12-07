@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/swagger-ui/**", "/swagger-resources/**", "/v3/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/aboutUs/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/users/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/**", "/currencies/saveAll").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)

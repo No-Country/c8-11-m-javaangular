@@ -35,6 +35,11 @@ public class CurrencyServiceImpl implements ICurrencyService{
             } 
         }
     }
+
+    @Override
+    public List<Currency> saveAll(List<CurrencyDto> currencies) {
+        return repository.saveAll(mapper.toCurrencyList(currencies));
+    }
     
 
 }

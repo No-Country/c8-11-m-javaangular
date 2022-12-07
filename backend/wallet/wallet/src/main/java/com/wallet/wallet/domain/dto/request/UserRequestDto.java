@@ -1,6 +1,5 @@
 package com.wallet.wallet.domain.dto.request;
 
-import com.wallet.wallet.domain.model.Role;
 import lombok.Data;
 
 @Data

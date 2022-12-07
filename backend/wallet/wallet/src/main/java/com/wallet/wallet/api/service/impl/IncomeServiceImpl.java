@@ -6,12 +6,10 @@ import com.wallet.wallet.api.service.IUserService;
 import com.wallet.wallet.api.service.generic.GenericServiceImpl;
 import com.wallet.wallet.domain.dto.request.IncomeRequestDto;
 import com.wallet.wallet.domain.dto.request.IncomeUpdateDto;
-import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
 import com.wallet.wallet.domain.dto.response.IncomeResponseDto;
 import com.wallet.wallet.domain.enums.EIncome;
 import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.mapper.IncomeMapper;
-import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.Income;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.IIncomeRepository;
@@ -25,11 +23,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.wallet.wallet.domain.enums.EMessageCode.USER_UNAUTHORIZED;
 

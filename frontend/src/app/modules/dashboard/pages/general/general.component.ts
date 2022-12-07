@@ -22,6 +22,69 @@ export class GeneralComponent implements OnInit {
   balanceGasto:any;/*
   balanceGastos$:Subscription;*/
 
+  listaMovimientos = [
+    {
+      fecha:new Date('2022-12-7'),
+      categoria:'Anual',
+      descripcion:'Acciones en CHARTA',
+      importe:2500000
+    },   
+    {
+        fecha:new Date("2022-12-6"),
+        categoria:'Servicios',
+        descripcion:'Electricidad',
+        importe:3000
+    },
+    {
+        fecha:new Date("2022-12-4"),
+        categoria:'Alimentos',
+        descripcion:'Verduleria',
+        importe:5000
+    },
+    {
+      fecha:new Date('2022-12-3'),
+      categoria:'Mensual',
+      descripcion:'Sueldo',
+      importe:150000
+    },
+    {
+        fecha:new Date("2022-12-3"),
+        categoria:'Movilidad',
+        descripcion:'Arreglo Auto',
+        importe:20000
+    },
+    {
+      fecha:new Date('2022-12-3'),
+      categoria:'Diario',
+      descripcion:'Acciones en twitter',
+      importe:300
+    },
+    {
+        fecha:new Date("2022-12-2"),
+        categoria:'Alimentos',
+        descripcion:'Supermercado',
+        importe:8500
+    },
+    {
+        fecha:new Date("2022-12-2"),
+        categoria:'Varios',
+        descripcion:'Ropa Super Cool',
+        importe:4500
+    },
+    {
+        fecha:new Date("2022-12-1"),
+        categoria:'Servicios',
+        descripcion:'Gas',
+        importe:4000
+    },
+    {
+      fecha:new Date('2022-11-30'),
+      categoria:'Semanal',
+      descripcion:'Ingreso panadería',
+      importe:20000
+    }
+  ];
+
   constructor(private generalService:GeneralService, 
               private gastoService: GastosService,
               private fechaservice:FechaService) {
@@ -115,5 +178,12 @@ export class GeneralComponent implements OnInit {
         }]
       }
     });
-   }
+  }
+
+  editableId(){
+    console.log("Hola")
+  }
+  trashId(){
+    console.log("Hola")
+  }
 }

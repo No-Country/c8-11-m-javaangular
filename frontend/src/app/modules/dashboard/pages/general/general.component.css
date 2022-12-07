@@ -19,3 +19,27 @@ Estilos generales*/
     background-repeat: no-repeat;
     background-position: center;
 }
+
+#fechita {
+  margin-left:50px;
+}
+.colorIngreso {
+  background:rgb(102, 182, 110)
+}
+.colorGasto {
+  background:rgb(245, 246, 138)
+}
+tbody tr {
+  height:20px;
+  font-size: 1rem;
+}
+thead tr {
+  background-color:#FAFAFA;
+  font-size:1rem;
+}
+th {
+  padding:15px
+}
+td {
+  padding:15px
+}

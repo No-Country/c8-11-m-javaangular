@@ -4,8 +4,7 @@ import { SideService } from '../service/side.service';
 @Component({
   selector: 'template-dashboard',
   templateUrl: './template-dashboard.component.html',
-  styleUrls: ['./template-dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./template-dashboard.component.scss']
 })
 export class TemplateDashboardComponent implements OnInit {
   changer:boolean = false;

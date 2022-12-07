@@ -35,13 +35,14 @@ public class EmailServiceImpl implements IEmailService {
 
     @Override
     public void sendEmail(String toEmail, String username) {
+
         Email from = new Email(APP_EMAIL);
         Email to = new Email(toEmail);
         Mail mail = new Mail();
         Personalization personalization = new Personalization();
         personalization.addTo(to);
-        mail.setFrom(from);
         personalization.addDynamicTemplateData("username", username);
+        mail.setFrom(from);        
         mail.addPersonalization(personalization);
         mail.setTemplateId(TEMPLATE_ID);
 
@@ -53,7 +54,7 @@ public class EmailServiceImpl implements IEmailService {
             request.setBody(mail.build());
             sendGrid.api(request);
 
-        } catch (IOException ex) {
+        } catch (IOException e) {
             throw new RuntimeException(messenger.getMessage(EMessageCode.ERROR_SENDING_EMAIL.name(),
                     new Object[] { toEmail }, Locale.getDefault()));
         }

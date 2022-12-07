@@ -15,6 +15,9 @@ public interface IExpenseRepository extends JpaRepository<Expense, Long> {
     @Query("SELECT e FROM Expense e WHERE user.id = ?1 ORDER BY date DESC")
     List<Expense> getAllByUserId(Long userId);
 
+    @Query("SELECT e FROM Expense e WHERE user.id = ?1")
+    List<Expense> getAllByUserId(Long userId, Sort sort);
+
     @Query("SELECT e FROM Expense e WHERE user.id = ?1 AND EXTRACT(MONTH FROM date) = ?2 AND EXTRACT(YEAR FROM date) = ?3 ORDER BY DATE DESC")
     List<Expense> getMonthlyByUserId(Long userId, Integer monthNow, Integer yearNow);
 

@@ -52,6 +52,7 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
     public ExpenseResponseDto save(ExpenseRequestDto expenseRequestDto, String token) {
         Long userId = jwtUtil.extractUserId(token);
         expenseRequestDto.setUserId(userId);
+
         return super.save(expenseRequestDto);
     }
 
@@ -220,7 +221,7 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
         String userCodeCurrency = user.getCurrency().getCodeCurrency();
         Double userValueCurrency = user.getCurrency().getValueDollar();
 
-        List<Expense> expenses = new ArrayList<>();
+        List<Expense> expenses;
 
         if(categoriesId != null && start != null && end != null){
             expenses = convertExpense(expenseRepository.filterByCategoriesAndDate(userId, categoriesId, start, end, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
@@ -228,12 +229,15 @@ public class ExpenseServiceImpl extends GenericServiceImpl<Expense, ExpenseRespo
             expenses = convertExpense(expenseRepository.filterByCategories(userId, categoriesId, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
         } else if(start != null && end != null){
             expenses = convertExpense(expenseRepository.filterByDate(userId, start, end, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
+        }else {
+            expenses = convertExpense(expenseRepository.getAllByUserId(userId, Sort.by(order.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderBy)), userCodeCurrency, userValueCurrency);
         }
 
         if(amountMin != null && amountMax != null){
             for(int i = 0; i < expenses.size(); i++){
                 if(expenses.get(i).getAmount() < amountMin || expenses.get(i).getAmount() > amountMax){
                     expenses.remove(i);
+                    i--;
                 }
             }
         }

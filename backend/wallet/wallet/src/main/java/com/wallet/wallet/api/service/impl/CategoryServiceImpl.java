@@ -9,12 +9,10 @@ import com.wallet.wallet.domain.dto.request.CategoryUpdateDto;
 import com.wallet.wallet.domain.dto.response.CategoryResponseDto;
 import static com.wallet.wallet.domain.enums.EMessageCode.*;
 
-import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
 import com.wallet.wallet.domain.enums.ERole;
 import com.wallet.wallet.domain.mapper.CategoryMapper;
 import com.wallet.wallet.domain.mapper.IMapper;
 import com.wallet.wallet.domain.model.Category;
-import com.wallet.wallet.domain.model.Expense;
 import com.wallet.wallet.domain.model.User;
 import com.wallet.wallet.domain.repository.ICategoryRepository;
 import com.wallet.wallet.handler.exception.UserUnauthorizedException;
@@ -23,7 +21,6 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.context.MessageSource;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

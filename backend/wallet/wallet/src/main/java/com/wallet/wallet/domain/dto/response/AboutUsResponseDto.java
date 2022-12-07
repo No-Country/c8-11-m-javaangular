@@ -1,6 +1,5 @@
 package com.wallet.wallet.domain.dto.response;
 
-import com.wallet.wallet.domain.enums.ERoleAboutUs;
 import lombok.Data;
 
 @Data

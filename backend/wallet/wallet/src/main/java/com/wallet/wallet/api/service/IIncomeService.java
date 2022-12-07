@@ -1,11 +1,8 @@
 package com.wallet.wallet.api.service;
 
 import com.wallet.wallet.api.service.generic.GenericServiceAPI;
-import com.wallet.wallet.domain.dto.request.ExpenseRequestDto;
-import com.wallet.wallet.domain.dto.request.ExpenseUpdateDto;
 import com.wallet.wallet.domain.dto.request.IncomeRequestDto;
 import com.wallet.wallet.domain.dto.request.IncomeUpdateDto;
-import com.wallet.wallet.domain.dto.response.ExpenseResponseDto;
 import com.wallet.wallet.domain.dto.response.IncomeResponseDto;
 import com.wallet.wallet.domain.enums.EIncome;
 import com.wallet.wallet.domain.model.Income;

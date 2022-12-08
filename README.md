@@ -51,8 +51,9 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 
 #### Tests:
 
-*
-*
+* Administradoy y Organizador -> [Trello](https://trello.com/es)
+* Entorno de desarrollo y test de APIs -> [Postman](https://www.postman.com/)
+* Microsoft Word
 
 #### DevOps:
 
@@ -66,7 +67,7 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 | Lucas López Delgado | Desarrollador Java | [LinkedIn](https://www.linkedin.com/in/lucas-l%C3%B3pez-delgado/) |
 | Damián Sformo | Desarrollador Java | [LinkedIn](https://www.linkedin.com/in/dami%C3%A1n-sformo-219341120/) |
 | Cristian Aguirre | Desarrollador Java | [LinkedIn]() |
-| Lucas Martín González | Desarrollador Java | [LinkedIn]() |
+| Lucas Martín González | Desarrollador Java | [LinkedIn](https://www.linkedin.com/in/lucasmartingonzalez/) |
 | Ivana Gisel Azcona | QA Tester | [LinkedIn](https://www.linkedin.com/in/ivana-gisel-azcona-67a331229) |
 | Carolina Villa | Diseñadora UI-UX | [linkedin](https://www.linkedin.com/in/carolina--villa), [Behance](https://www.behance.net/carolinavilla2?tracking_source=search_users%7CCarolina%20villa) |
 | Laureana Bróccolli | DevOps | [linkedin](https://www.linkedin.com/in/laureana-broccolli-828460187/) |

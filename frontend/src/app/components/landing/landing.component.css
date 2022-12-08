@@ -113,22 +113,31 @@ Estilos section nuestro producto
     filter: blur(25px);
 }
 /*
+    Estilo imagenes estadisticas
+*/
+.card-cover{
+    background-size: contain;
+    height: 60vh;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/*
 Estilos footer
 */
 footer{
     background-color: var(--principal-color);
-    height: 502px;
+    height: 5vh;
+    margin-top: 10vh;
 }
 .footer-content{
     padding: 0px 100px;
 }
 /*Media query*/
 
-@media (max-width:730px){
-    .background-purple{
-        border-bottom-right-radius:0;
-
-    }
+@media only screen and (max-width:730px){
+   
+   
+   
 }
 
 .imagen{
@@ -143,5 +152,40 @@ footer{
       margin: 10px 10px 5px 10px;
       height: 450px;
       
+}
+
+@media only screen and (max-width: 729px) {
+    .nav-movil{
+        display: flex;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        height: 100%;
+        background-color: var(--principal-color);
+    }
+    li:hover{
+        color: var(--secondary-color);
+    }
+    .nav-desk{
+        display: none;
+    }
+    .container-landing{
+        padding:10px 5px ;
+    }
+}
+@media only screen and (min-width: 730px){
+    .nav-movil{
+        display: none;
+    }
+    .nav-desk{
+        display: flex;
+    }
+}
+@media only screen and (min-width: 425px){
+    .container-landing{
+        padding-top: 3rem;
+        padding-left: 3rem;
+        margin-top: 20vh;
+    }
 }
     

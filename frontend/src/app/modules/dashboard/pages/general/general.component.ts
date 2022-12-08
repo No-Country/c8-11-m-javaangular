@@ -14,13 +14,13 @@ Chart.register(...registerables);
 export class GeneralComponent implements OnInit {
 
   nombreUsuario:string="Usuario";
+  spinner:boolean=false;
   
-  infoGeneral$:Subscription;
+  //infoGeneral$:Subscription;
   infoGeneral:any;
   hoy:any;
   balanceIngreso:any;
-  balanceGasto:any;/*
-  balanceGastos$:Subscription;*/
+  balanceGasto:any;
 
   listaMovimientos = [
     {
@@ -88,46 +88,52 @@ export class GeneralComponent implements OnInit {
   constructor(private generalService:GeneralService, 
               private gastoService: GastosService,
               private fechaservice:FechaService) {
-        
-      this.infoGeneral$ = this.generalService.obtenerDatos().subscribe(
-        (data)=>{this.infoGeneral$=data.response.firstName;
-          console.log(this.infoGeneral$)
+        /*
+      this.infoGeneral = this.generalService.obtenerDatos().subscribe(
+        (data)=>{this.infoGeneral=data.response;
+          console.log(this.infoGeneral)
         }        
-      )
+      )*/
   }
       
   
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.renderChart('myChart');
     const userName = sessionStorage.getItem('UserName');
     if (userName){
       this.nombreUsuario=userName
     }
-    this.infoGeneral$ = this.generalService.obtenerDatos().subscribe(
-      (data)=>{this.infoGeneral$=data.response.firstName;
-        console.log(this.infoGeneral$)
+    this.infoGeneral = this.generalService.obtenerDatos().subscribe(
+      (data)=>{this.infoGeneral=data.response.firstName;
+        console.log(this.infoGeneral)
       }        
     )
-    console.log(this.balanceIngreso);
+    this.hoy = this.fechaservice.fecha();/*
+    setTimeout(() => {
+      this.spinnerA()
+    }, 3000);*/
     this.obtenerMovimientos();
-    /*this.obtenerGastos();*/
-    this.hoy = this.fechaservice.fecha();
   }
 
+  spinnerA(){
+    this.spinner=false;
+  }
+/*
   ngOnChanges(changes:SimpleChanges){
-    this.infoGeneral$ = this.generalService.obtenerDatos().subscribe(
-      (data)=>{this.infoGeneral$=data.response.firstName;
-        console.log(this.infoGeneral$)
+    this.infoGeneral = this.generalService.obtenerDatos().subscribe(
+      (data)=>{this.infoGeneral=data.response.firstName;
+        console.log(this.infoGeneral)
       }        
     )
-  }
+  }*/
 
   obtenerMovimientos(){         
       this.infoGeneral = this.generalService.obtenerDatos().subscribe({
         next:(data) =>{this.infoGeneral=data.response},
         error:(error)=>{console.error(error)}
       });
+      this.spinner=true;      
   }
 
 

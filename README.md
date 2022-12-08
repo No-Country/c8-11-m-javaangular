@@ -56,7 +56,8 @@ _Para el despliegue del proyecto se utilizaron las siguientes herramientas:_
 
 #### DevOps:
 
-* 
+* Deploy Backend --> Railway 
+* Deploy Frontend --> Vercel
 
 ## Autores ✒️
 

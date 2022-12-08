@@ -82,7 +82,8 @@
             <div class="dropdown show  d-inline-block">
                 <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-text-left"></i> Filtrar
-                </a>              
+                </a>
+                <!-----              
                 <div id="tobiron" class="dropdown-menu bg-light" aria-labelledby="dropdownMenuLink">
                     <div class="text-center titulo-filtro">
                         <p class="mt-2"><b>FILTROS</b></p>
@@ -137,7 +138,7 @@
                             <a (click)="restablecer()" data-toggle="dropdown">Restablecer valores</a>
                         </div>                        
                     </form>                
-                </div>
+                </div>--->
             </div>                                  
         </div>                                     
     </div>
@@ -490,7 +491,7 @@
                             Ingrese una descripción
                         </p>
                         <p *ngIf="DescripcionAdd?.hasError('maxlength')" class="text-danger">
-                            Menos de 20 caracteres
+                            Menos de 14 caracteres
                         </p>
                     </div>
                 </div>
@@ -512,37 +513,7 @@
           <h5 class="modal-title" id="staticBackdropLabel">EDITAR INGRESO</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="clearValidatorsEdit()"></button>
         </div>
-        <!------Formulario------->
-        <!---
-        <form id="editarIngreso" class="add-form" (ngSubmit)="guardarIngreso()" novalidate autocomplete="off">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="fecha" class="form-label">Fecha</label>
-                    <input id="fecha" type="date" value={{fecha}} name="marca" class="form-control"  required>
-                </div>
-                <div class="form-group">
-                    <label for="categoria" class="form-label">Tipo</label><br>
-                    <select id="categoria" type="text" name="categoria" class="form-control"> 
-                        <option value="red">Anual</option>
-                        <option value="orangered">Mensual</option>
-                        <option value="yellow">Semanal</option>
-                        <option value="green">Diario</option>                  
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="importe" class="form-label">Importe</label>
-                    <input id="importe" type="number" name="importe" class="form-control"  required>
-                </div>
-                <div class="form-group">
-                    <label for="descripcion" class="form-label">Descripcion</label>
-                    <input id="descripcion" type="text" name="descripcion" class="form-control" >
-                </div>
-            </div>
-            <div class="modal-footer botones">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
-                <button type="submit" class="btn btn-aceptar" data-bs-dismiss="modal" >Aceptar</button>                               
-            </div>
-        </form>--->
+        <!------Formulario------->        
         <form [formGroup]="editIngresoForm" id="agregarEducacion" (ngSubmit)="actualizarIngreso()" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
@@ -588,7 +559,7 @@
                             Ingrese una descripción
                         </p>
                         <p *ngIf="DescripcionEdit?.hasError('maxlength')" class="text-danger">
-                            Menos de 20 caracteres
+                            Menos de 14 caracteres
                         </p>
                     </div>
                 </div>

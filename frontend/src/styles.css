@@ -20,9 +20,14 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 }*/
 
 /*========ESTILOS COMUNES LOGIN Y REGISTRO============*/
+/*
 .gradient-custom-2 {    
   background-color: #FAFAFA;
   color:#3E3E3E
+}*/
+.gradient-custom-2 {    
+  background-color: #5D21D2;
+  color:white
 }
 /*---Boton Violeta---*/
 .btn-violet {

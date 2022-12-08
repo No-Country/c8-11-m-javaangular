@@ -10,8 +10,7 @@ import { Ingreso } from '../../model/ingreso';
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })
-export class EstadisticasComponent implements OnInit {
-   
+export class EstadisticasComponent implements OnInit {   
   
   listaIngreso:Ingreso[]=[];
   listaGasto:Gasto[]=[];
@@ -53,9 +52,11 @@ export class EstadisticasComponent implements OnInit {
     /*RENDER DE LAS ESTADISTICAS*/
 
 
-    this.renderPieChart(this.gastoTotal,this.ingresoTotal,'pieChartGeneral');
-    this.renderRadarChart(this.listaGastoImporte ,this.labelCategoria,'radarChartIncomesExpenses');
+    this.renderPieChart(22,28,40,10,'pieChartGeneral');/*
+    this.renderRadarChart(this.listaGastoImporte ,this.labelCategoria,'radarChartIncomesExpenses');*/
     this.renderLineChart(this.listaGastoImporte, this.listaIngresoImporte, 'barChartIncomesExpensesMonths')
+    this.renderPieChart2(78000,94500,'pieChartGeneral2');
+    this.renderDoughnutChart(this.gastoTotal,this.ingresoTotal,this.gastoTotal,'dona');
   }
   
 /* GET DATOS */
@@ -83,8 +84,9 @@ obtenerLabelsRadar(){
   this.labelCategoria = [...new Set(this.listaGasto.map(g => g.categoria))] 
 }
 */
-  /* RENDER CHARTS*/ 
-  renderPieChart(gastoTotal:number, ingresoTotal:number ,id:any){
+  /* RENDER CHARTS*/
+  
+  renderPieChart2(gastoTotal:number, ingresoTotal:number ,id:any){
     const chart  = new Chart(id,{
       type:"pie",
       data:{
@@ -105,6 +107,33 @@ obtenerLabelsRadar(){
       } 
     });
   }
+  /*------------------------------------------------------------*/
+  /*-------Hardcodeado por categoría--------*/
+  renderPieChart(alimentos:number, servicios:number ,movilidad:number,varios:number,id:any){
+    const chart  = new Chart(id,{
+      type:"pie",
+      data:{
+        labels:['Movilidad', 'Servicios','Alimentos','Varios'],
+        datasets:[
+          {
+            data:[alimentos, servicios,movilidad,varios],
+            backgroundColor:[
+              'rgba(229, 35, 35)',
+              'rgba(34, 133, 34)',
+              'rgba(229, 229, 35)',
+              'rgba(37, 192, 197)'
+            ],
+            borderColor:[
+              'rgba(93, 33, 210)',
+              'rgba(93, 33, 210)',
+              'rgba(93, 33, 210)',
+              'rgba(93, 33, 210)'
+            ]
+          }
+        ]
+      } 
+    });
+  }
 
   renderRadarChart( listaGastoImporte:any,labelCategoria:any ,id:any){
     const chart  = new Chart(id,{
@@ -119,7 +148,7 @@ obtenerLabelsRadar(){
         */ ,
         datasets: [{
           label: 'Enero',
-          data: listaGastoImporte,
+          data: /*listaGastoImporte*/[25,32,48,78],
           fill: true,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgb(255, 99, 132)',
@@ -136,28 +165,51 @@ obtenerLabelsRadar(){
     const chart  = new Chart(id,{
       type:"bar",
       data:{
-        labels:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio'],
+        labels:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
         datasets:[
           {
             label:'Ingresos',
-            data: listaIngresoImporte   /*[2000,3000,4000,5000,7000,10000,9000,3500,2000,6000]*/,
+            data: /*listaIngresoImporte */[102000,113000,104000,105000,97000,110000,109000,98500,92000,96000,99000,94000],
             backgroundColor:[
-              'rgba(93, 33, 210, 0.5)'    
+              'rgba(109, 179, 29)'    
             ],
             borderColor:
-              'rgba(93, 33, 210)'
+            'rgba(93, 33, 210)'
           },
           {
           label:'Gastos',
-          data: listaGastoImporte /*[ 3000,4000,5000,3000,3000,4000,5000,3000,7000,10000]*/,
+          data: /*listaGastoImporte*/[ 83000,84000,85000,93000,83000,84000,85000,73000,87000,91000,88000,81000],
           backgroundColor:[
-          'rgba(255, 99, 12, 0.5)'    
+          'rgba(232, 229, 32)'    
           ],
           borderColor:
-          'rgba(255, 99, 12, 1)'
+          'rgba(93, 33, 210)'
           }
         ]
       } 
     });
+  }
+
+  renderDoughnutChart(a:number, b:number,c:number ,id:any){
+    const config = {
+      type: 'doughnut',
+      data:{
+        labels: [
+          'Red',
+          'Blue',
+          'Yellow'
+        ],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [1000,1500,2400],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      }
+    };
   }
 }

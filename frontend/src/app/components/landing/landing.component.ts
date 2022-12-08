@@ -116,9 +116,9 @@ export class LandingComponent implements OnInit {
     "id": 68,
     "nameComplete": "Cristian Aguirre",
     "role": "Backend Developer",
-    "description": null,
-    "image": null,
-    "linkedIn": null,
+    "description": "Forma parte del equipo de back con java y spring boot",
+    "image": "../../../assets/img/data participantes/1631314354289.jpg",
+    "linkedIn": "https://www.linkedin.com/in/aguirre-cristian-javadeveloper/",
     "behance": null,
     "github": null,
     "email": null

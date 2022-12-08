@@ -169,7 +169,7 @@ export class IngresosComponent implements OnInit {
         fecha: ['', [Validators.required]],
         tipo: ['',[Validators.required]],
         importe:['',[Validators.required,Validators.min(0)]],
-        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        descripcion:['',[Validators.required,Validators.maxLength(14)]],
         monedaId:1,
         esIncluida:true
       }
@@ -180,7 +180,7 @@ export class IngresosComponent implements OnInit {
         fecha: ['', [Validators.required]],
         tipo: ['',[Validators.required]],
         importe:['',[Validators.required,Validators.min(0)]],
-        descripcion:['',[Validators.required,Validators.maxLength(20)]],
+        descripcion:['',[Validators.required,Validators.maxLength(14)]],
         esIncluida:true
       }
     )

@@ -93,8 +93,7 @@
 <!-- Fin banner -->
 
 <!-- Inicio seccion de propiedades de CHARTA-->
-<div class="container px-4 py-5 mb-5" >
-
+<div class="container px-4">
   <div class="iconos-container row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 
     <div class="icono-container col d-flex row-cols">
@@ -135,6 +134,9 @@
 
   </div>
 </div>
+
+<!---------------------------------------------------------------------->
+<!------
 <div class="p-4 p-md-5 mb-4 rounded d-flex flex-lg-row-reverse " id="nuestroProducto">
   <div class="col-md-6 px-0">
     <span>
@@ -150,35 +152,66 @@
   <div class="col np-image">
     
   </div>
-</div>
+</div>----->
+<!------------------------------------------------------------------------>
+<!-----SECCION NUESTRO PRODUCTO------>
+<section id="nuestroProducto" class="nuestroProducto container">
+  <div class="presentacion">
+    <span class="segmento">| Nuestro producto</span>
+    <h2 class="pb-2">Podes tener el control total de tus gastos y realizar los ajustes necesarios.</h2>
+  </div>
+  <div class="parte-app">
+    <div class="texto-parte-app">
+      <p>Bienvenidx al dashboard de CHARTA,<br>donde tenés acceso a tu información y balances.</p>
+    </div>    
+    <img class="imagen-app" src="../../../assets/img/dashboard.png" alt="">
+  </div>
+  <div class="parte-app">
+    <div class="texto-parte-app">
+      <p>Agrega un nuevo gasto o ingreso.</p>
+    </div>    
+    <img class="imagen-app" src="../../../assets/img/dashboard-gastos.png" alt="">
+  </div>
+  <div class="parte-app">
+    <div class="texto-parte-app">
+      <p class="textp-parte-app">Visualiza tus estadísticas.</p>
+    </div>    
+    <img class="imagen-app" src="../../../assets/img/estadisticas.png" alt="">
+  </div>
+</section>
 
+<!------------------------------------------------------------>
 <!--Seccion imagenes de referencia de estadisticas de la app-->
+
+<!-----
 <div class="container px-4 py-5" id="custom-cards">
   <div class="row row-cols-1 row-cols-lg-2 align-items-stretch g-4 py-5">
     <div class="col">
-      <!-- Removi "h-100" para agregar de manera mecanica un height para que se puedan apreciar las imagenes-->
-      <div class=" card card-cover overflow-hidden text-bg-dark rounded-4 shadow-lg"
-        style="background-image: url('./../../../assets/img/grafico-barras.jpg');">
+      
+      <div class=" card card-cover overflow-hidden text-bg-dark shadow-lg"
+        style="background-image: url('./../../../assets/img/dashboard-general.png');">
       </div>
     </div>
     <div class="col">
-            <!-- Removi "h-100" para agregar de manera mecanica un height para que se puedan apreciar las imagenes-->
+            
       <div class="card card-cover overflow-hidden text-bg-dark rounded-4 shadow-lg"
-        style="background-image: url('./../../../assets/img/explorador-grafico.png');">
-        </div>
+        style="background-image: url('./../../../assets/img/dashboard-gastos.png');">
       </div>
     </div>
   </div>
-
+</div>--->
+<!--------------------------------------------------------------->
+<!-----SECCION CONOCENOS------>
  <div class="container px-4 py-5" id="conocenos">
-      <span>| Conócenos</span>
+      <span class="segmento">| Conócenos</span>
       <h2 class="pb-2 ">Conoce a nuestro equipo</h2>
-      </div>
+ </div>
   
       <!--Tarjetas de los participantes-->
+      <!----
     <div class="card-group container">
       <div *ngFor="let participantes of listaParticipantes2" class="col-md-3 align-items-center" >
-        <div *ngIf="participantes.description != null">
+      <div *ngIf="participantes.description != null">
       <div class="card" >
         <div style="height: 400px;">
         <img class="card-img-top imagen" src="{{participantes.image}}" alt="Card image cap">
@@ -207,8 +240,35 @@
     </div>
     </div>
       
+    </div>--->
+<!------------------------------------------>
+<section >
+    <div class="tarjetas-par">
+      <div class="tarjeta-par" *ngFor="let participantes of listaParticipantes2">      
+        <div class="heading">
+          <div>
+            <img class="card-img-top foto" src="{{participantes.image}}" alt="card image cap">
+          </div>
+          <div class="text-center">
+            <h5 class="card-title" style="color: black;"><b>{{participantes.nameComplete}}</b></h5>
+          </div>
+          <div class="text-center p-1" *ngIf="participantes.description != null">
+            <p class="card-text" style="font-size:0.85rem">{{participantes.description}}</p>
+          </div>
+        </div>
+        <div class="footering">
+          <div class="enlaces">
+            <a href="{{participantes.linkedIn}}" target="_blank" *ngIf="participantes.linkedIn != null"><i class="bi bi-linkedin"></i></a>
+            <a href="{{participantes.github}}" target="_blank" *ngIf="participantes.github != null"><i class="bi bi-github "></i></a>
+            <a href="{{participantes.behance}}" target="_blank" *ngIf="participantes.behance != null"><i class="bi bi-behance"></i></a>
+          </div>
+          <div class="card-tar-footer text-center">
+            <small class="text-muted"><b>{{participantes.role}}</b></small>
+          </div>
+        </div>       
       </div>
-
+    </div>
+</section>
 <footer>
-      <p class="text-center" style="color: #fff; background-color: var(--principal-color);">&copy; Copyright 2022 , All rights reserved by <span style="color:#FF8328 ;">CHARTA</span></p>
+      <p class="text-center" style="color: #fff; background-color: var(--principal-color);">&copy; Copyright 2022 , All rights reserved by <span style="color:#FF8328 ;">CHA&#1071;TA</span></p>
 </footer>

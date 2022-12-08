@@ -158,10 +158,10 @@ export class GeneralComponent implements OnInit {
     const myChart = new Chart (id, {
       type: "line",
       data: {
-        labels:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre'] ,
+        labels:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'] ,
         datasets: [{
           label: 'Gastos',
-          data:[3000,4000,5000,3000,3000,4000,5000,3000,7000,10000] ,
+          data:[80000,85000,78000,83000,73000,94000,82000,83000,77000,105000,105000,97000] ,
           borderColor: [
             'rgba(93, 33, 210)'
           ],
@@ -172,7 +172,7 @@ export class GeneralComponent implements OnInit {
         },
         {
           label: 'Ingresos',
-          data:[2000,3000,4000,5000,7000,10000,9000,3500,2000,6000],
+          data:[102000,93000,84000,85000,87000,100000,90000,93500,92000,96000,110000,108000],
           borderColor: [
             'rgba(255, 99, 12, 1)'
           ],

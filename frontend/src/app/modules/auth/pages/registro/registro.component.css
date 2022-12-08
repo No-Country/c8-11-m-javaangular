@@ -24,7 +24,7 @@ section {
     font-size: 30px;   
 }
 #flecha a {
-    color:#3E3E3E
+    color:white
 }
 .gradient-custom-2 h4 {
     font-size: 2rem;
@@ -36,13 +36,12 @@ section {
     height: 100vh !important;
     }
 }
-
-@media (min-width: 769px) {
-    .gradient-custom-2 {
-        border-top-right-radius: .3rem;
-        border-bottom-right-radius: .3rem;
+*/
+@media screen and (max-width: 991px) {
+    #flecha a {
+        color:#3E3E3E
     }
-}*/
+}/*
 
 
 /*
